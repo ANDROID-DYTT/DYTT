@@ -18,13 +18,22 @@ public class ColorHuntPresenter implements ColorHuntContract.Presenter {
     }
 
     @Override
-    public void subscribe() {
-        Log.d(TAG, "subscribe() called");
+    public void create() {
     }
 
     @Override
-    public void unSubscribe() {
-        Log.d(TAG, "unSubscribe() called");
+    public void active() {
+        Log.d(TAG, "active() called");
+    }
+
+    @Override
+    public void inactive() {
+        Log.d(TAG, "inactive() called");
+    }
+
+    @Override
+    public void destroy() {
+
     }
 
 //    private Disposable mCurrentSequence = null;
@@ -80,7 +89,7 @@ public class ColorHuntPresenter implements ColorHuntContract.Presenter {
 //    };
 //
 //    @Override
-//    public void subscribe() {
+//    public void active() {
 //
 //        ColorHuntService.ColorHuntBody body = new ColorHuntService.ColorHuntBody(0, ColorHuntService.ColorHuntSort.Random, "");
 //        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"), body.toString());
@@ -92,11 +101,11 @@ public class ColorHuntPresenter implements ColorHuntContract.Presenter {
 //                .subscribeOn(Schedulers.io())
 //                .unsubscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(mColorHuntList);
+//                .active(mColorHuntList);
 //    }
 //
 //    @Override
-//    public void unSubscribe() {
+//    public void inactive() {
 //        if (mCurrentSequence != null && !mCurrentSequence.isDisposed()) {
 //            mCurrentSequence.dispose();
 //        }

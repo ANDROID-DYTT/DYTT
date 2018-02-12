@@ -12,18 +12,38 @@ class HomePresenter implements HomeContract.Presenter {
 
     private HomeContract.View mView;
 
-    HomePresenter(HomeContract.View view) {
+    private HomeViewModel mModel;
 
+    HomePresenter(HomeContract.View view) {
         mView = view;
     }
 
     @Override
-    public void subscribe() {
-        Log.d(TAG, "subscribe() called");
+    public void create() {
+        Log.d(TAG, "create() called");
+        mModel = mView.getViewModel(HomeViewModel.class);
+
+        mModel.getHome().observe(mView.getLifecycleOwner(), mView.getHomeObserver());
+
     }
 
     @Override
-    public void unSubscribe() {
-        Log.d(TAG, "unSubscribe() called");
+    public void active() {
+        Log.d(TAG, "active() called");
+    }
+
+    @Override
+    public void inactive() {
+        Log.d(TAG, "inactive() called");
+    }
+
+    @Override
+    public void destroy() {
+        Log.d(TAG, "destroy() called");
+    }
+
+    @Override
+    public HomeViewModel getHomeViewModel() {
+        return mModel;
     }
 }

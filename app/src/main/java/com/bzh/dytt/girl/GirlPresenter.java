@@ -14,12 +14,22 @@ public class GirlPresenter implements GirlContract.Presenter {
     }
 
     @Override
-    public void subscribe() {
-        Log.d(TAG, "subscribe() called");
+    public void create() {
+
     }
 
     @Override
-    public void unSubscribe() {
-        Log.d(TAG, "unSubscribe() called");
+    public void active() {
+        Log.d(TAG, "active() called");
+    }
+
+    @Override
+    public void inactive() {
+        Log.d(TAG, "inactive() called");
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }

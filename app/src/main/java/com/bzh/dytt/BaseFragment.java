@@ -1,6 +1,9 @@
 package com.bzh.dytt;
 
 
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,18 +16,23 @@ import com.bzh.dytt.exception.PresenterException;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseFragment<T extends IPresenter> extends Fragment {
+public abstract class BaseFragment<T extends IPresenter> extends Fragment implements IView<T> {
 
     protected T mPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
         mPresenter = doCreatePresenter();
+
         if (mPresenter == null) {
             throw new PresenterException("Presenter is null, did you forget to call createPresenter?");
         }
+
+        super.onCreate(savedInstanceState);
+
         getLifecycle().addObserver(mPresenter);
+
         doCreate(savedInstanceState);
     }
 
@@ -46,6 +54,16 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment {
     public final void onPause() {
         doPause();
         super.onPause();
+    }
+
+    @Override
+    public <VM extends ViewModel> VM getViewModel(Class<VM> modelClass) {
+        return ViewModelProviders.of(this).get(modelClass);
+    }
+
+    @Override
+    public LifecycleOwner getLifecycleOwner() {
+        return this;
     }
 
     protected abstract T doCreatePresenter();

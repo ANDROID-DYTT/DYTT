@@ -7,9 +7,15 @@ import android.arch.lifecycle.OnLifecycleEvent;
 
 public interface IPresenter extends LifecycleObserver {
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    void create();
+
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    void subscribe();
+    void active();
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    void unSubscribe();
+    void inactive();
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void destroy();
 }
