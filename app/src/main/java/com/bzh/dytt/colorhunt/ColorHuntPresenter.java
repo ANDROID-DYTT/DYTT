@@ -1,19 +1,11 @@
 package com.bzh.dytt.colorhunt;
 
-import android.text.TextUtils;
 import android.util.Log;
-
-import com.bzh.dytt.services.ColorHuntService;
-import com.bzh.dytt.services.Entity.ColorHunt;
-import com.bzh.dytt.services.ServiceManager;
-import com.google.gson.Gson;
 
 //import io.reactivex.Observer;
 //import io.reactivex.android.schedulers.AndroidSchedulers;
 //import io.reactivex.disposables.Disposable;
 //import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 
 public class ColorHuntPresenter implements ColorHuntContract.Presenter {
 
@@ -27,12 +19,12 @@ public class ColorHuntPresenter implements ColorHuntContract.Presenter {
 
     @Override
     public void subscribe() {
-
+        Log.d(TAG, "subscribe() called");
     }
 
     @Override
     public void unSubscribe() {
-
+        Log.d(TAG, "unSubscribe() called");
     }
 
 //    private Disposable mCurrentSequence = null;

@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import com.bzh.dytt.R;
 
 public class UserProfileFragment extends Fragment {
+
     private static final String UID_KEY = "uid";
+
     private UserProfileViewModel viewModel;
 
     @Override
@@ -28,6 +30,7 @@ public class UserProfileFragment extends Fragment {
                 // Update UI
             }
         });
+
     }
 
     @Override

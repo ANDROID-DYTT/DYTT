@@ -13,13 +13,18 @@ import com.bzh.dytt.exception.PresenterException;
 
 import butterknife.ButterKnife;
 
-public class BaseFragment<T extends IPresenter> extends Fragment {
+public abstract class BaseFragment<T extends IPresenter> extends Fragment {
 
     protected T mPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter = doCreatePresenter();
+        if (mPresenter == null) {
+            throw new PresenterException("Presenter is null, did you forget to call createPresenter?");
+        }
+        getLifecycle().addObserver(mPresenter);
         doCreate(savedInstanceState);
     }
 
@@ -34,9 +39,6 @@ public class BaseFragment<T extends IPresenter> extends Fragment {
     @Override
     public final void onResume() {
         super.onResume();
-        if (mPresenter == null) {
-            throw new PresenterException("Presenter is null, did you forget to call createPresenter?");
-        }
         doResume();
     }
 
@@ -46,17 +48,17 @@ public class BaseFragment<T extends IPresenter> extends Fragment {
         super.onPause();
     }
 
-    protected void doResume() {
-        // Override this method in derived fragment
-        // Do not do anything here
-    }
+    protected abstract T doCreatePresenter();
 
     protected void doCreate(@Nullable Bundle savedInstanceState) {
 
     }
 
-    protected View doCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return null;
+    protected abstract View doCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+
+    protected void doResume() {
+        // Override this method in derived fragment
+        // Do not do anything here
     }
 
     protected void doPause() {

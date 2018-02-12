@@ -1,22 +1,25 @@
 package com.bzh.dytt.girl;
 
 
+import android.util.Log;
+
 public class GirlPresenter implements GirlContract.Presenter {
 
-    private GirlContract.View mGirlView;
+    private static final String TAG = "GirlPresenter";
+
+    private GirlContract.View mView;
 
     GirlPresenter(GirlContract.View girlView) {
-        mGirlView = girlView;
+        mView = girlView;
     }
 
     @Override
     public void subscribe() {
-
+        Log.d(TAG, "subscribe() called");
     }
 
     @Override
     public void unSubscribe() {
-
+        Log.d(TAG, "unSubscribe() called");
     }
-
 }

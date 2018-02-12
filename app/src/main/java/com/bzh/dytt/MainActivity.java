@@ -24,6 +24,8 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "MainActivity";
+
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 

@@ -20,7 +20,7 @@ public class UserProfileViewModel extends ViewModel {
             // we know the userId won't change
             return;
         }
-        user = userRepo.getUser(userId);
+//        user = userRepo.getUser(userId);
     }
 
     public LiveData<User> getUser() {
