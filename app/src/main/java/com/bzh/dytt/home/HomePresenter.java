@@ -12,19 +12,12 @@ class HomePresenter implements HomeContract.Presenter {
 
     private HomeContract.View mView;
 
-    private HomeViewModel mModel;
-
     HomePresenter(HomeContract.View view) {
         mView = view;
     }
 
     @Override
     public void create() {
-        Log.d(TAG, "create() called");
-        mModel = mView.getViewModel(HomeViewModel.class);
-
-        mModel.getHome().observe(mView.getLifecycleOwner(), mView.getHomeObserver());
-
     }
 
     @Override
@@ -40,10 +33,5 @@ class HomePresenter implements HomeContract.Presenter {
     @Override
     public void destroy() {
         Log.d(TAG, "destroy() called");
-    }
-
-    @Override
-    public HomeViewModel getHomeViewModel() {
-        return mModel;
     }
 }

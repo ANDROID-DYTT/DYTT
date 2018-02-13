@@ -13,8 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.bzh.dytt.colorhunt.ColorHuntFragment;
-import com.bzh.dytt.girl.GirlFragment;
 import com.bzh.dytt.home.HomePageFragment;
 import com.bzh.dytt.view.NonInteractiveViewPage;
 
@@ -107,11 +105,11 @@ public class MainActivity extends AppCompatActivity
             mToolbar.setTitle(R.string.nav_home_page);
             mContainer.setCurrentItem(0);
         } else if (id == R.id.nav_girl) {
-            mToolbar.setTitle(R.string.nav_girl_page);
-            mContainer.setCurrentItem(1);
+//            mToolbar.setTitle(R.string.nav_girl_page);
+//            mContainer.setCurrentItem(1);
         } else if (id == R.id.nav_color_hunt) {
-            mToolbar.setTitle(R.string.nav_color_hunt_page);
-            mContainer.setCurrentItem(2);
+//            mToolbar.setTitle(R.string.nav_color_hunt_page);
+//            mContainer.setCurrentItem(2);
         }
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
@@ -128,10 +126,10 @@ public class MainActivity extends AppCompatActivity
             switch (position) {
                 case 0:
                     return HomePageFragment.newInstance();
-                case 1:
-                    return GirlFragment.newInstance();
-                case 2:
-                    return ColorHuntFragment.newInstance();
+//                case 1:
+//                    return GirlFragment.newInstance();
+//                case 2:
+//                    return ColorHuntFragment.newInstance();
                 default:
                     throw new IndexOutOfBoundsException();
             }
@@ -139,7 +137,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public int getCount() {
-            return 3;
+            return 1;
         }
     }
 }

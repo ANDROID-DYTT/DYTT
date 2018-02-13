@@ -10,12 +10,8 @@ public interface HomeContract {
 
     interface View extends IView<Presenter> {
 
-        Observer<Home> getHomeObserver();
-
-
     }
 
     interface Presenter extends IPresenter {
-        HomeViewModel getHomeViewModel();
     }
 }

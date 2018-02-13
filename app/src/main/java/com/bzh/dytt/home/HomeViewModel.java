@@ -1,5 +1,6 @@
 package com.bzh.dytt.home;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 class HomeViewModel extends ViewModel {
@@ -13,7 +14,7 @@ class HomeViewModel extends ViewModel {
 //        return mCurrentName;
 //    }
 
-    public HomeLiveData getHome() {
+    public LiveData<Home> getHome() {
         return null;
     }
 }

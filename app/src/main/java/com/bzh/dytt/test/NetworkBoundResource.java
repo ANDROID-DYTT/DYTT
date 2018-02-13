@@ -1,5 +1,7 @@
 package com.bzh.dytt.test;
 
+import android.arch.lifecycle.MediatorLiveData;
+
 public abstract class NetworkBoundResource<ResultType, RequestType> {
 
 //    private final MediatorLiveData<Resource<ResultType>> result = new MediatorLiveData<>();
