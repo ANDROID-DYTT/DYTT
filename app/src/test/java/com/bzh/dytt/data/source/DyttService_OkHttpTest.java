@@ -1,6 +1,6 @@
-package com.bzh.dytt.services;
+package com.bzh.dytt.data.source;
 
-import com.bzh.dytt.Utils;
+import com.bzh.dytt.TestUtils;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +19,7 @@ import okhttp3.mockwebserver.RecordedRequest;
 
 import static junit.framework.Assert.assertEquals;
 
-public class WebPageServiceTest {
+public class DyttService_OkHttpTest {
 
     private MockWebServer mMockWebServer;
 
@@ -28,9 +28,9 @@ public class WebPageServiceTest {
     @Before
     public void startMockServer() throws IOException, NoSuchAlgorithmException {
 
-        final String homePage = Utils.getResource(getClass(), "index.html");
+        final String homePage = TestUtils.getResource(getClass(), "index.html");
 
-        mIndexHtmlMD5 = Utils.getMD5(homePage);
+        mIndexHtmlMD5 = TestUtils.getMD5(homePage);
 
         mMockWebServer = new MockWebServer();
         mMockWebServer.setDispatcher(new Dispatcher() {
@@ -49,7 +49,6 @@ public class WebPageServiceTest {
         mMockWebServer.start();
     }
 
-
     @After
     public void shutdownMockServer() throws IOException {
         mMockWebServer.shutdown();
@@ -63,8 +62,8 @@ public class WebPageServiceTest {
         Response response = client.newCall(new Request.Builder()
                 .url(mMockWebServer.url("/"))
                 .build()).execute();
-        assertEquals(mIndexHtmlMD5, Utils.getMD5(response.body().string()));
 
+        assertEquals(mIndexHtmlMD5, TestUtils.getMD5(response.body().string()));
         RecordedRequest request = mMockWebServer.takeRequest();
         assertEquals("/", request.getPath());
     }

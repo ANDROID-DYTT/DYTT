@@ -1,9 +1,8 @@
-package com.bzh.dytt.test;
+package com.bzh.dytt.data.source;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-//a generic class that describes a data with a status
 public class Resource<T> {
 
     @NonNull

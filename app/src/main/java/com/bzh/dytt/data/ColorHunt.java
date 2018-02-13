@@ -1,4 +1,4 @@
-package com.bzh.dytt.services.Entity;
+package com.bzh.dytt.data;
 
 public class ColorHunt {
 

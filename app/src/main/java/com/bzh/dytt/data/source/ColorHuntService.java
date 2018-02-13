@@ -1,9 +1,4 @@
-package com.bzh.dytt.services;
-
-import okhttp3.RequestBody;
-import retrofit2.http.Body;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
+package com.bzh.dytt.data.source;
 
 public interface ColorHuntService {
 
