@@ -12,17 +12,10 @@ import android.support.annotation.WorkerThread;
 
 public abstract class NetworkBoundResource<ResultType, RequestType> {
 
-    private MediatorLiveData<Resource<ResultType>> result;
+    private MediatorLiveData<Resource<ResultType>> result = new MediatorLiveData<>();
 
     @MainThread
-    NetworkBoundResource(@NonNull MediatorLiveData<Resource<ResultType>> mediatorLiveData) {
-
-        //noinspection ConstantConditions
-        if (mediatorLiveData != null) {
-            result = mediatorLiveData;
-        } else {
-            result = new MediatorLiveData<>();
-        }
+    NetworkBoundResource() {
 
         result.setValue(Resource.<ResultType>loading(null));
 

@@ -87,6 +87,7 @@ dependencies {
     compile "android.arch.persistence.room:runtime:1.0.0"
     compile "android.arch.paging:runtime:1.0.0-alpha5"
     compile 'com.google.dagger:dagger:2.14.1'
+    compile 'org.jsoup:jsoup:1.8.3'
 
     testCompile "junit:junit:4.12"
     testCompile "org.mockito:mockito-all:1.10.19"
@@ -96,6 +97,7 @@ dependencies {
     testCompile 'com.squareup.retrofit2:retrofit-mock:2.3.0'
     testCompile "android.arch.core:core-testing:1.1.0"
     testCompile "android.arch.persistence.room:testing:1.0.0"
+    testCompile 'org.jsoup:jsoup:1.8.3'
 
     androidTestCompile "com.android.support.test:runner:1.0.1"
     androidTestCompile "com.android.support.test:rules:1.0.1"

@@ -66,7 +66,7 @@ public class SingleLiveEventTest {
     @Test
     public void singleUpdate_onSecondOnResume_updatesOnce() {
         // After a value is set
-//        mSingleLiveEvent.setValue(42);
+        mSingleLiveEvent.setValue(42);
 
         // observers are called once on resume
         mLifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);

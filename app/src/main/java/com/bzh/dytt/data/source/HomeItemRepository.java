@@ -1,7 +1,6 @@
 package com.bzh.dytt.data.source;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,7 +20,6 @@ public class HomeItemRepository {
 
     private DyttService mService;
     private HomeItemDao mDao;
-    private MediatorLiveData<Resource<List<HomeItem>>> mMediatorLiveData;
 
     public void setService(DyttService service) {
         mService = service;
@@ -31,12 +29,8 @@ public class HomeItemRepository {
         mDao = dao;
     }
 
-    public void setMediatorLiveData(MediatorLiveData<Resource<List<HomeItem>>> mediatorLiveData) {
-        mMediatorLiveData = mediatorLiveData;
-    }
-
     public LiveData<Resource<List<HomeItem>>> getItems(final int type) {
-        return new NetworkBoundResource<List<HomeItem>, String>(mMediatorLiveData) {
+        return new NetworkBoundResource<List<HomeItem>, String>() {
 
             @Override
             protected void saveCallResult(@NonNull String item) {
