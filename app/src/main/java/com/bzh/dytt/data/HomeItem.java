@@ -1,78 +1,86 @@
 package com.bzh.dytt.data;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity
-public class HomeItem {
+@Entity(tableName = "homeitems")
+public final class HomeItem {
 
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    @ColumnInfo(name = "id")
+    private int mId;
 
-    public String name;
+    @ColumnInfo(name = "title")
+    private String mTitle;
 
-    public String time;
+    @ColumnInfo(name = "time")
+    private String mTime;
 
-    public String detailLink;
+    @ColumnInfo(name = "link")
+    private String mDetailLink;
 
-    public int type;
+    @ColumnInfo(name = "type")
+    private int mType;
 
     public HomeItem() {
     }
 
-
-    public HomeItem(int id, String name, String time, String detailLink, int type) {
-        this.id = id;
-        this.name = name;
-        this.time = time;
-        this.detailLink = detailLink;
-        this.type = type;
+    @Ignore
+    public HomeItem(int id, String title, String time, String detailLink, int type) {
+        this.mId = id;
+        this.mTitle = title;
+        this.mTime = time;
+        this.mDetailLink = detailLink;
+        this.mType = type;
     }
 
-    public HomeItem(String name, String time, String detailLink, int type) {
-        this.name = name;
-        this.time = time;
-        this.detailLink = detailLink;
-        this.type = type;
+    @Ignore
+    public HomeItem(String title, String time, String detailLink, int type) {
+        this.mTitle = title;
+        this.mTime = time;
+        this.mDetailLink = detailLink;
+        this.mType = type;
     }
 
     public int getType() {
-        return type;
+        return mType;
     }
 
     public void setType(int type) {
-        this.type = type;
+        this.mType = type;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return mTitle;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.mTitle = title;
     }
 
     public String getDetailLink() {
-        return detailLink;
+        return mDetailLink;
     }
 
     public void setDetailLink(String detailLink) {
-        this.detailLink = detailLink;
+        this.mDetailLink = detailLink;
     }
 
     public int getId() {
-        return id;
+        return mId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public String getTime() {
-        return time;
+        return mTime;
     }
 
     public void setTime(String time) {
-        this.time = time;
+        this.mTime = time;
     }
 }

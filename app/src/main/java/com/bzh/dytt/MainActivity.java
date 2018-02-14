@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         mContainer.setOffscreenPageLimit(3);
         mPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         mContainer.setAdapter(mPagerAdapter);
+
     }
 
     @Override

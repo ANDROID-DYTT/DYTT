@@ -10,7 +10,7 @@
 # Add any project specific keep options here:
 
 # If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
+# and specify the fully qualified class mName to the JavaScript interface
 # class:
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
@@ -21,7 +21,7 @@
 #-keepattributes SourceFile,LineNumberTable
 
 # If you keep the line number information, uncomment this to
-# hide the original source file name.
+# hide the original source file mName.
 #-renamesourcefileattribute SourceFile
 
 # Retrofit

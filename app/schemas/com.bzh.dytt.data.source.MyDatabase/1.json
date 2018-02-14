@@ -2,38 +2,70 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "6f6379794c04a7052f8729d73268ce1e",
+    "identityHash": "1426865213355c5f15c53ce2d2c5200e",
     "entities": [
       {
-        "tableName": "HomeItem",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `time` TEXT, `detailLink` TEXT, `type` INTEGER NOT NULL)",
+        "tableName": "homearea",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `type` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
+            "fieldPath": "mId",
             "columnName": "id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "name",
-            "columnName": "name",
+            "fieldPath": "mTitle",
+            "columnName": "title",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "time",
+            "fieldPath": "mType",
+            "columnName": "type",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "homeitems",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `time` TEXT, `link` TEXT, `type` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "mId",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mTitle",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mTime",
             "columnName": "time",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "detailLink",
-            "columnName": "detailLink",
+            "fieldPath": "mDetailLink",
+            "columnName": "link",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "type",
+            "fieldPath": "mType",
             "columnName": "type",
             "affinity": "INTEGER",
             "notNull": true
@@ -51,7 +83,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"6f6379794c04a7052f8729d73268ce1e\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"1426865213355c5f15c53ce2d2c5200e\")"
     ]
   }
 }
