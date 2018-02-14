@@ -17,6 +17,25 @@ public class HomeItem {
 
     public int type;
 
+    public HomeItem() {
+    }
+
+
+    public HomeItem(int id, String name, String time, String detailLink, int type) {
+        this.id = id;
+        this.name = name;
+        this.time = time;
+        this.detailLink = detailLink;
+        this.type = type;
+    }
+
+    public HomeItem(String name, String time, String detailLink, int type) {
+        this.name = name;
+        this.time = time;
+        this.detailLink = detailLink;
+        this.type = type;
+    }
+
     public int getType() {
         return type;
     }

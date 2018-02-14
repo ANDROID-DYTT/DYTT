@@ -50,7 +50,7 @@ public class HomeItemRepositoryTest {
         mHomeItemRepository.getItems(HomeItemType.NEWEST);
 
         // Then items are loaded from the db
-        verify(mHomeItemLocalDao).loadNewest(HomeItemType.NEWEST);
+        verify(mHomeItemLocalDao).getItemsByType(HomeItemType.NEWEST);
     }
 
 }

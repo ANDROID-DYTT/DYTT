@@ -59,7 +59,7 @@ public class SingleLiveEventTest {
         // On resume
         mLifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
 
-        // no update should be emitted because no value has been set
+        // no updateItem should be emitted because no value has been set
         verify(mEventObserver, never()).onChanged(anyInt());
     }
 
@@ -71,7 +71,7 @@ public class SingleLiveEventTest {
         // observers are called once on resume
         mLifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
 
-        // on second resume, no update should be emitted.
+        // on second resume, no updateItem should be emitted.
         mLifecycle.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
         mLifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
 

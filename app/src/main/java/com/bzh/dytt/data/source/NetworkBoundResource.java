@@ -116,7 +116,7 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
         return result;
     }
 
-    // Called to save the result of the API response into the database
+    // Called to insertItem the result of the API response into the database
     @WorkerThread
     protected abstract void saveCallResult(@NonNull RequestType item);
 

@@ -41,7 +41,7 @@ public class HomeItemRepository {
             @Override
             protected void saveCallResult(@NonNull String item) {
 //                for (HomeItem item : items) {
-//                    mDao.save(item);
+//                    mDao.insertItem(item);
 //                }
             }
 
@@ -53,7 +53,7 @@ public class HomeItemRepository {
             @NonNull
             @Override
             protected LiveData<List<HomeItem>> loadFromDb() {
-                return mDao.loadNewest(type);
+                return mDao.getItemsByType(type);
             }
 
             @NonNull
