@@ -2,7 +2,7 @@ package com.bzh.dytt.data.source;
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 
-import com.bzh.dytt.data.HomeItemType;
+import com.bzh.dytt.data.HomeType;
 
 import org.junit.After;
 import org.junit.Before;
@@ -45,8 +45,8 @@ public class HomeItemRepositoryTest {
 
     @Test
     public void getItems_requestHomeNewestFromDB() {
-        mHomeItemRepository.getItems(HomeItemType.NEWEST);
-        verify(mHomeItemLocalDao, times(1)).getItemsByType(HomeItemType.NEWEST);
+        mHomeItemRepository.getItems(HomeType.NEWEST);
+        verify(mHomeItemLocalDao, times(1)).getItemsByType(HomeType.NEWEST);
     }
 
 //    @Test
@@ -54,9 +54,9 @@ public class HomeItemRepositoryTest {
 //
 //        MutableLiveData<List<HomeItem>> itemsByType = new MediatorLiveData<>();
 //
-//        when(mHomeItemLocalDao.getItemsByType(HomeItemType.NEWEST)).thenReturn(itemsByType);
+//        when(mHomeItemLocalDao.getItemsByType(HomeType.NEWEST)).thenReturn(itemsByType);
 //
-//        LiveData<Resource<List<HomeItem>>> items = mHomeItemRepository.getItems(HomeItemType.NEWEST);
+//        LiveData<Resource<List<HomeItem>>> items = mHomeItemRepository.getItems(HomeType.NEWEST);
 //
 //        items.observeForever(new Observer<Resource<List<HomeItem>>>() {
 //            @Override
@@ -68,6 +68,6 @@ public class HomeItemRepositoryTest {
 //        itemsByType.setValue(new ArrayList<HomeItem>());
 //
 //        // Then items are loaded from the db
-//        verify(mHomeItemLocalDao, times(1)).getItemsByType(HomeItemType.NEWEST);
+//        verify(mHomeItemLocalDao, times(1)).getItemsByType(HomeType.NEWEST);
 //    }
 }

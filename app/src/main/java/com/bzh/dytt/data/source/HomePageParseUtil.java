@@ -1,7 +1,7 @@
 package com.bzh.dytt.data.source;
 
 import com.bzh.dytt.data.HomeItem;
-import com.bzh.dytt.data.HomeItemType;
+import com.bzh.dytt.data.HomeType;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -75,7 +75,7 @@ public class HomePageParseUtil implements IParse<List<HomeItem>> {
                     String time = tr.select("td").select("font").text();
 
                     HomeItem homeItem = new HomeItem();
-                    homeItem.setType(HomeItemType.EA_TV);
+                    homeItem.setType(HomeType.EA_TV);
                     homeItem.setTitle(title);
                     homeItem.setDetailLink(link);
                     homeItem.setTime(time);
@@ -115,7 +115,7 @@ public class HomePageParseUtil implements IParse<List<HomeItem>> {
                     String time = tr.select("td").select("font").text();
 
                     HomeItem homeItem = new HomeItem();
-                    homeItem.setType(HomeItemType.JSK_TV);
+                    homeItem.setType(HomeType.JSK_TV);
                     homeItem.setTitle(title);
                     homeItem.setDetailLink(link);
                     homeItem.setTime(time);
@@ -155,7 +155,7 @@ public class HomePageParseUtil implements IParse<List<HomeItem>> {
                     String time = tr.select("td").select("font").text();
 
                     HomeItem homeItem = new HomeItem();
-                    homeItem.setType(HomeItemType.CHINA_TV);
+                    homeItem.setType(HomeType.CHINA_TV);
                     homeItem.setTitle(title);
                     homeItem.setDetailLink(link);
                     homeItem.setTime(time);
@@ -195,7 +195,7 @@ public class HomePageParseUtil implements IParse<List<HomeItem>> {
                     String time = tr.select("td").select("font").text();
 
                     HomeItem homeItem = new HomeItem();
-                    homeItem.setType(HomeItemType.THUNDER);
+                    homeItem.setType(HomeType.THUNDER);
                     homeItem.setTitle(title);
                     homeItem.setDetailLink(link);
                     homeItem.setTime(time);
@@ -235,7 +235,7 @@ public class HomePageParseUtil implements IParse<List<HomeItem>> {
                     String time = tr.select("td").select("font").text();
 
                     HomeItem homeItem = new HomeItem();
-                    homeItem.setType(HomeItemType.NEWEST);
+                    homeItem.setType(HomeType.NEWEST);
                     homeItem.setTitle(title);
                     homeItem.setDetailLink(link);
                     homeItem.setTime(time);
@@ -273,7 +273,7 @@ public class HomePageParseUtil implements IParse<List<HomeItem>> {
                     String link = element.attr("href");
 
                     HomeItem homeItem = new HomeItem();
-                    homeItem.setType(HomeItemType.NEWEST_168);
+                    homeItem.setType(HomeType.NEWEST_168);
                     homeItem.setTitle(title);
                     homeItem.setDetailLink(link);
 

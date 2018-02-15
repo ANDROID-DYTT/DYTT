@@ -39,7 +39,7 @@ public interface HomeItemDao {
     int deleteItemById(int id);
 
     @Delete
-    void deleeteItem(HomeItem item);
+    void deleteItem(HomeItem item);
 
     @Query("DELETE FROM homeitems")
     void deleteItems();

@@ -2,6 +2,7 @@ package com.bzh.dytt.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -19,6 +20,17 @@ public class HomeArea {
     @NonNull
     @ColumnInfo(name = "type")
     private int mType;
+
+    public HomeArea() {
+
+    }
+
+    @Ignore
+    public HomeArea(@NonNull String title, @NonNull int type) {
+        mTitle = title;
+        mId = title.hashCode();
+        mType = type;
+    }
 
     public int getId() {
         return mId;

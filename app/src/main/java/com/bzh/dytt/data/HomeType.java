@@ -1,6 +1,6 @@
 package com.bzh.dytt.data;
 
-public class HomeItemType {
+public class HomeType {
     public static final int NEWEST_168 = 0;
     public static final int NEWEST = 100;
     public static final int FILM = 200;
