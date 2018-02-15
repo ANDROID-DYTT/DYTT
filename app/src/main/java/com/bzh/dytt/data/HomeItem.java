@@ -4,14 +4,17 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity(tableName = "homeitems")
 public final class HomeItem {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "id")
     private int mId;
 
+    @NonNull
     @ColumnInfo(name = "title")
     private String mTitle;
 
@@ -19,21 +22,14 @@ public final class HomeItem {
     private String mTime;
 
     @ColumnInfo(name = "link")
+    @NonNull
     private String mDetailLink;
 
     @ColumnInfo(name = "type")
+    @NonNull
     private int mType;
 
     public HomeItem() {
-    }
-
-    @Ignore
-    public HomeItem(int id, String title, String time, String detailLink, int type) {
-        this.mId = id;
-        this.mTitle = title;
-        this.mTime = time;
-        this.mDetailLink = detailLink;
-        this.mType = type;
     }
 
     @Ignore
@@ -42,6 +38,7 @@ public final class HomeItem {
         this.mTime = time;
         this.mDetailLink = detailLink;
         this.mType = type;
+        this.mId = detailLink.hashCode();
     }
 
     public int getType() {
@@ -52,6 +49,7 @@ public final class HomeItem {
         this.mType = type;
     }
 
+    @NonNull
     public String getTitle() {
         return mTitle;
     }
@@ -60,12 +58,14 @@ public final class HomeItem {
         this.mTitle = title;
     }
 
+    @NonNull
     public String getDetailLink() {
         return mDetailLink;
     }
 
-    public void setDetailLink(String detailLink) {
+    public void setDetailLink(@NonNull String detailLink) {
         this.mDetailLink = detailLink;
+        this.mId = detailLink.hashCode();
     }
 
     public int getId() {

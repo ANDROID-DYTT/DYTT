@@ -3,17 +3,20 @@ package com.bzh.dytt.data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity(tableName = "homearea")
 public class HomeArea {
 
     @ColumnInfo(name = "id")
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int mId;
 
+    @NonNull
     @ColumnInfo(name = "title")
     private String mTitle;
 
+    @NonNull
     @ColumnInfo(name = "type")
     private int mType;
 
@@ -25,12 +28,14 @@ public class HomeArea {
         this.mId = id;
     }
 
+    @NonNull
     public String getTitle() {
         return mTitle;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@NonNull String title) {
         this.mTitle = title;
+        this.mId = title.hashCode();
     }
 
     public int getType() {
