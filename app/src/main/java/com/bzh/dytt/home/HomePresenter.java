@@ -2,10 +2,6 @@ package com.bzh.dytt.home;
 
 import android.util.Log;
 
-/**
- * Created by biezhihua on 2018/2/12.
- */
-
 class HomePresenter implements HomeContract.Presenter {
 
     private static final String TAG = "HomePresenter";

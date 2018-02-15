@@ -16,7 +16,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @Singleton
-public class HomeItemRepository {
+public class HomePageRepository {
 
     private DyttService mService;
     private HomeItemDao mDao;

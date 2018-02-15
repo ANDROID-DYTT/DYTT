@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f5dc701ecd8b11de2e3d16391cc7e435",
+    "identityHash": "6e0ce59e9efd91e0b5a0299db365bca7",
     "entities": [
       {
         "tableName": "homearea",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `type` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `type` INTEGER NOT NULL, `link` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "mId",
@@ -25,6 +25,12 @@
             "columnName": "type",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "mDetailLink",
+            "columnName": "link",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -83,7 +89,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f5dc701ecd8b11de2e3d16391cc7e435\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"6e0ce59e9efd91e0b5a0299db365bca7\")"
     ]
   }
 }

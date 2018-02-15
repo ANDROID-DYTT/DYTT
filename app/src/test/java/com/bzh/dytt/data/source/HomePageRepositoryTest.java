@@ -16,12 +16,12 @@ import java.io.IOException;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-public class HomeItemRepositoryTest {
+public class HomePageRepositoryTest {
 
     @Rule
     public InstantTaskExecutorRule instantExecutorRule = new InstantTaskExecutorRule();
 
-    private HomeItemRepository mHomeItemRepository;
+    private HomePageRepository mHomePageRepository;
 
     @Mock
     private HomeItemDao mHomeItemLocalDao;
@@ -33,19 +33,19 @@ public class HomeItemRepositoryTest {
     public void setupItemRepository() throws IOException {
         MockitoAnnotations.initMocks(this);
 
-        mHomeItemRepository = new HomeItemRepository();
-        mHomeItemRepository.setService(mDyttService);
-        mHomeItemRepository.setDao(mHomeItemLocalDao);
+        mHomePageRepository = new HomePageRepository();
+        mHomePageRepository.setService(mDyttService);
+        mHomePageRepository.setDao(mHomeItemLocalDao);
     }
 
     @After
     public void destroyItemRepository() {
-        mHomeItemRepository = null;
+        mHomePageRepository = null;
     }
 
     @Test
     public void getItems_requestHomeNewestFromDB() {
-        mHomeItemRepository.getItems(HomeType.NEWEST);
+        mHomePageRepository.getItems(HomeType.NEWEST);
         verify(mHomeItemLocalDao, times(1)).getItemsByType(HomeType.NEWEST);
     }
 
@@ -56,7 +56,7 @@ public class HomeItemRepositoryTest {
 //
 //        when(mHomeItemLocalDao.getItemsByType(HomeType.NEWEST)).thenReturn(itemsByType);
 //
-//        LiveData<Resource<List<HomeItem>>> items = mHomeItemRepository.getItems(HomeType.NEWEST);
+//        LiveData<Resource<List<HomeItem>>> items = mHomePageRepository.getItems(HomeType.NEWEST);
 //
 //        items.observeForever(new Observer<Resource<List<HomeItem>>>() {
 //            @Override

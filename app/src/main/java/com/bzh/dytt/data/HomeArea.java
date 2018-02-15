@@ -21,6 +21,9 @@ public class HomeArea {
     @ColumnInfo(name = "type")
     private int mType;
 
+    @ColumnInfo(name = "link")
+    private String mDetailLink;
+
     public HomeArea() {
 
     }
@@ -56,5 +59,13 @@ public class HomeArea {
 
     public void setType(int type) {
         this.mType = type;
+    }
+
+    public String getDetailLink() {
+        return mDetailLink;
+    }
+
+    public void setDetailLink(String detailLink) {
+        mDetailLink = detailLink;
     }
 }

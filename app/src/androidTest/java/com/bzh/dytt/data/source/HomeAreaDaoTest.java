@@ -143,7 +143,6 @@ public class HomeAreaDaoTest {
     @Test
     public void getAreaById() throws Exception {
 
-
         LiveData<HomeArea> area = mHomeAreaDao.getAreaById(mArea.getId());
         area.observeForever(new Observer<HomeArea>() {
             @Override
@@ -154,7 +153,5 @@ public class HomeAreaDaoTest {
         });
 
         mHomeAreaDao.insertArea(mArea);
-
     }
-
 }

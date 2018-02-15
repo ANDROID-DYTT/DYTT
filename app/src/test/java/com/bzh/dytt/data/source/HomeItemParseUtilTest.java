@@ -1,6 +1,7 @@
 package com.bzh.dytt.data.source;
 
 import com.bzh.dytt.TestUtils;
+import com.bzh.dytt.data.HomeArea;
 import com.bzh.dytt.data.HomeItem;
 
 import org.junit.After;
@@ -14,29 +15,29 @@ import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
 
-public class HomePageParseUtilTest {
+public class HomeItemParseUtilTest {
 
     private String mHomePage;
-    private IParse<List<HomeItem>> mNewest168Parse;
-    private IParse<List<HomeItem>> mNewestParse;
-    private IParse<List<HomeItem>> mThunderParse;
-    private IParse<List<HomeItem>> mChinaTvParse;
-    private IParse<List<HomeItem>> mJSKParse;
-    private IParse<List<HomeItem>> mEAParse;
+    private IParse<List<HomeArea>, List<HomeItem>> mNewest168Parse;
+    private IParse<List<HomeArea>, List<HomeItem>> mNewestParse;
+    private IParse<List<HomeArea>, List<HomeItem>> mThunderParse;
+    private IParse<List<HomeArea>, List<HomeItem>> mChinaTvParse;
+    private IParse<List<HomeArea>, List<HomeItem>> mJSKParse;
+    private IParse<List<HomeArea>, List<HomeItem>> mEAParse;
 
 
-    private IParse<List<HomeItem>> mHomePageParse;
+    private IParse<List<HomeArea>, List<HomeItem>> mHomePageParse;
 
     @Before
     public void setUp() throws Exception {
         mHomePage = TestUtils.getResource(getClass(), "index.html");
-        mHomePageParse = HomePageParseUtil.getInstance();
-        mNewest168Parse = new HomePageParseUtil.Newest168Parse();
-        mNewestParse = new HomePageParseUtil.NewestParse();
-        mThunderParse = new HomePageParseUtil.ThunderParse();
-        mChinaTvParse = new HomePageParseUtil.ChinaTVParse();
-        mJSKParse = new HomePageParseUtil.JSKTVParse();
-        mEAParse = new HomePageParseUtil.EATVParse();
+        mHomePageParse = HomeItemParseUtil.getInstance();
+        mNewest168Parse = new HomeItemParseUtil.Newest168Parse();
+        mNewestParse = new HomeItemParseUtil.NewestParse();
+        mThunderParse = new HomeItemParseUtil.ThunderParse();
+        mChinaTvParse = new HomeItemParseUtil.ChinaTVParse();
+        mJSKParse = new HomeItemParseUtil.JSKTVParse();
+        mEAParse = new HomeItemParseUtil.EATVParse();
     }
 
 
@@ -45,8 +46,8 @@ public class HomePageParseUtilTest {
     }
 
     @Test
-    public void parseHomePage() {
-        List<HomeItem> result = mHomePageParse.parse(mHomePage);
+    public void parseHomePageItem() {
+        List<HomeItem> result = mHomePageParse.parseItems(mHomePage);
 
         assertNotNull(result);
         assertTrue(result.size() > 0);
@@ -57,8 +58,8 @@ public class HomePageParseUtilTest {
 
 
     @Test
-    public void parseNewest168() {
-        List<HomeItem> result = mNewest168Parse.parse(mHomePage);
+    public void parseNewest168Item() {
+        List<HomeItem> result = mNewest168Parse.parseItems(mHomePage);
 
         assertNotNull(result);
         assertTrue(result.size() > 0);
@@ -71,7 +72,7 @@ public class HomePageParseUtilTest {
 
     @Test
     public void parseNewest() {
-        List<HomeItem> result = mNewestParse.parse(mHomePage);
+        List<HomeItem> result = mNewestParse.parseItems(mHomePage);
 
         assertNotNull(result);
         assertTrue(result.size() > 0);
@@ -83,7 +84,7 @@ public class HomePageParseUtilTest {
 
     @Test
     public void parseThunder() {
-        List<HomeItem> result = mThunderParse.parse(mHomePage);
+        List<HomeItem> result = mThunderParse.parseItems(mHomePage);
 
         assertNotNull(result);
         assertTrue(result.size() > 0);
@@ -94,7 +95,7 @@ public class HomePageParseUtilTest {
 
     @Test
     public void parseChinaTV() {
-        List<HomeItem> result = mChinaTvParse.parse(mHomePage);
+        List<HomeItem> result = mChinaTvParse.parseItems(mHomePage);
 
         assertNotNull(result);
         assertTrue(result.size() > 0);
@@ -105,7 +106,7 @@ public class HomePageParseUtilTest {
 
     @Test
     public void parseJSKTV() {
-        List<HomeItem> result = mJSKParse.parse(mHomePage);
+        List<HomeItem> result = mJSKParse.parseItems(mHomePage);
 
         assertNotNull(result);
         assertTrue(result.size() > 0);
@@ -116,7 +117,7 @@ public class HomePageParseUtilTest {
 
     @Test
     public void parseEATV() {
-        List<HomeItem> result = mEAParse.parse(mHomePage);
+        List<HomeItem> result = mEAParse.parseItems(mHomePage);
 
         assertNotNull(result);
         assertTrue(result.size() > 0);
