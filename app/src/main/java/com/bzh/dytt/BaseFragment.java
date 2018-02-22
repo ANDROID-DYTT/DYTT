@@ -9,27 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bzh.dytt.exception.PresenterException;
-
 import butterknife.ButterKnife;
 
-public abstract class BaseFragment<T extends IPresenter> extends Fragment implements IView<T> {
-
-    protected T mPresenter;
+public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
-        mPresenter = doCreatePresenter();
-
-        if (mPresenter == null) {
-            throw new PresenterException("Presenter is null, did you forget to call createPresenter?");
-        }
-
         super.onCreate(savedInstanceState);
-
-        getLifecycle().addObserver(mPresenter);
-
         doCreate(savedInstanceState);
     }
 
@@ -52,8 +38,6 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
         doPause();
         super.onPause();
     }
-
-    protected abstract T doCreatePresenter();
 
     protected void doCreate(@Nullable Bundle savedInstanceState) {
 

@@ -11,17 +11,12 @@ import android.view.ViewGroup;
 import com.bzh.dytt.BaseFragment;
 import com.bzh.dytt.R;
 
-public class HomePageFragment extends BaseFragment<HomeContract.Presenter> implements HomeContract.View {
+public class HomePageFragment extends BaseFragment {
 
     private HomeViewModel mHomeViewModel;
 
     public static HomePageFragment newInstance() {
         return new HomePageFragment();
-    }
-
-    @Override
-    protected HomeContract.Presenter doCreatePresenter() {
-        return new HomePresenter(this);
     }
 
     @Override
