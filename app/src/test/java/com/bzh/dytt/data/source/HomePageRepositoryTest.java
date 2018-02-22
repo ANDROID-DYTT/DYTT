@@ -18,6 +18,7 @@ import static org.mockito.Mockito.verify;
 
 public class HomePageRepositoryTest {
 
+
     @Rule
     public InstantTaskExecutorRule instantExecutorRule = new InstantTaskExecutorRule();
 
@@ -25,6 +26,9 @@ public class HomePageRepositoryTest {
 
     @Mock
     private HomeItemDao mHomeItemLocalDao;
+
+    @Mock
+    private HomeAreaDao mHomeAreaDao;
 
     @Mock
     private DyttService mDyttService;
@@ -35,7 +39,8 @@ public class HomePageRepositoryTest {
 
         mHomePageRepository = new HomePageRepository();
         mHomePageRepository.setService(mDyttService);
-        mHomePageRepository.setDao(mHomeItemLocalDao);
+        mHomePageRepository.setHomeItemDao(mHomeItemLocalDao);
+        mHomePageRepository.setHomeAreaDao(mHomeAreaDao);
     }
 
     @After
@@ -44,9 +49,15 @@ public class HomePageRepositoryTest {
     }
 
     @Test
-    public void getItems_requestHomeNewestFromDB() {
-        mHomePageRepository.getItems(HomeType.NEWEST);
+    public void getHomeItems() {
+        mHomePageRepository.getHomeItems(HomeType.NEWEST);
         verify(mHomeItemLocalDao, times(1)).getItemsByType(HomeType.NEWEST);
+    }
+
+    @Test
+    public void getHomeAreas() throws Exception {
+        mHomePageRepository.getHomeAreas();
+        verify(mHomeAreaDao, times(1)).getAreas();
     }
 
 //    @Test
@@ -56,7 +67,7 @@ public class HomePageRepositoryTest {
 //
 //        when(mHomeItemLocalDao.getItemsByType(HomeType.NEWEST)).thenReturn(itemsByType);
 //
-//        LiveData<Resource<List<HomeItem>>> items = mHomePageRepository.getItems(HomeType.NEWEST);
+//        LiveData<Resource<List<HomeItem>>> items = mHomePageRepository.getHomeItems(HomeType.NEWEST);
 //
 //        items.observeForever(new Observer<Resource<List<HomeItem>>>() {
 //            @Override
