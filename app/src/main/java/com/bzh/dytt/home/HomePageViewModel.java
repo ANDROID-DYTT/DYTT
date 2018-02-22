@@ -28,9 +28,4 @@ public class HomePageViewModel extends AndroidViewModel {
     public LiveData<Resource<List<HomeItem>>> getHomeItems(int type) {
         return mRepository.getHomeItems(type);
     }
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-    }
 }
