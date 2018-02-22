@@ -37,10 +37,7 @@ public class HomePageRepositoryTest {
     public void setupItemRepository() throws IOException {
         MockitoAnnotations.initMocks(this);
 
-        mHomePageRepository = new HomePageRepository();
-        mHomePageRepository.setService(mDyttService);
-        mHomePageRepository.setHomeItemDao(mHomeItemLocalDao);
-        mHomePageRepository.setHomeAreaDao(mHomeAreaDao);
+        mHomePageRepository = HomePageRepository.getInstance(mDyttService, mHomeAreaDao, mHomeItemLocalDao);
     }
 
     @After

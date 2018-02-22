@@ -8,31 +8,39 @@ import android.support.annotation.Nullable;
 import com.bzh.dytt.data.HomeArea;
 import com.bzh.dytt.data.HomeItem;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import javax.inject.Singleton;
-
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-@Singleton
 public class HomePageRepository {
+
+    private volatile static HomePageRepository INSTANCE = null;
 
     private DyttService mService;
     private HomeItemDao mHomeItemDao;
     private HomeAreaDao mHomeAreaDao;
 
-    public void setService(DyttService service) {
+    public HomePageRepository(DyttService service, HomeAreaDao dao, HomeItemDao homeItemDao) {
         mService = service;
-    }
-
-    public void setHomeItemDao(HomeItemDao dao) {
-        mHomeItemDao = dao;
-    }
-
-    public void setHomeAreaDao(HomeAreaDao dao) {
+        mHomeItemDao = homeItemDao;
         mHomeAreaDao = dao;
+    }
+
+    public static HomePageRepository getInstance(DyttService service, HomeAreaDao homeAreaDao, HomeItemDao homeItemDao) {
+        if (INSTANCE == null) {
+            synchronized (HomePageRepository.class) {
+                if (INSTANCE == null) {
+
+                    INSTANCE = new HomePageRepository(service, homeAreaDao, homeItemDao);
+                }
+            }
+        }
+        return INSTANCE;
     }
 
     public LiveData<Resource<List<HomeArea>>> getHomeAreas() {
@@ -60,15 +68,18 @@ public class HomePageRepository {
             protected LiveData<Resource<String>> createCall() {
 
                 final MutableLiveData<Resource<String>> liveData = new MutableLiveData<>();
-
-                mService.getHomePage().enqueue(new Callback<String>() {
+                mService.getHomePage().enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        liveData.setValue(Resource.success(response.body()));
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            liveData.setValue(Resource.success(new String(response.body().bytes(), "GB2312")));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
                         liveData.setValue(Resource.<String>error(t.getMessage(), null));
                     }
                 });
@@ -83,6 +94,11 @@ public class HomePageRepository {
 
             @Override
             protected void saveCallResult(@NonNull String item) {
+                try {
+                    item = new String(item.getBytes(), "GB2312");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 List<HomeItem> homeItems = HomeItemParseUtil.getInstance().parseItems(item);
                 mHomeItemDao.insertItems(homeItems);
             }
@@ -104,14 +120,18 @@ public class HomePageRepository {
 
                 final MutableLiveData<Resource<String>> liveData = new MutableLiveData<>();
 
-                mService.getHomePage().enqueue(new Callback<String>() {
+                mService.getHomePage().enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        liveData.setValue(Resource.success(response.body()));
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try {
+                            liveData.setValue(Resource.success(new String(response.body().bytes(), "GB2312")));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
                         liveData.setValue(Resource.<String>error(t.getMessage(), null));
                     }
                 });
