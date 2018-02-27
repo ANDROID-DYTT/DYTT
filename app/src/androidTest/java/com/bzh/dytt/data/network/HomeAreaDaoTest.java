@@ -1,20 +1,12 @@
 package com.bzh.dytt.data.network;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
-import android.arch.persistence.room.Room;
-import android.support.annotation.Nullable;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.bzh.dytt.LiveDataTestUtil;
 import com.bzh.dytt.data.HomeArea;
 import com.bzh.dytt.data.HomeType;
-import com.bzh.dytt.data.db.AppDatabase;
-import com.bzh.dytt.data.db.HomeAreaDao;
+import com.bzh.dytt.data.db.AppDatabaseTest;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -26,42 +18,16 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
-public class HomeAreaDaoTest {
+public class HomeAreaDaoTest extends AppDatabaseTest {
 
     private HomeArea mArea = new HomeArea("2018新片精品", HomeType.NEWEST);
-
-    private AppDatabase mDatabase;
-    private HomeAreaDao mHomeAreaDao;
-
-    @Before
-    public void setUp() throws Exception {
-        mDatabase = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getContext(), AppDatabase.class).build();
-        mHomeAreaDao = mDatabase.homeAreaDAO();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
 
     @Test
     public void insertArea() throws Exception {
 
-        mHomeAreaDao.insertArea(mArea);
+        mDB.homeAreaDAO().insertArea(mArea);
 
-//        LiveData<HomeArea> area = mHomeAreaDao.getAreaById(mArea.getId());
-
-        HomeArea value = LiveDataTestUtil.getValue(mHomeAreaDao.getAreaById(mArea.getId()));
-//
-//        area.observeForever(new Observer<HomeArea>() {
-//            @Override
-//            public void onChanged(@Nullable HomeArea homeArea) {
-//                assertThat(homeArea, notNullValue());
-//                assertThat(homeArea.getId(), is(mArea.getId()));
-//                assertThat(homeArea.getName(), is(mArea.getName()));
-//            }
-//        });
-
-
+        HomeArea value = LiveDataTestUtil.getValue(mDB.homeAreaDAO().getAreaById(mArea.getId()));
 
         assertThat(value, notNullValue());
         assertThat(value.getId(), is(mArea.getId()));
@@ -74,51 +40,30 @@ public class HomeAreaDaoTest {
         List<HomeArea> areaList = new ArrayList<>();
         areaList.add(new HomeArea("最新电影", HomeType.NEWEST));
         areaList.add(new HomeArea("迅雷专区", HomeType.THUNDER));
+        mDB.homeAreaDAO().insertAreas(areaList);
 
-        mHomeAreaDao.getAreas().observeForever(new Observer<List<HomeArea>>() {
-            @Override
-            public void onChanged(@Nullable List<HomeArea> homeAreas) {
-                assertThat(homeAreas, notNullValue());
-                assertThat(homeAreas.size(), is(2));
-            }
-        });
-
-        mHomeAreaDao.insertAreas(areaList);
+        List<HomeArea> homeAreas = LiveDataTestUtil.getValue(mDB.homeAreaDAO().getAreas());
+        assertThat(homeAreas, notNullValue());
+        assertThat(homeAreas.size(), is(2));
     }
 
     @Test
     public void updateArea() throws Exception {
-
-        mHomeAreaDao.insertArea(mArea);
-
-        LiveData<HomeArea> area = mHomeAreaDao.getAreaById(mArea.getId());
-        area.observeForever(new Observer<HomeArea>() {
-            @Override
-            public void onChanged(@Nullable HomeArea homeArea) {
-                assertThat(homeArea, notNullValue());
-                assertThat(homeArea.getType(), is(HomeType.FILM));
-            }
-        });
-
+        mDB.homeAreaDAO().insertArea(mArea);
         mArea.setType(HomeType.FILM);
-        mHomeAreaDao.updateArea(mArea);
+        mDB.homeAreaDAO().updateArea(mArea);
+        HomeArea homeArea = LiveDataTestUtil.getValue(mDB.homeAreaDAO().getAreaById(mArea.getId()));
+        assertThat(homeArea, notNullValue());
+        assertThat(homeArea.getType(), is(HomeType.FILM));
     }
 
     @Test
     public void deleteArea() throws Exception {
-
-        mHomeAreaDao.insertArea(mArea);
-
-        mHomeAreaDao.getAreas().observeForever(new Observer<List<HomeArea>>() {
-            @Override
-            public void onChanged(@Nullable List<HomeArea> homeAreas) {
-                assertThat(homeAreas, notNullValue());
-                assertThat(homeAreas.size(), is(0));
-            }
-        });
-
-        mHomeAreaDao.deleteArea(mArea);
-
+        mDB.homeAreaDAO().insertArea(mArea);
+        mDB.homeAreaDAO().deleteArea(mArea);
+        List<HomeArea> homeAreas = LiveDataTestUtil.getValue(mDB.homeAreaDAO().getAreas());
+        assertThat(homeAreas, notNullValue());
+        assertThat(homeAreas.size(), is(0));
     }
 
     @Test
@@ -127,43 +72,25 @@ public class HomeAreaDaoTest {
         areaList.add(new HomeArea("最新电影", HomeType.NEWEST));
         areaList.add(new HomeArea("迅雷专区", HomeType.THUNDER));
 
-        mHomeAreaDao.insertAreas(areaList);
-
-        mHomeAreaDao.getAreas().observeForever(new Observer<List<HomeArea>>() {
-            @Override
-            public void onChanged(@Nullable List<HomeArea> homeAreas) {
-                assertThat(homeAreas, notNullValue());
-                assertThat(homeAreas.size(), is(0));
-            }
-        });
-
-        mHomeAreaDao.deleteAreas();
-
+        mDB.homeAreaDAO().insertAreas(areaList);
+        mDB.homeAreaDAO().deleteAreas();
+        List<HomeArea> homeAreas = LiveDataTestUtil.getValue(mDB.homeAreaDAO().getAreas());
+        assertThat(homeAreas, notNullValue());
+        assertThat(homeAreas.size(), is(0));
     }
 
     @Test
     public void getAreas() throws Exception {
-        mHomeAreaDao.getAreas().observeForever(new Observer<List<HomeArea>>() {
-            @Override
-            public void onChanged(@Nullable List<HomeArea> homeAreas) {
-                assertThat(homeAreas, notNullValue());
-                assertThat(homeAreas.size(), is(0));
-            }
-        });
+        List<HomeArea> homeAreas = LiveDataTestUtil.getValue(mDB.homeAreaDAO().getAreas());
+        assertThat(homeAreas, notNullValue());
+        assertThat(homeAreas.size(), is(0));
     }
 
     @Test
     public void getAreaById() throws Exception {
-
-        LiveData<HomeArea> area = mHomeAreaDao.getAreaById(mArea.getId());
-        area.observeForever(new Observer<HomeArea>() {
-            @Override
-            public void onChanged(@Nullable HomeArea homeArea) {
-                assertThat(homeArea, notNullValue());
-                assertThat(homeArea.getId(), is(mArea.getTitle().hashCode()));
-            }
-        });
-
-        mHomeAreaDao.insertArea(mArea);
+        mDB.homeAreaDAO().insertArea(mArea);
+        HomeArea homeArea = LiveDataTestUtil.getValue(mDB.homeAreaDAO().getAreaById(mArea.getId()));
+        assertThat(homeArea, notNullValue());
+        assertThat(homeArea.getId(), is(mArea.getTitle().hashCode()));
     }
 }
