@@ -3,7 +3,6 @@ package com.bzh.dytt.util;
 import com.bzh.dytt.data.HomeArea;
 import com.bzh.dytt.data.HomeItem;
 import com.bzh.dytt.data.HomeType;
-import com.bzh.dytt.data.source.IParse;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,26 +16,20 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class HomeParse implements IParse<List<HomeArea>, List<HomeItem>> {
+public class HomePageParser {
 
-    private IParse<List<HomeArea>, List<HomeItem>> mNewestParse;
-    private IParse<List<HomeArea>, List<HomeItem>> mThunderParse;
-    private IParse<List<HomeArea>, List<HomeItem>> mChinaTvParse;
-    private IParse<List<HomeArea>, List<HomeItem>> mJSKParse;
-    private IParse<List<HomeArea>, List<HomeItem>> mEAParse;
-    private IParse<List<HomeArea>, List<HomeItem>> mNewest168Parse;
+    private InternalHomeParser mNewestParse, mThunderParse, mChinaTvParse, mJSKParse, mEAParse, mNewest168Parse;
 
     @Inject
-    public HomeParse() {
-        mNewest168Parse = new HomeParse.Newest168Parse();
-        mNewestParse = new HomeParse.NewestParse();
-        mThunderParse = new HomeParse.ThunderParse();
-        mChinaTvParse = new HomeParse.ChinaTVParse();
-        mJSKParse = new HomeParse.JSKTVParse();
-        mEAParse = new HomeParse.EATVParse();
+    public HomePageParser() {
+        mNewest168Parse = new HomePageParser.Newest168Parse();
+        mNewestParse = new HomePageParser.NewestParse();
+        mThunderParse = new HomePageParser.ThunderParse();
+        mChinaTvParse = new HomePageParser.ChinaTVParse();
+        mJSKParse = new HomePageParser.JSKTVParse();
+        mEAParse = new HomePageParser.EATVParse();
     }
 
-    @Override
     public List<HomeArea> parseAreas(String html) {
         List<HomeArea> result = new ArrayList<>();
 
@@ -52,7 +45,6 @@ public class HomeParse implements IParse<List<HomeArea>, List<HomeItem>> {
         return result;
     }
 
-    @Override
     public List<HomeItem> parseItems(String html) {
 
         List<HomeItem> result = new ArrayList<>();
@@ -134,7 +126,7 @@ public class HomeParse implements IParse<List<HomeArea>, List<HomeItem>> {
         }
     }
 
-    private static abstract class PageCenterContentParse extends BaseParse {
+    private static abstract class PageCenterContentParse extends InternalHomeParser {
 
         @Override
         protected Elements getItemElements(Element element) {
@@ -172,7 +164,7 @@ public class HomeParse implements IParse<List<HomeArea>, List<HomeItem>> {
         }
     }
 
-    public static class Newest168Parse extends BaseParse {
+    public static class Newest168Parse extends InternalHomeParser {
 
         @Override
         protected Element getRootAreaElement(Document document) {
@@ -220,9 +212,8 @@ public class HomeParse implements IParse<List<HomeArea>, List<HomeItem>> {
         }
     }
 
-    private static abstract class BaseParse implements IParse<List<HomeArea>, List<HomeItem>> {
+    private static abstract class InternalHomeParser {
 
-        @Override
         public List<HomeArea> parseAreas(String html) {
             List<HomeArea> result = new ArrayList<>();
 
@@ -251,10 +242,6 @@ public class HomeParse implements IParse<List<HomeArea>, List<HomeItem>> {
             return result;
         }
 
-        protected abstract Element getAreaElement(Element area);
-
-
-        @Override
         public List<HomeItem> parseItems(String html) {
             List<HomeItem> result = new ArrayList<>();
 
@@ -286,6 +273,8 @@ public class HomeParse implements IParse<List<HomeArea>, List<HomeItem>> {
 
             return result;
         }
+
+        protected abstract Element getAreaElement(Element area);
 
         protected abstract Element getRootAreaElement(Document document);
 

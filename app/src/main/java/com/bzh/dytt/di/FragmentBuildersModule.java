@@ -4,6 +4,7 @@ import com.bzh.dytt.colorhunt.ColorHuntFragment;
 import com.bzh.dytt.girl.GirlFragment;
 import com.bzh.dytt.home.HomeChildrenFragment;
 import com.bzh.dytt.home.HomePageFragment;
+import com.bzh.dytt.home.VideoDetailPageFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -21,4 +22,7 @@ public abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract HomeChildrenFragment contributeHomeChildFragment();
+
+    @ContributesAndroidInjector
+    abstract VideoDetailPageFragment contributeVideoDetailFragment();
 }

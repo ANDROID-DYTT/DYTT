@@ -42,7 +42,7 @@ public class DataRepositoryTest {
     public void setupItemRepository() throws IOException {
         MockitoAnnotations.initMocks(this);
 
-        mDataRepository = DataRepository.getInstance(mDyttService, mAppDataBase);
+//        mDataRepository = DataRepository.getInstance(mDyttService, mAppDataBase);
     }
 
     @After
@@ -53,7 +53,7 @@ public class DataRepositoryTest {
     @Test
     public void getHomeItems() {
 
-        when(mAppDataBase.homeItemDao()).thenReturn(mHomeItemLocalDao);
+        when(mAppDataBase.homeItemDAO()).thenReturn(mHomeItemLocalDao);
 
         mDataRepository.getHomeItems(HomeType.NEWEST);
         verify(mHomeItemLocalDao, times(1)).getItemsByType(HomeType.NEWEST);

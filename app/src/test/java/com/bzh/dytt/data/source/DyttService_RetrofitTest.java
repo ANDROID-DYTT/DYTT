@@ -54,6 +54,6 @@ public class DyttService_RetrofitTest {
 
         DyttService service = mDelegate.returningResponse(mHomePage);
 
-        Response<ResponseBody> response = service.getHomePage().execute();
+//        Response<ResponseBody> response = service.getHomePage().execute();
     }
 }

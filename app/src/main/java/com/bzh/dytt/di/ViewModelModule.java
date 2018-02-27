@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import com.bzh.dytt.home.HomePageViewModel;
+import com.bzh.dytt.home.VideoDetailPageViewModel;
 import com.bzh.dytt.util.ViewModelFactory;
 
 import dagger.Binds;
@@ -19,6 +20,10 @@ public abstract class ViewModelModule {
     @ViewModelKey(HomePageViewModel.class)
     abstract ViewModel bindHomePageViewModel(HomePageViewModel homePageViewModel);
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(VideoDetailPageViewModel.class)
+    abstract ViewModel bindVideoDetailPageViewModel(VideoDetailPageViewModel videoDetailPageViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);

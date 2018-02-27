@@ -55,7 +55,7 @@ public class HomeAreaDaoTest {
 //            public void onChanged(@Nullable HomeArea homeArea) {
 //                assertThat(homeArea, notNullValue());
 //                assertThat(homeArea.getId(), is(mArea.getId()));
-//                assertThat(homeArea.getTitle(), is(mArea.getTitle()));
+//                assertThat(homeArea.getName(), is(mArea.getName()));
 //            }
 //        });
 

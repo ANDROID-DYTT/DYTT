@@ -32,11 +32,18 @@ public class TestUtils {
     };
 
     public static String getResource(Class clazz, String file) throws IOException {
+        return getResource(clazz, file, null);
+    }
+
+    public static String getResource(Class clazz, String file, String encoding) throws IOException {
         ClassLoader classLoader = clazz.getClassLoader();
         File indexFile = new File(classLoader.getResource(file).getFile());
         byte[] bytes = new byte[(int) indexFile.length()];
         FileInputStream fileInputStream = new FileInputStream(indexFile);
         fileInputStream.read(bytes);
+        if (encoding != null) {
+            return new String(bytes, encoding);
+        }
         return new String(bytes);
     }
 

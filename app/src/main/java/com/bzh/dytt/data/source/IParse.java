@@ -1,9 +1,8 @@
 package com.bzh.dytt.data.source;
 
 
-public interface IParse<A, I> {
+public interface IParse<T> {
 
-    A parseAreas(String html);
+    T parse(String html);
 
-    I parseItems(String html);
 }

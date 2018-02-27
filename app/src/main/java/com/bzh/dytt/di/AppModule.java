@@ -104,6 +104,6 @@ public class AppModule {
     @Singleton
     @Provides
     HomeItemDao provideHomeItemDao(AppDatabase db) {
-        return db.homeItemDao();
+        return db.homeItemDAO();
     }
 }

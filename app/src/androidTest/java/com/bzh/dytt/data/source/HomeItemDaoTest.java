@@ -42,7 +42,7 @@ public class HomeItemDaoTest {
 
     @Test
     public void insertHomeItem() {
-        LiveData<HomeItem> item = mDatabase.homeItemDao().getItemById("http://www.dytt8.net/html/gndy/dyzz/20180214/56321.html".hashCode());
+        LiveData<HomeItem> item = mDatabase.homeItemDAO().getItemById("http://www.dytt8.net/html/gndy/dyzz/20180214/56321.html".hashCode());
 
         item.observeForever(new Observer<HomeItem>() {
             @Override
@@ -54,15 +54,15 @@ public class HomeItemDaoTest {
             }
         });
 
-        mDatabase.homeItemDao().insertItem(mHomeItem);
+        mDatabase.homeItemDAO().insertItem(mHomeItem);
     }
 
     @Test
     public void insertSameIdHomeItem() {
 
-        mDatabase.homeItemDao().insertItem(mHomeItem);
+        mDatabase.homeItemDAO().insertItem(mHomeItem);
 
-        LiveData<HomeItem> item = mDatabase.homeItemDao().getItemById("http://www.dytt8.net/html/gndy/dyzz/20180214/56321.html".hashCode());
+        LiveData<HomeItem> item = mDatabase.homeItemDAO().getItemById("http://www.dytt8.net/html/gndy/dyzz/20180214/56321.html".hashCode());
 
         item.observeForever(new Observer<HomeItem>() {
             @Override
@@ -73,13 +73,13 @@ public class HomeItemDaoTest {
         });
 
         mHomeItem.setTitle("最美的中国");
-        mDatabase.homeItemDao().insertItem(mHomeItem);
+        mDatabase.homeItemDAO().insertItem(mHomeItem);
     }
 
 
     @Test
     public void getAllItem() {
-        LiveData<List<HomeItem>> items = mDatabase.homeItemDao().getItems();
+        LiveData<List<HomeItem>> items = mDatabase.homeItemDAO().getItems();
 
         items.observeForever(new Observer<List<HomeItem>>() {
             @Override
@@ -88,15 +88,15 @@ public class HomeItemDaoTest {
                 assertThat(homeItems.size(), is(1));
             }
         });
-        mDatabase.homeItemDao().insertItem(mHomeItem);
+        mDatabase.homeItemDAO().insertItem(mHomeItem);
     }
 
     @Test
     public void updateItem() {
 
-        mDatabase.homeItemDao().insertItem(mHomeItem);
+        mDatabase.homeItemDAO().insertItem(mHomeItem);
 
-        LiveData<List<HomeItem>> item = mDatabase.homeItemDao().getItems();
+        LiveData<List<HomeItem>> item = mDatabase.homeItemDAO().getItems();
 
         item.observeForever(new Observer<List<HomeItem>>() {
             @Override
@@ -109,15 +109,15 @@ public class HomeItemDaoTest {
         });
 
         HomeItem mHomeItem = new HomeItem("《伯德小姐》HD中英双字幕", "2018-02-13", "http://www.dytt8.net/html/gndy/dyzz/20180214/56321.html", HomeType.NEWEST);
-        mDatabase.homeItemDao().updateItem(mHomeItem);
+        mDatabase.homeItemDAO().updateItem(mHomeItem);
     }
 
     @Test
     public void getItemById() {
 
-        mDatabase.homeItemDao().insertItem(mHomeItem);
+        mDatabase.homeItemDAO().insertItem(mHomeItem);
 
-        LiveData<HomeItem> item = mDatabase.homeItemDao().getItemById(mHomeItem.getId());
+        LiveData<HomeItem> item = mDatabase.homeItemDAO().getItemById(mHomeItem.getId());
 
         item.observeForever(new Observer<HomeItem>() {
             @Override
@@ -130,12 +130,12 @@ public class HomeItemDaoTest {
 
     @Test
     public void getItemsByType() {
-        mDatabase.homeItemDao().insertItem(new HomeItem("newest - 4", "2-14", "http://4", HomeType.NEWEST));
-        mDatabase.homeItemDao().insertItem(new HomeItem("newest - 3", "2-14", "http://3", HomeType.NEWEST));
-        mDatabase.homeItemDao().insertItem(new HomeItem("newest - 2", "2-14", "http://2", HomeType.NEWEST));
-        mDatabase.homeItemDao().insertItem(new HomeItem("newest - 1", "2-14", "http://1", HomeType.NEWEST));
+        mDatabase.homeItemDAO().insertItem(new HomeItem("newest - 4", "2-14", "http://4", HomeType.NEWEST));
+        mDatabase.homeItemDAO().insertItem(new HomeItem("newest - 3", "2-14", "http://3", HomeType.NEWEST));
+        mDatabase.homeItemDAO().insertItem(new HomeItem("newest - 2", "2-14", "http://2", HomeType.NEWEST));
+        mDatabase.homeItemDAO().insertItem(new HomeItem("newest - 1", "2-14", "http://1", HomeType.NEWEST));
 
-        LiveData<List<HomeItem>> newests = mDatabase.homeItemDao().getItemsByType(HomeType.NEWEST);
+        LiveData<List<HomeItem>> newests = mDatabase.homeItemDAO().getItemsByType(HomeType.NEWEST);
 
         newests.observeForever(new Observer<List<HomeItem>>() {
             @Override
@@ -145,7 +145,7 @@ public class HomeItemDaoTest {
             }
         });
 
-        LiveData<List<HomeItem>> films = mDatabase.homeItemDao().getItemsByType(HomeType.FILM);
+        LiveData<List<HomeItem>> films = mDatabase.homeItemDAO().getItemsByType(HomeType.FILM);
 
         films.observeForever(new Observer<List<HomeItem>>() {
             @Override
@@ -159,14 +159,14 @@ public class HomeItemDaoTest {
     @Test
     public void deleteHomeItems() {
 
-        mDatabase.homeItemDao().insertItem(new HomeItem("newest - 4", "2-14", "http://4", HomeType.NEWEST));
-        mDatabase.homeItemDao().insertItem(new HomeItem("newest - 3", "2-14", "http://3", HomeType.NEWEST));
-        mDatabase.homeItemDao().insertItem(new HomeItem("newest - 2", "2-14", "http://2", HomeType.NEWEST));
-        mDatabase.homeItemDao().insertItem(new HomeItem("newest - 1", "2-14", "http://1", HomeType.NEWEST));
+        mDatabase.homeItemDAO().insertItem(new HomeItem("newest - 4", "2-14", "http://4", HomeType.NEWEST));
+        mDatabase.homeItemDAO().insertItem(new HomeItem("newest - 3", "2-14", "http://3", HomeType.NEWEST));
+        mDatabase.homeItemDAO().insertItem(new HomeItem("newest - 2", "2-14", "http://2", HomeType.NEWEST));
+        mDatabase.homeItemDAO().insertItem(new HomeItem("newest - 1", "2-14", "http://1", HomeType.NEWEST));
 
-        mDatabase.homeItemDao().deleteItems();
+        mDatabase.homeItemDAO().deleteItems();
 
-        LiveData<List<HomeItem>> all = mDatabase.homeItemDao().getItems();
+        LiveData<List<HomeItem>> all = mDatabase.homeItemDAO().getItems();
 
         all.observeForever(new Observer<List<HomeItem>>() {
             @Override
@@ -180,11 +180,11 @@ public class HomeItemDaoTest {
     @Test
     public void deleteItemById() {
 
-        mDatabase.homeItemDao().insertItem(mHomeItem);
+        mDatabase.homeItemDAO().insertItem(mHomeItem);
 
-        mDatabase.homeItemDao().deleteItemById(mHomeItem.getId());
+        mDatabase.homeItemDAO().deleteItemById(mHomeItem.getId());
 
-        LiveData<List<HomeItem>> all = mDatabase.homeItemDao().getItems();
+        LiveData<List<HomeItem>> all = mDatabase.homeItemDAO().getItems();
 
         all.observeForever(new Observer<List<HomeItem>>() {
             @Override
@@ -198,11 +198,11 @@ public class HomeItemDaoTest {
     @Test
     public void deleteItem() {
 
-        mDatabase.homeItemDao().insertItem(mHomeItem);
+        mDatabase.homeItemDAO().insertItem(mHomeItem);
 
-        mDatabase.homeItemDao().deleteItem(mHomeItem);
+        mDatabase.homeItemDAO().deleteItem(mHomeItem);
 
-        LiveData<List<HomeItem>> all = mDatabase.homeItemDao().getItems();
+        LiveData<List<HomeItem>> all = mDatabase.homeItemDAO().getItems();
 
         all.observeForever(new Observer<List<HomeItem>>() {
             @Override
@@ -220,9 +220,9 @@ public class HomeItemDaoTest {
         homeItems.add(new HomeItem("newest - 3", "2-14", "http://3", HomeType.NEWEST));
         homeItems.add(new HomeItem("newest - 2", "2-14", "http://2", HomeType.NEWEST));
         homeItems.add(new HomeItem("newest - 1", "2-14", "http://1", HomeType.NEWEST));
-        mDatabase.homeItemDao().insertItems(homeItems);
+        mDatabase.homeItemDAO().insertItems(homeItems);
 
-        LiveData<List<HomeItem>> all = mDatabase.homeItemDao().getItems();
+        LiveData<List<HomeItem>> all = mDatabase.homeItemDAO().getItems();
 
         all.observeForever(new Observer<List<HomeItem>>() {
             @Override
