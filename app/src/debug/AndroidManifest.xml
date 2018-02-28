@@ -15,7 +15,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.android.example.github">
+          package="com.bzh.dytt">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application>
         <activity android:name="com.bzh.dytt.testing.SingleFragmentActivity">

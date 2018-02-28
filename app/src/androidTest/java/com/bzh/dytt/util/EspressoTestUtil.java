@@ -35,18 +35,17 @@ public class EspressoTestUtil {
      *
      * @param activityTestRule The activity rule whose views will be checked
      */
-    public static void disableProgressBarAnimations(
-            ActivityTestRule<? extends FragmentActivity> activityTestRule) {
+    public static void disableProgressBarAnimations(ActivityTestRule<? extends FragmentActivity> activityTestRule) {
         activityTestRule.getActivity().getSupportFragmentManager()
                 .registerFragmentLifecycleCallbacks(
-                new FragmentManager.FragmentLifecycleCallbacks() {
-                    @Override
-                    public void onFragmentViewCreated(FragmentManager fm, Fragment f, View v,
-                                                      Bundle savedInstanceState) {
-                        // traverse all views, if any is a progress bar, replace its animation
-                        traverseViews(v);
-                    }
-                }, true);
+                        new FragmentManager.FragmentLifecycleCallbacks() {
+                            @Override
+                            public void onFragmentViewCreated(FragmentManager fm, Fragment f, View v,
+                                                              Bundle savedInstanceState) {
+                                // traverse all views, if any is a progress bar, replace its animation
+                                traverseViews(v);
+                            }
+                        }, true);
     }
 
     private static void traverseViews(View view) {

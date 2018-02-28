@@ -1,9 +1,8 @@
 package com.bzh.dytt.home;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.support.annotation.NonNull;
+import android.arch.lifecycle.ViewModel;
+import android.support.annotation.VisibleForTesting;
 
 import com.bzh.dytt.DataRepository;
 import com.bzh.dytt.data.HomeArea;
@@ -14,20 +13,21 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class HomePageViewModel extends AndroidViewModel {
+public class HomePageViewModel extends ViewModel {
 
     private final DataRepository mRepository;
 
     @Inject
-    public HomePageViewModel(@NonNull Application application, DataRepository repository) {
-        super(application);
+    public HomePageViewModel(DataRepository repository) {
         mRepository = repository;
     }
 
+    @VisibleForTesting
     public LiveData<Resource<List<HomeArea>>> getHomeArea() {
         return mRepository.getHomeAreas();
     }
 
+    @VisibleForTesting
     public LiveData<Resource<List<HomeItem>>> getHomeItems(int type) {
         return mRepository.getHomeItems(type);
     }
