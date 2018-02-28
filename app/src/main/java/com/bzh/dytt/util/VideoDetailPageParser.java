@@ -63,6 +63,9 @@ public class VideoDetailPageParser {
             splitRegular = "【";
             fillMovieDetail(patterRegular, splitRegular, videoDetail, html);
 
+
+            videoDetail.setCoverUrl(coverUrl);
+
 //            entity.setName(title);
 //            entity.setPublishTime(publishTime);
 //            entity.setCoverUrl(coverUrl);

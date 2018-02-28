@@ -56,7 +56,9 @@ public class VideoDetail {
     @ColumnInfo(name = "description")
     private String mDescription;
 
-    public VideoDetail() {}
+    @NonNull
+    @ColumnInfo(name = "cover_url")
+    private String mCoverUrl;
 
     @NonNull
     public String getName() {
@@ -155,5 +157,14 @@ public class VideoDetail {
 
     public void setDetailLink(@NonNull String detailLink) {
         mDetailLink = detailLink;
+    }
+
+    @NonNull
+    public String getCoverUrl() {
+        return mCoverUrl;
+    }
+
+    public void setCoverUrl(@NonNull String coverUrl) {
+        mCoverUrl = coverUrl;
     }
 }

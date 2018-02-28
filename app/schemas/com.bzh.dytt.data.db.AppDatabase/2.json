@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "d3ce548bdb296176a6e6130320910146",
+    "version": 2,
+    "identityHash": "c918ba15d02e73bb0f2f7710288376b3",
     "entities": [
       {
         "tableName": "homeareas",
@@ -88,7 +88,7 @@
       },
       {
         "tableName": "video_detail",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`link` TEXT NOT NULL, `name` TEXT NOT NULL, `years` TEXT NOT NULL, `country` TEXT NOT NULL, `category` TEXT NOT NULL, `imdb_grade` TEXT NOT NULL, `file_size` TEXT NOT NULL, `duration` TEXT NOT NULL, `director` TEXT NOT NULL, `leading_role` TEXT NOT NULL, `description` TEXT NOT NULL, PRIMARY KEY(`link`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`link` TEXT NOT NULL, `name` TEXT NOT NULL, `years` TEXT NOT NULL, `country` TEXT NOT NULL, `category` TEXT NOT NULL, `imdb_grade` TEXT NOT NULL, `file_size` TEXT NOT NULL, `duration` TEXT NOT NULL, `director` TEXT NOT NULL, `leading_role` TEXT NOT NULL, `description` TEXT NOT NULL, `cover_url` TEXT NOT NULL, PRIMARY KEY(`link`))",
         "fields": [
           {
             "fieldPath": "mDetailLink",
@@ -155,6 +155,12 @@
             "columnName": "description",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "mCoverUrl",
+            "columnName": "cover_url",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -169,7 +175,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"d3ce548bdb296176a6e6130320910146\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c918ba15d02e73bb0f2f7710288376b3\")"
     ]
   }
 }

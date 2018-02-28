@@ -9,13 +9,16 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bzh.dytt.BaseFragment;
 import com.bzh.dytt.R;
 import com.bzh.dytt.data.VideoDetail;
 import com.bzh.dytt.data.network.Resource;
 import com.bzh.dytt.data.network.Status;
+import com.bzh.dytt.util.GlideApp;
 
 import javax.inject.Inject;
 
@@ -55,7 +58,10 @@ public class VideoDetailPageFragment extends BaseFragment{
     TextView mVideoTypeTv;
 
     @BindView(R.id.video_country)
-    TextView mVideoCountry;
+    TextView mVideoCountryTv;
+
+    @BindView(R.id.video_cover)
+    ImageView mVideoCoverIv;
 
     @Override
     protected View doCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,7 +80,12 @@ public class VideoDetailPageFragment extends BaseFragment{
                 }
                 mVideoNameTv.setText(videoDetail.getName());
                 mVideoTypeTv.setText(videoDetail.getCategory());
-                mVideoCountry.setText(videoDetail.getCountry());
+                mVideoCountryTv.setText(videoDetail.getCountry());
+
+                GlideApp.with(VideoDetailPageFragment.this)
+                        .load(videoDetail.getCoverUrl())
+                        .placeholder(R.drawable.default_video)
+                        .into(mVideoCoverIv);
             }
         }
     };
