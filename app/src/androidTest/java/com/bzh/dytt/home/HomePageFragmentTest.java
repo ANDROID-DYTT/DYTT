@@ -26,7 +26,6 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
-import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
@@ -61,7 +60,7 @@ public class HomePageFragmentTest {
     }
 
     @Test
-    public void success(){
+    public void success() {
         HomeArea homeArea = new HomeArea("别志华", HomeType.NEWEST_168);
         HomeArea homeArea2 = new HomeArea("胡玉琼", HomeType.NEWEST);
         List<HomeArea> list = new ArrayList<>();
@@ -72,8 +71,13 @@ public class HomePageFragmentTest {
         onView(withId(R.id.home_error)).check(matches(not(isDisplayed())));
         onView(withText(homeArea.getTitle())).check(matches(isDisplayed()));
         onView(withText(homeArea2.getTitle())).check(matches(isDisplayed()));
+
         onView(withText(homeArea.getTitle())).perform(click());
+        onView(withText(homeArea.getTitle())).check(matches(withText(mHomePageFragment.mHomeTabAdapter.getPageTitle(0).toString())));
+
         onView(withText(homeArea2.getTitle())).perform(click());
+        onView(withText(homeArea2.getTitle())).check(matches(withText(mHomePageFragment.mHomeTabAdapter.getPageTitle(1).toString())));
+
     }
 
     @Test
