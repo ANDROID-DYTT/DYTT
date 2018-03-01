@@ -2,7 +2,7 @@ package com.bzh.dytt.di;
 
 import com.bzh.dytt.colorhunt.ColorHuntFragment;
 import com.bzh.dytt.girl.GirlFragment;
-import com.bzh.dytt.home.HomeChildrenFragment;
+import com.bzh.dytt.home.HomeChildFragment;
 import com.bzh.dytt.home.HomePageFragment;
 import com.bzh.dytt.home.VideoDetailPageFragment;
 
@@ -21,7 +21,7 @@ public abstract class FragmentBuildersModule {
     abstract GirlFragment contributeGirlFragment();
 
     @ContributesAndroidInjector
-    abstract HomeChildrenFragment contributeHomeChildFragment();
+    abstract HomeChildFragment contributeHomeChildFragment();
 
     @ContributesAndroidInjector
     abstract VideoDetailPageFragment contributeVideoDetailFragment();

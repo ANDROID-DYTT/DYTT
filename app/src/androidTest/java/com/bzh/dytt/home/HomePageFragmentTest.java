@@ -42,7 +42,6 @@ public class HomePageFragmentTest {
 
 
     private MutableLiveData<Resource<List<HomeArea>>> mHomeAreas = new MutableLiveData<>();
-    private MutableLiveData<Resource<List<HomeItem>>> mHomeItems = new MutableLiveData<>();
 
     @Before
     public void init() {
@@ -52,7 +51,6 @@ public class HomePageFragmentTest {
         mHomePageViewModel = mock(HomePageViewModel.class);
 
         when(mHomePageViewModel.getHomeArea()).thenReturn(mHomeAreas);
-        when(mHomePageViewModel.getHomeItems(HomeType.NEWEST_168)).thenReturn(mHomeItems);
 
         mHomePageFragment.mViewModelFactory = ViewModelUtil.createFor(mHomePageViewModel);
 

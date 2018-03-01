@@ -35,18 +35,17 @@ public class HomePageViewModelTest {
 
     @Mock
     private DataRepository mRepository;
+
     private HomePageViewModel mHomePageViewModel;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-
         when(mContext.getApplicationContext()).thenReturn(mContext);
         when(mContext.getResources()).thenReturn(mock(Resources.class));
 
-
-        mHomePageViewModel = new HomePageViewModel(mContext, mRepository);
+        mHomePageViewModel = new HomePageViewModel(mRepository);
     }
 
     @After
