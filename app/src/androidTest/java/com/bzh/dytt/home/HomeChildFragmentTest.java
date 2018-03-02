@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
@@ -69,7 +70,18 @@ public class HomeChildFragmentTest {
 
     @Test
     public void refresh() {
-        
+        onView(withId(R.id.home_child_swipe_refresh)).perform(swipeDown());
+
+        List<HomeItem> homeItems = setHomeItems(2);
+        mHomeItems.postValue(Resource.success(homeItems));
+        onView(withId(R.id.home_child_empty)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.home_child_error)).check(matches(not(isDisplayed())));
+
+        for (int pos = 0; pos < homeItems.size(); pos++) {
+            HomeItem homeItem = homeItems.get(pos);
+            onView(listMatcher().atPosition(pos)).check(matches(hasDescendant(withText(homeItem.getTitle()))));
+            onView(listMatcher().atPosition(pos)).check(matches(hasDescendant(withText(homeItem.getTime()))));
+        }
     }
 
     @Test
