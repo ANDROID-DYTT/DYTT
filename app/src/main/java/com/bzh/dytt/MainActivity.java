@@ -18,6 +18,10 @@ import com.bzh.dytt.colorhunt.ColorHuntFragment;
 import com.bzh.dytt.girl.GirlFragment;
 import com.bzh.dytt.home.HomePageFragment;
 import com.bzh.dytt.view.NonInteractiveViewPage;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 
 import javax.inject.Inject;
 
@@ -48,13 +52,27 @@ public class MainActivity extends AppCompatActivity
     NonInteractiveViewPage mContainer;
 
     private MainViewPagerAdapter mPagerAdapter;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        MobileAds.initialize(this, "ca-app-pub-8112052667906046~4830848371");
 
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        mInterstitialAd.setAdUnitId("ca-app-pub-8112052667906046/3769048149");
+//        mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice("B892AFDD6F67FA14C925B7E2EE5547E0").build());
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+//                mInterstitialAd.show();
+            }
+        });
 
         setSupportActionBar(mToolbar);
 
