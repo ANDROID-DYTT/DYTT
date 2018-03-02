@@ -3,14 +3,18 @@ package com.bzh.dytt.data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "homeitems")
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
+@Entity(tableName = "homeitems", indices = {@Index(value = {"link", "type"}, unique = true)})
 public final class HomeItem {
 
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private int mId;
 
@@ -29,16 +33,20 @@ public final class HomeItem {
     @NonNull
     private int mType;
 
+    @ColumnInfo(name = "time_millis")
+    @NonNull
+    private long mTimeMillis;
+
+
     public HomeItem() {
     }
 
     @Ignore
     public HomeItem(String title, String time, String detailLink, int type) {
         this.mTitle = title;
-        this.mTime = time;
+        setTime(time);
         this.mDetailLink = detailLink;
         this.mType = type;
-        this.mId = detailLink.hashCode();
     }
 
     public int getType() {
@@ -65,7 +73,6 @@ public final class HomeItem {
 
     public void setDetailLink(@NonNull String detailLink) {
         this.mDetailLink = detailLink;
-        this.mId = detailLink.hashCode();
     }
 
     public int getId() {
@@ -80,7 +87,30 @@ public final class HomeItem {
         return mTime;
     }
 
+    @Ignore
+    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
     public void setTime(String time) {
         this.mTime = time;
+        if (time != null && time.length() > 0) {
+            try {
+                setTimeMillis(mFormat.parse(time).getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+                mTime = null;
+                setTimeMillis(System.currentTimeMillis());
+            }
+        } else {
+            setTimeMillis(System.currentTimeMillis());
+        }
+    }
+
+    @NonNull
+    public long getTimeMillis() {
+        return mTimeMillis;
+    }
+
+    public void setTimeMillis(@NonNull long timeMillis) {
+        mTimeMillis = timeMillis;
     }
 }

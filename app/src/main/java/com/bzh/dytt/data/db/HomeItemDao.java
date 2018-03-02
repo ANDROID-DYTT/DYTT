@@ -11,7 +11,7 @@ import com.bzh.dytt.data.HomeItem;
 
 import java.util.List;
 
-import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 
 
 @Dao
@@ -20,16 +20,16 @@ public interface HomeItemDao {
     @Query("SELECT * FROM homeitems")
     LiveData<List<HomeItem>> getItems();
 
-    @Query("SELECT * FROM homeitems WHERE type = :type")
+    @Query("SELECT * FROM homeitems WHERE type = :type ORDER BY time_millis DESC")
     LiveData<List<HomeItem>> getItemsByType(int type);
 
     @Query("SELECT * FROM homeitems WHERE id = :id")
     LiveData<HomeItem> getItemById(int id);
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = IGNORE)
     void insertItem(HomeItem item);
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = IGNORE)
     void insertItems(List<HomeItem> items);
 
     @Update

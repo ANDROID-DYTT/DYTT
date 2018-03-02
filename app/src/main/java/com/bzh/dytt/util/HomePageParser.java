@@ -34,8 +34,8 @@ public class HomePageParser {
         List<HomeArea> result = new ArrayList<>();
 
         if (html != null && html.length() != 0) {
-            result.addAll(mNewest168Parse.parseAreas(html));
             result.addAll(mNewestParse.parseAreas(html));
+            result.addAll(mNewest168Parse.parseAreas(html));
             result.addAll(mThunderParse.parseAreas(html));
             result.addAll(mChinaTvParse.parseAreas(html));
             result.addAll(mJSKParse.parseAreas(html));
@@ -50,12 +50,18 @@ public class HomePageParser {
         List<HomeItem> result = new ArrayList<>();
 
         if (html != null && html.length() != 0) {
-            result.addAll(mNewest168Parse.parseItems(html));
-            result.addAll(mNewestParse.parseItems(html));
-            result.addAll(mThunderParse.parseItems(html));
-            result.addAll(mChinaTvParse.parseItems(html));
-            result.addAll(mJSKParse.parseItems(html));
-            result.addAll(mEAParse.parseItems(html));
+            List<HomeItem> l1 = mNewest168Parse.parseItems(html);
+            result.addAll(l1);
+            List<HomeItem> l2 = mNewestParse.parseItems(html);
+            result.addAll(l2);
+            List<HomeItem> l3 = mThunderParse.parseItems(html);
+            result.addAll(l3);
+            List<HomeItem> l4 = mChinaTvParse.parseItems(html);
+            result.addAll(l4);
+            List<HomeItem> l5 = mJSKParse.parseItems(html);
+            result.addAll(l5);
+            List<HomeItem> l6 = mEAParse.parseItems(html);
+            result.addAll(l6);
         }
 
         return result;
@@ -213,6 +219,7 @@ public class HomePageParser {
     }
 
     private static abstract class InternalHomeParser {
+
 
         public List<HomeArea> parseAreas(String html) {
             List<HomeArea> result = new ArrayList<>();

@@ -21,9 +21,11 @@ import com.bzh.dytt.BaseFragment;
 import com.bzh.dytt.R;
 import com.bzh.dytt.data.HomeArea;
 import com.bzh.dytt.data.HomeItem;
+import com.bzh.dytt.data.HomeType;
 import com.bzh.dytt.data.network.Resource;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -94,6 +96,9 @@ public class HomeChildFragment extends BaseFragment {
                     if (listResource.data == null || listResource.data.isEmpty()) {
                         mEmpty.setVisibility(View.VISIBLE);
                     } else {
+                        if (mHomeArea.getType() == HomeType.NEWEST_168) {
+                            Collections.reverse(listResource.data);
+                        }
                         mAdapter.setItems(listResource.data);
                     }
                 }

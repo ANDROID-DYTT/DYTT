@@ -21,11 +21,15 @@ public class HomePageParserTest {
     private String mHomePage;
 
     private HomePageParser mHomePageParser;
+    private HomePageParser.NewestParse mNewestParse;
+    private HomePageParser.ThunderParse mThunderParse;
 
     @Before
     public void setUp() throws Exception {
         mHomePage = TestUtils.getResource(getClass(), "index.html");
         mHomePageParser = new HomePageParser();
+        mNewestParse = new HomePageParser.NewestParse();
+        mThunderParse = new HomePageParser.ThunderParse();
     }
 
     @After
@@ -36,7 +40,7 @@ public class HomePageParserTest {
      * 测试 Area 是否可以解析成功
      */
     @Test
-    public void parseHomePageArea(){
+    public void parseHomePageArea() {
         List<HomeArea> result = mHomePageParser.parseAreas(mHomePage);
 
         assertNotNull(result);
@@ -53,13 +57,21 @@ public class HomePageParserTest {
     @Test
     public void parseHomePageItem() {
         List<HomeItem> result = mHomePageParser.parseItems(mHomePage);
-
         assertNotNull(result);
         assertTrue(result.size() > 0);
-
         assertEquals("IMDB评分8分以上影片200部", result.get(0).getTitle());
-        assertEquals("/html/gndy/jddy/20180213/56318.html", result.get(1).getDetailLink());
-        assertEquals(600, result.get(235).getType());
     }
 
+    @Test
+    public void parseNewestItems() {
+        List<HomeItem> homeItems = mNewestParse.parseItems(mHomePage);
+        assertNotNull(homeItems);
+        assertEquals("<>推荐下载本站app,绿色小巧,简单实用不占资源,详细说明请点击进入！<>", homeItems.get(0).getTime());
+    }
+
+    @Test
+    public void parseThunderItems() {
+        List<HomeItem> homeItems = mThunderParse.parseItems(mHomePage);
+        assertNotNull(homeItems);
+    }
 }
