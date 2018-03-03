@@ -3,4 +3,6 @@
     <color name="colorPrimaryDark">#222831</color>
     <color name="colorPrimary">#393E46</color>
     <color name="colorAccent">#00ADB5</color>
+    <color name="item_home_child_title">#242c43</color>
+    <color name="item_home_chile_time">#b7b7bb</color>
 </resources>

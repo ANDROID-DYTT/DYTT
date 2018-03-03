@@ -1,9 +1,11 @@
 package com.bzh.dytt.home;
 
 
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,7 +13,6 @@ import android.support.annotation.VisibleForTesting;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.bzh.dytt.BaseFragment;
 import com.bzh.dytt.R;
+import com.bzh.dytt.SingleActivity;
 import com.bzh.dytt.data.HomeArea;
 import com.bzh.dytt.data.HomeItem;
 import com.bzh.dytt.data.HomeType;
@@ -98,6 +100,8 @@ public class HomeChildFragment extends BaseFragment {
                     } else {
                         if (mHomeArea.getType() == HomeType.NEWEST_168) {
                             Collections.reverse(listResource.data);
+                        } else if (mHomeArea.getType() == HomeType.NEWEST) {
+                            listResource.data.remove(0);
                         }
                         mAdapter.setItems(listResource.data);
                     }
@@ -170,12 +174,20 @@ public class HomeChildFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull ChildHolder holder, int position) {
             HomeItem homeItem = mItems.get(position);
-            holder.setTitle(homeItem.getTitle());
+            String replace1 = homeItem.getTitle().replaceAll(" ", "");
+            String replace2 = replace1.replaceAll("。", ".");
+            String replace3 = replace2.replaceAll("：", ":");
+            holder.setTitle(replace3.trim());
             holder.setTime(homeItem.getTime());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(TAG, "onClick: " + homeItem.getTitle());
+                    if (holder.itemView.getContext() instanceof Activity) {
+                        Activity context = (Activity) holder.itemView.getContext();
+                        Intent intent = new Intent(context, SingleActivity.class);
+                        intent.putExtra("DETAIL_LINK", homeItem.getDetailLink());
+                        context.startActivity(intent);
+                    }
                 }
             });
         }
