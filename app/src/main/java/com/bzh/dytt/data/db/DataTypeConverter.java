@@ -30,6 +30,9 @@ public class DataTypeConverter {
     @TypeConverter
     public static String strToList(List<String> list) {
         StringBuilder result = new StringBuilder();
+        if (list == null) {
+            return result.toString();
+        }
         for (String s : list) {
             if (TextUtils.isEmpty(s)) {
                 continue;

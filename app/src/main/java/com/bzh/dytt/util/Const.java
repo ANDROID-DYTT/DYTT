@@ -27,7 +27,7 @@ public class Const {
 
     // 电视剧
     public static final String EPISODENUMBER = "集数";
-    public static final String PLAYTIME = "上映日期";
+    public static final String SHOWTIME = "上映日期";
 
     // 日韩电视剧
     public static final String PLAYNAME = "剧名";

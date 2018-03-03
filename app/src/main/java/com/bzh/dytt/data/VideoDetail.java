@@ -2,7 +2,6 @@ package com.bzh.dytt.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -16,51 +15,57 @@ public class VideoDetail {
     @ColumnInfo(name = "link")
     private String mDetailLink;
 
-    @NonNull
     @ColumnInfo(name = "name")
     private String mName;
 
-    @NonNull
     @ColumnInfo(name = "years")
     private String mYears;
 
-    @NonNull
     @ColumnInfo(name = "country")
     private String mCountry;
 
-    @NonNull
-    @ColumnInfo(name = "category")
-    private String mCategory;
+    @ColumnInfo(name = "type")
+    private String mType;
 
-    @NonNull
     @ColumnInfo(name = "imdb_grade")
     private String mIMDBGrade;
 
-    @NonNull
+    @ColumnInfo(name = "imdb_grade_userds")
+    private String mIMDBGradeUsers;
+
+    @ColumnInfo(name = "douban_grade")
+    private String mDoubanGrade;
+
+    @ColumnInfo(name = "douban_grade_users")
+    private String mDoubanGradeUsers;
+
     @ColumnInfo(name = "file_size")
     private String mFileSize;
 
-    @NonNull
     @ColumnInfo(name = "duration")
     private String mDuration;
 
-    @NonNull
     @ColumnInfo(name = "director")
     private List<String> mDirector;
 
-    @NonNull
     @ColumnInfo(name = "leading_role")
     private List<String> mLeadingRole;
 
-    @NonNull
     @ColumnInfo(name = "description")
     private String mDescription;
 
-    @NonNull
     @ColumnInfo(name = "cover_url")
     private String mCoverUrl;
 
-    @NonNull
+    @ColumnInfo(name = "download_link")
+    private String mDownloadLink;
+
+    @ColumnInfo(name = "show_time")
+    private String mShowTime;
+
+    @ColumnInfo(name = "publish_time")
+    private String mPublishTime;
+
     public String getName() {
         return mName;
     }
@@ -69,7 +74,6 @@ public class VideoDetail {
         this.mName = name;
     }
 
-    @NonNull
     public String getYears() {
         return mYears;
     }
@@ -78,7 +82,6 @@ public class VideoDetail {
         mYears = years;
     }
 
-    @NonNull
     public String getCountry() {
         return mCountry;
     }
@@ -87,16 +90,14 @@ public class VideoDetail {
         mCountry = country;
     }
 
-    @NonNull
-    public String getCategory() {
-        return mCategory;
+    public String getType() {
+        return mType;
     }
 
-    public void setCategory(@NonNull String category) {
-        mCategory = category;
+    public void setType(@NonNull String type) {
+        mType = type;
     }
 
-    @NonNull
     public String getIMDBGrade() {
         return mIMDBGrade;
     }
@@ -105,7 +106,6 @@ public class VideoDetail {
         mIMDBGrade = IMDBGrade;
     }
 
-    @NonNull
     public String getFileSize() {
         return mFileSize;
     }
@@ -114,7 +114,6 @@ public class VideoDetail {
         mFileSize = fileSize;
     }
 
-    @NonNull
     public String getDuration() {
         return mDuration;
     }
@@ -123,7 +122,6 @@ public class VideoDetail {
         mDuration = duration;
     }
 
-    @NonNull
     public List<String> getDirector() {
         return mDirector;
     }
@@ -132,7 +130,6 @@ public class VideoDetail {
         mDirector = director;
     }
 
-    @NonNull
     public List<String> getLeadingRole() {
         return mLeadingRole;
     }
@@ -141,7 +138,6 @@ public class VideoDetail {
         mLeadingRole = leadingRole;
     }
 
-    @NonNull
     public String getDescription() {
         return mDescription;
     }
@@ -159,12 +155,59 @@ public class VideoDetail {
         mDetailLink = detailLink;
     }
 
-    @NonNull
     public String getCoverUrl() {
         return mCoverUrl;
     }
 
     public void setCoverUrl(@NonNull String coverUrl) {
         mCoverUrl = coverUrl;
+    }
+
+    public String getDownloadLink() {
+        return mDownloadLink;
+    }
+
+    public void setDownloadLink(@NonNull String downloadLink) {
+        mDownloadLink = downloadLink;
+    }
+
+    public String getShowTime() {
+        return mShowTime;
+    }
+
+    public void setShowTime(@NonNull String showTime) {
+        mShowTime = showTime;
+    }
+
+    public String getPublishTime() {
+        return mPublishTime;
+    }
+
+    public void setPublishTime(@NonNull String publishTime) {
+        mPublishTime = publishTime;
+    }
+
+    public String getDoubanGrade() {
+        return mDoubanGrade;
+    }
+
+    public void setDoubanGrade(@NonNull String doubanGrade) {
+        mDoubanGrade = doubanGrade;
+    }
+
+    public String getDoubanGradeUsers() {
+        return mDoubanGradeUsers;
+    }
+
+    public void setDoubanGradeUsers(String doubanGradeUsers) {
+        mDoubanGradeUsers = doubanGradeUsers;
+    }
+
+    public String getIMDBGradeUsers() {
+        return mIMDBGradeUsers;
+    }
+
+    public void setIMDBGradeUsers(String IMDBGradeUsers) {
+        mIMDBGradeUsers = IMDBGradeUsers;
     }
 }

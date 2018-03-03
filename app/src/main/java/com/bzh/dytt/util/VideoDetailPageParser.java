@@ -1,6 +1,7 @@
 package com.bzh.dytt.util;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.bzh.dytt.data.VideoDetail;
 
@@ -65,7 +66,7 @@ public class VideoDetailPageParser {
 
 
             videoDetail.setCoverUrl(coverUrl);
-
+            videoDetail.setPublishTime(publishTime);
 //            entity.setName(title);
 //            entity.setPublishTime(publishTime);
 //            entity.setCoverUrl(coverUrl);
@@ -154,7 +155,7 @@ public class VideoDetailPageParser {
                     } else if (info.startsWith(Const.CATEGORY)) {
                         // 类别
                         info = info.substring(info.indexOf(Const.CATEGORY) + Const.CATEGORY.length());
-                        entity.setCategory(info);
+                        entity.setType(info);
                     } else if (info.startsWith(Const.LANGUAGE)) {
                         // 语言
                         info = info.substring(info.indexOf(Const.LANGUAGE) + Const.LANGUAGE.length());
@@ -166,13 +167,17 @@ public class VideoDetailPageParser {
                         info = info.substring(info.indexOf(Const.FILEFORMAT) + Const.FILEFORMAT.length());
                     } else if (info.toLowerCase().startsWith(Const.IMDB_GRADE.toLowerCase())) {
                         // IMDB评分
-                        info = info.substring(info.toLowerCase().indexOf(Const.IMDB_GRADE.toLowerCase()) + Const.IMDB_GRADE.length());
-                        entity.setIMDBGrade(info);
+                        info = info.substring(info.toLowerCase().indexOf(Const.IMDB_GRADE.toLowerCase()) + Const
+                                .IMDB_GRADE.length());
+                        entity.setIMDBGrade(getGrade(info));
+                        entity.setIMDBGradeUsers(getGradeUsers(info));
                     } else if (info.toLowerCase().startsWith(Const.DOUBAN_GRADE.toLowerCase())) {
-                        // IMDB评分
-                        info = info.substring(info.toLowerCase().indexOf(Const.DOUBAN_GRADE.toLowerCase()) + Const.DOUBAN_GRADE.length());
-                        entity.setIMDBGrade(info);
-                    }else if (info.startsWith(Const.VIDEOSIZE)) {
+                        // 豆瓣评分
+                        info = info.substring(info.toLowerCase().indexOf(Const.DOUBAN_GRADE.toLowerCase()) + Const
+                                .DOUBAN_GRADE.length());
+                        entity.setDoubanGrade(getGrade(info));
+                        entity.setDoubanGradeUsers(getGradeUsers(info));
+                    } else if (info.startsWith(Const.VIDEOSIZE)) {
                         // 视频尺寸
                         info = info.substring(info.indexOf(Const.VIDEOSIZE) + Const.VIDEOSIZE.length());
                     } else if (info.startsWith(Const.FILESIZE)) {
@@ -186,7 +191,7 @@ public class VideoDetailPageParser {
                     } else if (info.startsWith(Const.DIRECTOR)) {
                         // 导演
                         info = info.substring(info.indexOf(Const.DIRECTOR) + Const.DIRECTOR.length());
-                            entity.setDirector(new ArrayList<String>());
+                        entity.setDirector(new ArrayList<String>());
                         if (info.contains("•")) {
                             String[] strings = info.split("•");
                             entity.getDirector().addAll(Arrays.asList(strings));
@@ -196,7 +201,7 @@ public class VideoDetailPageParser {
                     } else if (info.startsWith(Const.LEADING_ROLE)) {
                         // 主演
                         info = info.substring(info.indexOf(Const.LEADING_ROLE) + Const.LEADING_ROLE.length());
-                            entity.setLeadingRole(new ArrayList<String>());
+                        entity.setLeadingRole(new ArrayList<String>());
                         if (info.startsWith("<br>")) {
                             String[] leadingplayers = info.split("<br>");
                             entity.getLeadingRole().addAll(Arrays.asList(leadingplayers));
@@ -207,13 +212,12 @@ public class VideoDetailPageParser {
                         // 描述
                         info = info.substring(info.indexOf(Const.DESCRIPTION) + Const.DESCRIPTION.length());
                         entity.setDescription(info);
+                    } else if (info.startsWith(Const.SHOWTIME)) {
+                        // 上映日期
+                        info = info.substring(info.indexOf(Const.SHOWTIME) + Const.SHOWTIME.length());
+                        entity.setShowTime(info);
                     }
-//                    // 话语电视剧
-//                    else if (info.startsWith(Const.PLAYTIME)) {
-//                        // 上映日期
-//                        info = info.substring(info.indexOf(Const.PLAYTIME) + Const.PLAYTIME.length());
-//                        entity.setPlaytime(info);
-//                    } else if (info.startsWith(Const.EPISODENUMBER)) {
+//                    else if (info.startsWith(Const.EPISODENUMBER)) {
 //                        // 集数
 //                        info = info.substring(info.indexOf(Const.EPISODENUMBER) + Const.EPISODENUMBER.length());
 //                        entity.setEpisodeNumber(info);
@@ -230,7 +234,7 @@ public class VideoDetailPageParser {
 //                    } else if (info.startsWith(Const.TYPE)) {
 //                        // 类型
 //                        info = info.substring(info.indexOf(Const.TYPE) + Const.TYPE.length());
-//                        entity.setCategory(info);
+//                        entity.setType(info);
 //                    } else if (info.startsWith(Const.PREMIERE)) {
 //                        // 首播
 //                        info = info.substring(info.indexOf(Const.PREMIERE) + Const.PREMIERE.length());
@@ -308,6 +312,36 @@ public class VideoDetailPageParser {
             }
             return str;
         }
+
+        private String getGrade(String str){
+            String result = "0";
+            if(TextUtils.isEmpty(str)) {
+                return result;
+            }
+            try {
+                result= str.split("/")[0];
+            } catch (Exception e) {
+                return result;
+            }
+            return result;
+        }
+
+        private String getGradeUsers(String str){
+            String result = "0";
+
+            if(TextUtils.isEmpty(str)) {
+                return "0";
+            }
+            try {
+                result = str.split("from")[1].split("users")[0];
+
+            } catch (Exception e) {
+                return result;
+            }
+            return result;
+        }
+
+
 
     }
 }

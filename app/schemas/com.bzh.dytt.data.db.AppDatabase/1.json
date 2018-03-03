@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "08046e1c0fd33b2e4b2b564743ee5f87",
+    "identityHash": "3281ab070b3f1e84c6bf5a972a21f8f2",
     "entities": [
       {
         "tableName": "homeareas",
@@ -104,7 +104,7 @@
       },
       {
         "tableName": "video_detail",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`link` TEXT NOT NULL, `name` TEXT NOT NULL, `years` TEXT NOT NULL, `country` TEXT NOT NULL, `category` TEXT NOT NULL, `imdb_grade` TEXT NOT NULL, `file_size` TEXT NOT NULL, `duration` TEXT NOT NULL, `director` TEXT NOT NULL, `leading_role` TEXT NOT NULL, `description` TEXT NOT NULL, `cover_url` TEXT NOT NULL, PRIMARY KEY(`link`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`link` TEXT NOT NULL, `name` TEXT, `years` TEXT, `country` TEXT, `type` TEXT, `imdb_grade` TEXT, `imdb_grade_userds` TEXT, `douban_grade` TEXT, `douban_grade_users` TEXT, `file_size` TEXT, `duration` TEXT, `director` TEXT, `leading_role` TEXT, `description` TEXT, `cover_url` TEXT, `download_link` TEXT, `show_time` TEXT, `publish_time` TEXT, PRIMARY KEY(`link`))",
         "fields": [
           {
             "fieldPath": "mDetailLink",
@@ -116,67 +116,103 @@
             "fieldPath": "mName",
             "columnName": "name",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "mYears",
             "columnName": "years",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "mCountry",
             "columnName": "country",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
-            "fieldPath": "mCategory",
-            "columnName": "category",
+            "fieldPath": "mType",
+            "columnName": "type",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "mIMDBGrade",
             "columnName": "imdb_grade",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
+          },
+          {
+            "fieldPath": "mIMDBGradeUsers",
+            "columnName": "imdb_grade_userds",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mDoubanGrade",
+            "columnName": "douban_grade",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mDoubanGradeUsers",
+            "columnName": "douban_grade_users",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "mFileSize",
             "columnName": "file_size",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "mDuration",
             "columnName": "duration",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "mDirector",
             "columnName": "director",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "mLeadingRole",
             "columnName": "leading_role",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "mDescription",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "mCoverUrl",
             "columnName": "cover_url",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
+          },
+          {
+            "fieldPath": "mDownloadLink",
+            "columnName": "download_link",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mShowTime",
+            "columnName": "show_time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mPublishTime",
+            "columnName": "publish_time",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -191,7 +227,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"08046e1c0fd33b2e4b2b564743ee5f87\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"3281ab070b3f1e84c6bf5a972a21f8f2\")"
     ]
   }
 }

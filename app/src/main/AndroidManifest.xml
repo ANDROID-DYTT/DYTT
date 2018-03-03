@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".SingleActivity"/>
+        <activity android:name=".SingleActivity" android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".testing.SingleFragmentActivity"/>
     </application>

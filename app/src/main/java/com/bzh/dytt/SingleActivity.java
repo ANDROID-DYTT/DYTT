@@ -24,6 +24,9 @@ public class SingleActivity extends AppCompatActivity implements HasSupportFragm
         Intent intent = getIntent();
         String detailLink = intent.getStringExtra("DETAIL_LINK");
         assert detailLink != null;
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, VideoDetailPageFragment.newInstance(detailLink)).commit();
     }
 

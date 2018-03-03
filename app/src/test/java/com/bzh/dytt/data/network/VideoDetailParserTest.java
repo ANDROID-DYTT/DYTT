@@ -1,6 +1,8 @@
 package com.bzh.dytt.data.network;
 
 
+import android.text.TextUtils;
+
 import com.bzh.dytt.TestUtils;
 import com.bzh.dytt.data.VideoDetail;
 import com.bzh.dytt.util.VideoDetailPageParser;
@@ -30,5 +32,42 @@ public class VideoDetailParserTest {
         assertNotNull(videoDetail);
         assertEquals("机器之血", videoDetail.getName());
 
+    }
+
+    @Test
+    public void parseGrade(){
+        String grade = getGrade("6.5/10from10,748users");
+        assertEquals("6.5", grade);
+
+        String users = getGradeUsers("6.5/10from10,748users");
+        assertEquals("10,748", users);
+    }
+
+    private String getGrade(String str){
+        String result = "0";
+        if(TextUtils.isEmpty(str)) {
+            return result;
+        }
+        try {
+            result= str.split("/")[0];
+        } catch (Exception e) {
+            return result;
+        }
+        return result;
+    }
+
+    private String getGradeUsers(String str){
+        String result = "0";
+
+        if(TextUtils.isEmpty(str)) {
+            return "0";
+        }
+        try {
+            result = str.split("from")[1].split("users")[0];
+
+        } catch (Exception e) {
+            return result;
+        }
+        return result;
     }
 }
