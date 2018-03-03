@@ -1,6 +1,5 @@
 package com.bzh.dytt;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -117,14 +116,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             mToolbar.setTitle(R.string.nav_home_page);
             mContainer.setCurrentItem(0);
-        } else if (id == R.id.nav_girl) {
+        }
+//        else if (id == R.id.nav_girl) {
 //            mToolbar.setTitle(R.string.nav_girl_page);
 //            mContainer.setCurrentItem(1);
-            startActivity(new Intent(this, SingleActivity.class));
-        } else if (id == R.id.nav_color_hunt) {
-            mToolbar.setTitle(R.string.nav_color_hunt_page);
-            mContainer.setCurrentItem(2);
-        }
+//        } else if (id == R.id.nav_color_hunt) {
+//            mToolbar.setTitle(R.string.nav_color_hunt_page);
+//            mContainer.setCurrentItem(2);
+//        }
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }

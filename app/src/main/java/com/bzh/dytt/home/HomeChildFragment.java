@@ -182,11 +182,11 @@ public class HomeChildFragment extends BaseFragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (holder.itemView.getContext() instanceof Activity) {
-                        Activity context = (Activity) holder.itemView.getContext();
-                        Intent intent = new Intent(context, SingleActivity.class);
+                    Activity activity = getActivityByHolder(holder);
+                    if (activity != null) {
+                        Intent intent = new Intent(activity, SingleActivity.class);
                         intent.putExtra("DETAIL_LINK", homeItem.getDetailLink());
-                        context.startActivity(intent);
+                        activity.startActivity(intent);
                     }
                 }
             });
@@ -201,6 +201,13 @@ public class HomeChildFragment extends BaseFragment {
             mItems.clear();
             mItems.addAll(items);
             notifyDataSetChanged();
+        }
+
+        private Activity getActivityByHolder(ChildHolder holder) {
+            if (holder.itemView.getContext() instanceof Activity) {
+                return ((Activity) holder.itemView.getContext());
+            }
+            return null;
         }
     }
 }
