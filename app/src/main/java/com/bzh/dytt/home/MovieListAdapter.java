@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,15 +50,21 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         final VideoDetail videoDetail = mItems.get(position);
 
         if (videoDetail != null) {
-            holder.VideoTitleTv.setText(Objects.equals(videoDetail.getCountry(), "中国") ? videoDetail.getName() : videoDetail.getTranslationName());
+            holder.VideoTitleTv.setText((!TextUtils.isEmpty(videoDetail.getCountry()) && videoDetail.getCountry()
+                    .contains("中国")) ? videoDetail.getName() :
+                    videoDetail.getTranslationName());
             holder.VideoPublishTv.setText(videoDetail.getPublishTime());
-            holder.DoubanGradeTv.setText("豆瓣/" + videoDetail.getDoubanGrade());
-            holder.IMDBGradeTv.setText("IMDB/" + videoDetail.getIMDBGrade());
+            if (!TextUtils.isEmpty(videoDetail.getDoubanGrade())) {
+                holder.DoubanGradeTv.setText("豆瓣/" + videoDetail.getDoubanGrade());
+            }
+            if (!TextUtils.isEmpty(videoDetail.getIMDBGrade())) {
+                holder.IMDBGradeTv.setText("IMDB/" + videoDetail.getIMDBGrade());
+            }
             holder.VideoDescriptionTv.setText(videoDetail.getDescription());
 
             GlideApp.with(mContext)
                     .load(videoDetail.getCoverUrl())
-                    .placeholder(new ColorDrawable(Color.GRAY))
+                    .placeholder(R.drawable.default_video)
                     .into(holder.VideoCover);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {

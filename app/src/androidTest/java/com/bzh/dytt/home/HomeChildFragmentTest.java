@@ -75,19 +75,19 @@ public class HomeChildFragmentTest {
 
     @Test
     public void loading() {
-        mHomeItems.postValue(Resource.loading(null));
+//        mHomeItems.postValue(Resource.loading(null));
         onView(withId(R.id.home_child_swipe_refresh)).check(matches(isDisplayed()));
     }
 
     @Test
     public void error() {
-        mHomeItems.postValue(Resource.error("wft", null));
+//        mHomeItems.postValue(Resource.error("wft", null));
         onView(withId(R.id.home_child_error)).check(matches(isDisplayed()));
     }
 
     @Test
     public void successEmptyData() {
-        mHomeItems.postValue(Resource.success(null));
+//        mHomeItems.postValue(Resource.success(null));
         onView(withId(R.id.home_child_empty)).check(matches(isDisplayed()));
         onView(listMatcher().atPosition(0)).check(doesNotExist());
     }

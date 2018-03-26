@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.bzh.dytt.data.VideoDetail;
 import com.bzh.dytt.data.network.Resource;
 import com.bzh.dytt.data.network.Status;
 import com.bzh.dytt.util.GlideApp;
+import com.bzh.dytt.util.ThunderHelper;
 import com.github.florent37.glidepalette.BitmapPalette;
 import com.github.florent37.glidepalette.GlidePalette;
 
@@ -91,19 +93,25 @@ public class VideoDetailPageFragment extends BaseFragment {
 
         @Override
         public void onChanged(@Nullable Resource<List<VideoDetail>> videoDetailResource) {
-            VideoDetail videoDetail;
+            final VideoDetail videoDetail;
             if (videoDetailResource.status == Status.SUCCESS) {
                 videoDetail = videoDetailResource.data.get(0);
                 if (videoDetail == null) {
                     return;
                 }
-                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(videoDetail.getName());
-                mVideoNameTv.setText(videoDetail.getName());
+
+                String videoName = (!TextUtils.isEmpty(videoDetail.getCountry()) && videoDetail.getCountry()
+                        .contains("中国")) ? videoDetail.getName() :
+                        videoDetail.getTranslationName();
+
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(videoName);
                 mVideoTypeTv.setText(videoDetail.getType());
                 mVideoCountryTv.setText(videoDetail.getCountry());
                 mVideoDuration.setText(videoDetail.getDuration());
                 mVideoShowTime.setText(videoDetail.getShowTime());
                 mVideoTypeTv.setText(videoDetail.getType());
+
+                mVideoNameTv.setText(videoName);
 
                 if (TextUtils.isEmpty(videoDetail.getDoubanGrade()) || Objects.equals(videoDetail.getDoubanGrade(), "0")) {
                     mDoubanRatingLayout.setVisibility(View.GONE);
@@ -147,7 +155,7 @@ public class VideoDetailPageFragment extends BaseFragment {
                 mDownloadBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        ThunderHelper.getInstance(getActivity()).onClickDownload(videoDetail.getDownloadLink());
                     }
                 });
 

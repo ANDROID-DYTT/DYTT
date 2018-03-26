@@ -80,6 +80,7 @@ public class VideoDetailPageParser {
 //            entity.setPublishTime(publishTime);
 //            entity.setCoverUrl(coverUrl);
 //            entity.setPreviewImage(previewImage);
+            videoDetail.setDownloadLink(downloadUrls.get(0));
 //            entity.setDownloadUrls(downloadUrls);
 //            entity.setDownloadNames(downloadNames);
 

@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -24,7 +24,7 @@
                 android:background="@android:color/background_dark"
                 android:elevation="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/test_cover"/>
+                android:src="@drawable/default_video"/>
 
         </FrameLayout>
 
@@ -49,7 +49,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
-                    android:text="引爆者"
                     android:textSize="@dimen/video_detail_video_name"/>
 
                 <LinearLayout
@@ -63,15 +62,13 @@
                         android:id="@+id/video_country"
                         style="@style/video_detail_info_text"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="中国"/>
+                        android:layout_height="wrap_content"/>
 
                     <TextView
                         android:id="@+id/video_duration"
                         style="@style/video_detail_info_text"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="120分钟"/>
+                        android:layout_height="wrap_content"/>
 
 
                 </LinearLayout>
@@ -87,8 +84,7 @@
                     <TextView
                         style="@style/video_detail_info_text"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="上映时间"/>
+                        android:layout_height="wrap_content"/>
 
                     <TextView
                         android:id="@+id/video_show_time"
@@ -96,8 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:ellipsize="end"
-                        android:text="2017-01-01"/>
+                        android:ellipsize="end"/>
                 </LinearLayout>
 
                 <TextView
@@ -108,8 +103,7 @@
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:maxLength="20"
-                    android:maxLines="1"
-                    android:text="传记/剧情传记传记/剧情传记/剧情传记情传记情传记/剧情传记/剧情"/>
+                    android:maxLines="1"/>
 
 
             </LinearLayout>
@@ -163,8 +157,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="5dp"
-                        android:text="豆瓣/8.1"/>
+                        android:layout_marginStart="5dp"/>
 
                 </LinearLayout>
 
@@ -195,8 +188,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="5dp"
-                        android:text="IMDB/9.1"/>
+                        android:layout_marginStart="5dp"/>
 
                 </LinearLayout>
 
@@ -222,16 +214,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="0dp"
-                android:text="导演"/>
+                android:layout_marginStart="0dp"/>
 
             <TextView
                 android:id="@+id/video_director"
                 style="@style/video_detail_secondary_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="李安Lian"/>
+                android:layout_marginBottom="5dp"/>
 
             <TextView
                 style="@style/video_detail_info_text"
@@ -239,8 +229,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="0dp"
-                android:text="主演"/>
+                android:layout_marginStart="0dp"/>
 
             <TextView
                 android:id="@+id/video_leading_role"
@@ -248,8 +237,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:maxLines="1"
-                android:text="章子怡Zhangziyi"/>
+                android:maxLines="1"/>
 
 
             <TextView
@@ -257,8 +245,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="0dp"
-                android:text="剧情简介"/>
+                android:layout_marginStart="0dp"/>
 
             <TextView
                 android:id="@+id/video_description"
@@ -268,8 +255,7 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:ellipsize="end"
                 android:lineSpacingMultiplier="1.2"
-                android:maxLines="4"
-                android:text="剧情简介"/>
+                android:maxLines="4"/>
 
         </LinearLayout>
 

@@ -29,8 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="2"
-            android:ellipsize="end"
-            tools:text="King Charies Lii King Charies Lii"/>
+            android:ellipsize="end"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,16 +49,14 @@
                 style="@style/video_detail_info_text"
                 android:id="@+id/douban_grade"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="豆瓣/8.1"/>
+                android:layout_height="wrap_content"/>
 
 
             <TextView
                 style="@style/video_detail_info_text"
                 android:id="@+id/imdb_grade"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="IMDB/8.1"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
 
@@ -73,8 +70,7 @@
             android:maxLines="5"
             android:lineSpacingMultiplier="1.4"
             android:textSize="12sp"
-            android:ellipsize="end"
-            tools:text="这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介"/>
+            android:ellipsize="end"/>
 
     </LinearLayout>
 
