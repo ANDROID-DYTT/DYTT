@@ -2,7 +2,6 @@ package com.bzh.dytt.util;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.bzh.dytt.data.VideoDetail;
 
@@ -21,7 +20,6 @@ import javax.inject.Singleton;
 
 @Singleton
 public class VideoDetailPageParser {
-
 
     private InternalVideoDetailParser mVideoDetailParser;
 
@@ -43,7 +41,11 @@ public class VideoDetailPageParser {
 
     private static class InternalVideoDetailParser {
 
-        public VideoDetail parse(String s) throws Exception{
+        private static final String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
+        private static final String regEx_space = "(\\s|　|&nbsp;)*|\t|\r|\n";//定义空格回车换行符
+        private static final String regEx_regular = "(\\]|:|】|：)*";
+
+        public VideoDetail parse(String s) throws Exception {
             VideoDetail videoDetail = new VideoDetail();
             Document document = Jsoup.parse(s);
             String html = document.select("div.co_content8").select("ul").toString();
@@ -147,7 +149,7 @@ public class VideoDetailPageParser {
                         // 译名
                         info = info.substring(info.indexOf(Const.TRANSLATIONNAME) + Const.TRANSLATIONNAME.length());
 
-                        if(!TextUtils.isEmpty(info)) {
+                        if (!TextUtils.isEmpty(info)) {
                             entity.setTranslationName(info.split("/")[0]);
                         }
 
@@ -301,10 +303,6 @@ public class VideoDetailPageParser {
             }
         }
 
-        private static final String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
-        private static final String regEx_space = "(\\s|　|&nbsp;)*|\t|\r|\n";//定义空格回车换行符
-        private static final String regEx_regular = "(\\]|:|】|：)*";
-
         private String rejectHtmlSpaceCharacters(String str) {
             Pattern p_html = Pattern.compile(regEx_html);
             Matcher m_html = p_html.matcher(str);
@@ -324,23 +322,23 @@ public class VideoDetailPageParser {
             return str;
         }
 
-        private String getGrade(String str){
+        private String getGrade(String str) {
             String result = "0";
-            if(TextUtils.isEmpty(str)) {
+            if (TextUtils.isEmpty(str)) {
                 return result;
             }
             try {
-                result= str.split("/")[0];
+                result = str.split("/")[0];
             } catch (Exception e) {
                 return result;
             }
             return result;
         }
 
-        private String getGradeUsers(String str){
+        private String getGradeUsers(String str) {
             String result = "0";
 
-            if(TextUtils.isEmpty(str)) {
+            if (TextUtils.isEmpty(str)) {
                 return "0";
             }
             try {
@@ -351,7 +349,6 @@ public class VideoDetailPageParser {
             }
             return result;
         }
-
 
 
     }

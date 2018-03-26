@@ -5,7 +5,6 @@ import com.bzh.dytt.data.HomeArea;
 import com.bzh.dytt.data.HomeItem;
 import com.bzh.dytt.data.HomeType;
 import com.bzh.dytt.data.TypeConsts;
-import com.bzh.dytt.data.VideoDetail;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

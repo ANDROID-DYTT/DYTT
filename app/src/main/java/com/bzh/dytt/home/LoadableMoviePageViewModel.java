@@ -66,6 +66,7 @@ public class LoadableMoviePageViewModel extends BaseViewModel {
         private LiveData<Resource<List<CategoryMap>>> mLiveData;
 
         private DataRepository mRepository;
+
         private TypeConsts.MovieCategory mMovieCategory;
 
         CategoryHandler(DataRepository repository, TypeConsts.MovieCategory movieCategory) {

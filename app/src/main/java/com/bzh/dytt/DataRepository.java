@@ -70,7 +70,7 @@ public class DataRepository {
                     List<CategoryMap> categoryMaps = mHomePageParser.parseLatestMovieCategoryMap(item);
                     mAppDatabase.categoryMapDAO().insertCategoryMapList(categoryMaps);
 
-                                      List<VideoDetail> details = new ArrayList<>();
+                    List<VideoDetail> details = new ArrayList<>();
                     for (int i = categoryMaps.size() - 1; i >= 0; i--) {
                         VideoDetail videoDetail = new VideoDetail();
                         CategoryMap category = categoryMaps.get(i);

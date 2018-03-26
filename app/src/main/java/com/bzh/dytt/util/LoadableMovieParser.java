@@ -2,7 +2,6 @@ package com.bzh.dytt.util;
 
 import com.bzh.dytt.data.CategoryMap;
 import com.bzh.dytt.data.TypeConsts;
-import com.bzh.dytt.data.VideoDetail;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

@@ -8,7 +8,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.Transformations;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.bzh.dytt.BaseViewModel;
 import com.bzh.dytt.DataRepository;
