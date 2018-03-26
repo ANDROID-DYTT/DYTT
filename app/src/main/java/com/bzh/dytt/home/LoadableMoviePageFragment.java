@@ -18,7 +18,8 @@ import javax.inject.Inject;
 
 public class LoadableMoviePageFragment extends SingleListFragment<VideoDetail> {
 
-    private int test = 0;
+    @Inject
+    ViewModelProvider.Factory mFactory;
 
     public static LoadableMoviePageFragment newInstance(TypeConsts.MovieCategory category) {
         Bundle args = new Bundle();
@@ -27,9 +28,6 @@ public class LoadableMoviePageFragment extends SingleListFragment<VideoDetail> {
         fragment.setArguments(args);
         return fragment;
     }
-
-    @Inject
-    ViewModelProvider.Factory mFactory;
 
     @Override
     protected RecyclerView.Adapter createAdapter() {
@@ -58,7 +56,7 @@ public class LoadableMoviePageFragment extends SingleListFragment<VideoDetail> {
 
     @Override
     protected void doRefresh() {
-        ((LoadableMoviePageViewModel) mViewModel).getMovieList(true).observe(this, mObserver);
+        ((LoadableMoviePageViewModel) mViewModel).refresh();
 
     }
 }
