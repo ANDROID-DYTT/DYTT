@@ -15,6 +15,8 @@ import com.bzh.dytt.data.VideoDetail;
 import com.bzh.dytt.data.network.Resource;
 import com.bzh.dytt.util.AbsentLiveData;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,6 +58,10 @@ public class SearchViewModel extends ViewModel {
         if (TextUtils.equals(input, mQuery.getValue())) {
             return;
         }
-        mQuery.setValue(input);
+        try {
+            mQuery.setValue(URLEncoder.encode(input, "GBK"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 }

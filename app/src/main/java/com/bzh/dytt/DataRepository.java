@@ -22,6 +22,7 @@ import com.bzh.dytt.util.RateLimiter;
 import com.bzh.dytt.util.VideoDetailPageParser;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -210,7 +211,8 @@ public class DataRepository {
             @NonNull
             @Override
             protected LiveData<ApiResponse<ResponseBody>> createCall() {
-                return mService.search(query);
+                String url = String.format("http://s.ygdy8.com/plus/so.php?kwtype=0&searchtype=title&keyword=%s", query);
+                return mService.search(url);
             }
         }.getAsLiveData();
     }
