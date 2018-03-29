@@ -15,6 +15,7 @@ import com.bzh.dytt.data.network.ApiResponse;
 import com.bzh.dytt.data.network.DyttService;
 import com.bzh.dytt.data.network.NetworkBoundResource;
 import com.bzh.dytt.data.network.Resource;
+import com.bzh.dytt.task.FetchSearchVideoDetailTask;
 import com.bzh.dytt.task.FetchVideoDetailTask;
 import com.bzh.dytt.util.HomePageParser;
 import com.bzh.dytt.util.LoadableMovieParser;
@@ -193,7 +194,7 @@ public class DataRepository {
                     for (CategoryMap category : categoryMaps) {
                         boolean isParsed = mAppDatabase.categoryMapDAO().IsParsed(category.getLink());
                         if (!isParsed) {
-                            getVideoDetailNew(category);
+                            getSearchVideoDetailNew(category);
                         }
                     }
                 } catch (IOException e) {
@@ -302,6 +303,11 @@ public class DataRepository {
 
     public void getVideoDetailNew(CategoryMap categoryMap) {
         FetchVideoDetailTask task = new FetchVideoDetailTask(categoryMap, mAppDatabase, mService, mVideoDetailPageParser);
+        mAppExecutors.networkIO().execute(task);
+    }
+
+    public void getSearchVideoDetailNew(CategoryMap categoryMap) {
+        FetchSearchVideoDetailTask task = new FetchSearchVideoDetailTask(categoryMap, mAppDatabase, mService, mVideoDetailPageParser);
         mAppExecutors.networkIO().execute(task);
     }
 

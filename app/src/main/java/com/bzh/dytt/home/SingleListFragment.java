@@ -29,10 +29,10 @@ public abstract class SingleListFragment<T> extends BaseFragment {
     protected ViewModel mViewModel;
 
     @BindView(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout mSwipeRefresh;
+    protected SwipeRefreshLayout mSwipeRefresh;
 
     @BindView(R.id.listview)
-    RecyclerView mRecyclerView;
+    protected RecyclerView mRecyclerView;
 
     @BindView(R.id.empty_layout)
     View mEmpty;

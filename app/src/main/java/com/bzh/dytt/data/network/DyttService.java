@@ -14,7 +14,7 @@ public interface DyttService {
     LiveData<ApiResponse<ResponseBody>> getHomePage();
 
     @GET("/{detail_link}")
-    Call<ResponseBody> getVideoDetailNew(@Path("detail_link") String detailLink);
+    Call<ResponseBody> getVideoDetail(@Path("detail_link") String detailLink);
 
     @GET("/html/gndy/{category_string}")
     LiveData<ApiResponse<ResponseBody>> getMovieListByCategory(@Path("category_string") String category);
@@ -24,4 +24,7 @@ public interface DyttService {
 
     @GET
     LiveData<ApiResponse<ResponseBody>> search(@Url String query);
+
+    @GET
+    Call<ResponseBody> getSearchVideoDetail(@Url String url);
 }

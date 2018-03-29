@@ -16,7 +16,7 @@ import java.io.IOException;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
-public class FetchVideoDetailTask implements Runnable {
+public class FetchSearchVideoDetailTask implements Runnable {
 
     private static final String TAG = "FetchVideoDetailTask";
 
@@ -25,7 +25,7 @@ public class FetchVideoDetailTask implements Runnable {
     private VideoDetailPageParser mParser;
     private AppDatabase mDatabase;
 
-    public FetchVideoDetailTask(CategoryMap categoryMap, AppDatabase database, DyttService service, VideoDetailPageParser parser) {
+    public FetchSearchVideoDetailTask(CategoryMap categoryMap, AppDatabase database, DyttService service, VideoDetailPageParser parser) {
         mCategoryMap = categoryMap;
         mService = service;
         mParser = parser;
@@ -35,7 +35,7 @@ public class FetchVideoDetailTask implements Runnable {
     @Override
     public void run() {
         try {
-            Response<ResponseBody> response = mService.getVideoDetail(mCategoryMap.getLink()).execute();
+            Response<ResponseBody> response = mService.getSearchVideoDetail("http://www.ygdy8.com" + mCategoryMap.getLink()).execute();
             ApiResponse<ResponseBody> apiResponse = new ApiResponse<>(response);
 
             if (apiResponse.isSuccessful()) {

@@ -1,7 +1,8 @@
 package com.bzh.dytt.search;
 
 
-import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -10,53 +11,43 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.bzh.dytt.BaseFragment;
 import com.bzh.dytt.R;
-import com.bzh.dytt.data.HomeItem;
 import com.bzh.dytt.data.VideoDetail;
 import com.bzh.dytt.data.network.Resource;
+import com.bzh.dytt.home.MovieListAdapter;
+import com.bzh.dytt.home.SingleListFragment;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class SearchFragment extends BaseFragment {
+public class SearchFragment extends SingleListFragment<VideoDetail> {
 
     private static final String TAG = "SearchFragment";
 
-    SearchViewModel mViewModel;
-
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
-
-    EditText mSearchInput;
-
-    Observer<Resource<List<HomeItem>>> mObserver = new Observer<Resource<List<HomeItem>>>() {
-        @Override
-        public void onChanged(@Nullable Resource<List<HomeItem>> listResource) {
-
-        }
-    };
-
-    TextView.OnEditorActionListener mSearchActionListener = new TextView.OnEditorActionListener() {
+    @Inject
+    ViewModelProvider.Factory mFactory;
+    private EditText mSearchInput;
+    private TextView.OnEditorActionListener mSearchActionListener = new TextView.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 if (getActivity() != null && !TextUtils.isEmpty(v.getText())) {
                     String searchTarget = v.getText().toString().trim();
-                    mViewModel.setQuery(searchTarget);
+                    ((SearchViewModel) mViewModel).setQuery(searchTarget);
 
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (imm != null) {
@@ -103,21 +94,30 @@ public class SearchFragment extends BaseFragment {
     }
 
     @Override
-    protected View doCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.search_page, container, false);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mSearchInput.setOnEditorActionListener(mSearchActionListener);
+        mSwipeRefresh.setEnabled(false);
+        mSwipeRefresh.setRefreshing(false);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(SearchViewModel.class);
-        mSearchInput.setOnEditorActionListener(mSearchActionListener);
-        mViewModel.getVideoList().observe(this, new Observer<Resource<List<VideoDetail>>>() {
-            @Override
-            public void onChanged(@Nullable Resource<List<VideoDetail>> listResource) {
-                Log.d(TAG, "onChanged() called with: listResource = [" + listResource + "]");
-            }
-        });
+    protected RecyclerView.Adapter createAdapter() {
+        return new MovieListAdapter(this.getContext());
     }
 
+    @Override
+    protected void replace(List<VideoDetail> listData) {
+        ((MovieListAdapter) mAdapter).replace(listData);
+    }
+
+    @Override
+    protected LiveData<Resource<List<VideoDetail>>> getLiveData() {
+        return ((SearchViewModel) mViewModel).getVideoList();
+    }
+
+    @Override
+    protected ViewModel createViewModel() {
+        return ViewModelProviders.of(this, mFactory).get(SearchViewModel.class);
+    }
 }
