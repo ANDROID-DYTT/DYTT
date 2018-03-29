@@ -33,24 +33,29 @@ import javax.inject.Inject;
 public class SearchFragment extends BaseFragment {
 
     private static final String TAG = "SearchFragment";
+
     SearchViewModel mViewModel;
+
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
+
     EditText mSearchInput;
+
     Observer<Resource<List<HomeItem>>> mObserver = new Observer<Resource<List<HomeItem>>>() {
         @Override
         public void onChanged(@Nullable Resource<List<HomeItem>> listResource) {
 
         }
     };
+
     TextView.OnEditorActionListener mSearchActionListener = new TextView.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 if (getActivity() != null && !TextUtils.isEmpty(v.getText())) {
                     String searchTarget = v.getText().toString().trim();
+                    mViewModel.setQuery(searchTarget);
 
-                    mViewModel.toSearch(searchTarget).observe(getActivity(), mObserver);
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (imm != null) {
                         imm.hideSoftInputFromWindow(mSearchInput.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
