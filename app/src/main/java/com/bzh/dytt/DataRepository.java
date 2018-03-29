@@ -174,6 +174,9 @@ public class DataRepository {
                 try {
                     String item = new String(responseBody.bytes(), "GB2312");
                     List<CategoryMap> categoryMaps = mLoadableMovieParser.getMovieList(item, movieCategory);
+                    for (CategoryMap category : categoryMaps) {
+                        category.setQuery(query);
+                    }
                     mAppDatabase.categoryMapDAO().insertCategoryMapList(categoryMaps);
 
                     List<VideoDetail> details = new ArrayList<>();
@@ -181,6 +184,7 @@ public class DataRepository {
                         VideoDetail videoDetail = new VideoDetail();
                         videoDetail.setDetailLink(category.getLink());
                         videoDetail.setSN(category.getSN());
+                        videoDetail.setQuery(query);
                         videoDetail.setCategory(category.getCategory());
                         details.add(videoDetail);
                     }

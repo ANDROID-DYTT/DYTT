@@ -53,6 +53,10 @@ public class SearchViewModel extends ViewModel {
         });
     }
 
+    public LiveData<Resource<List<VideoDetail>>> getVideoList() {
+        return mVideoList;
+    }
+
     public void setQuery(@NonNull String originalInput) {
         String input = originalInput.toLowerCase(Locale.getDefault()).trim();
         if (TextUtils.equals(input, mQuery.getValue())) {

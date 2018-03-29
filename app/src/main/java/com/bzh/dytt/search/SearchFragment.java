@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import com.bzh.dytt.BaseFragment;
 import com.bzh.dytt.R;
 import com.bzh.dytt.data.HomeItem;
+import com.bzh.dytt.data.VideoDetail;
 import com.bzh.dytt.data.network.Resource;
 
 import java.util.List;
@@ -110,6 +112,12 @@ public class SearchFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(SearchViewModel.class);
         mSearchInput.setOnEditorActionListener(mSearchActionListener);
+        mViewModel.getVideoList().observe(this, new Observer<Resource<List<VideoDetail>>>() {
+            @Override
+            public void onChanged(@Nullable Resource<List<VideoDetail>> listResource) {
+                Log.d(TAG, "onChanged() called with: listResource = [" + listResource + "]");
+            }
+        });
     }
 
 }
