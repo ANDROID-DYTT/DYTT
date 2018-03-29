@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/search_edit_input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:hint="@string/search_edit"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/transluent_white"
+        android:textCursorDrawable="@drawable/search_edit_cursor"/>
+</LinearLayout>

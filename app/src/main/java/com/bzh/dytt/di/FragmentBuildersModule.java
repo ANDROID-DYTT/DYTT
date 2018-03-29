@@ -6,12 +6,14 @@ import com.bzh.dytt.home.AllMoviePageFragment;
 import com.bzh.dytt.home.LoadableMoviePageFragment;
 import com.bzh.dytt.home.NewMovieFragment;
 import com.bzh.dytt.home.VideoDetailPageFragment;
+import com.bzh.dytt.search.SearchFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class FragmentBuildersModule {
+
     @ContributesAndroidInjector
     abstract AllMoviePageFragment contributeHomePageFragment();
 
@@ -29,4 +31,7 @@ public abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract LoadableMoviePageFragment contributeLoadbleMoviePageFragment();
+
+    @ContributesAndroidInjector
+    abstract SearchFragment contributeSearchFragment();
 }

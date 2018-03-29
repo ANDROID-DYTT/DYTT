@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     NonInteractiveViewPage mContainer;
 
     private MainViewPagerAdapter mPagerAdapter;
+
     private InterstitialAd mInterstitialAd;
 
     @Override
@@ -116,7 +117,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
+            SingleActivity.startSearchPage(this);
             return true;
         }
 

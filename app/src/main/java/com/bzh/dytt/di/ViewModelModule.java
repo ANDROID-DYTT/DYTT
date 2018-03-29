@@ -8,6 +8,7 @@ import com.bzh.dytt.BaseViewModel;
 import com.bzh.dytt.home.LoadableMoviePageViewModel;
 import com.bzh.dytt.home.NewMovieViewModel;
 import com.bzh.dytt.home.VideoDetailPageViewModel;
+import com.bzh.dytt.search.SearchViewModel;
 import com.bzh.dytt.util.ViewModelFactory;
 
 import dagger.Binds;
@@ -36,6 +37,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LoadableMoviePageViewModel.class)
     abstract ViewModel bindLoadableMoviePageViewModel(LoadableMoviePageViewModel loadableMoviePageViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchViewModel.class)
+    abstract ViewModel bindSearchViewModel(SearchViewModel searchViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);

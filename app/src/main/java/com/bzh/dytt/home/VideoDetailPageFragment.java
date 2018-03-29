@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.text.TextUtils;
@@ -90,7 +91,6 @@ public class VideoDetailPageFragment extends BaseFragment {
     private String mDetailLink;
     private VideoDetailPageViewModel mVideoDetailPageViewModel;
     private Observer<Resource<List<VideoDetail>>> mVideoDetailObserver = new Observer<Resource<List<VideoDetail>>>() {
-
         @Override
         public void onChanged(@Nullable Resource<List<VideoDetail>> videoDetailResource) {
             final VideoDetail videoDetail;
@@ -99,7 +99,6 @@ public class VideoDetailPageFragment extends BaseFragment {
                 if (videoDetail == null) {
                     return;
                 }
-
                 String videoName = (!TextUtils.isEmpty(videoDetail.getCountry()) && videoDetail.getCountry()
                         .contains("中国")) ? videoDetail.getName() :
                         videoDetail.getTranslationName();
