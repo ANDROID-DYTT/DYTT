@@ -10,10 +10,11 @@ import android.text.TextUtils;
 
 import com.bzh.dytt.DataRepository;
 import com.bzh.dytt.data.CategoryMap;
+import com.bzh.dytt.data.MovieCategory;
 import com.bzh.dytt.data.VideoDetail;
 import com.bzh.dytt.data.network.Resource;
+import com.bzh.dytt.util.AbsentLiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,28 +32,21 @@ public class SearchViewModel extends ViewModel {
     SearchViewModel(DataRepository repository) {
         mRepository = repository;
 
-//        mCategoryList = Transformations.switchMap(mQuery, new Function<String, LiveData<List<Resource<CategoryMap>>>>() {
-//
-//            @Override
-//            public LiveData<List<Resource<CategoryMap>>> apply(String search) {
-//                if (search == null || search.trim().length() == 0) {
-//                    return AbsentLiveData.create();
-//                } else {
-////                    return mRepository.search(search);
-//                    return AbsentLiveData.create();
-//                }
-//            }
-//        });
+        mCategoryList = Transformations.switchMap(mQuery, new Function<String, LiveData<Resource<List<CategoryMap>>>>() {
+
+            @Override
+            public LiveData<Resource<List<CategoryMap>>> apply(String search) {
+                if (search == null || search.trim().length() == 0) {
+                    return AbsentLiveData.create();
+                } else {
+                    return mRepository.search(MovieCategory.SEARCH_MOVIE, search);
+                }
+            }
+        });
         mVideoList = Transformations.switchMap(mCategoryList, new Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>>() {
             @Override
             public LiveData<Resource<List<VideoDetail>>> apply(Resource<List<CategoryMap>> categoryMaps) {
-                List<String> linkList = new ArrayList<>();
-                if (categoryMaps != null && categoryMaps.data != null) {
-                    for (CategoryMap categoryMap : categoryMaps.data) {
-                        linkList.add(categoryMap.getLink());
-                    }
-                }
-                return mRepository.getVideoDetails(linkList);
+                return mRepository.getVideoDetailsByCategoryAndQuery(MovieCategory.SEARCH_MOVIE, mQuery.getValue());
             }
         });
     }

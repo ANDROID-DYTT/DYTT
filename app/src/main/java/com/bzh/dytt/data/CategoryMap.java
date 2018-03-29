@@ -13,7 +13,7 @@ public class CategoryMap {
 
     @ColumnInfo(name = "category")
     @NonNull
-    private int mCategory;
+    private MovieCategory mCategory;
 
     @ColumnInfo(name = "link")
     @NonNull
@@ -25,6 +25,17 @@ public class CategoryMap {
     @ColumnInfo(name = "serial_number")
     private int mSN;
 
+    @ColumnInfo(name = "query")
+    private String mQuery;
+
+    public String getQuery() {
+        return mQuery;
+    }
+
+    public void setQuery(String query) {
+        mQuery = query;
+    }
+
     public String getLink() {
         return mLink;
     }
@@ -33,20 +44,21 @@ public class CategoryMap {
         mLink = link;
     }
 
-    public int getCategory() {
+    @NonNull
+    public MovieCategory getCategory() {
         return mCategory;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(@NonNull MovieCategory category) {
         mCategory = category;
-    }
-
-    public void setIsParsed(boolean mIsParsed) {
-        this.mIsParsed = mIsParsed;
     }
 
     public boolean getIsParsed() {
         return mIsParsed;
+    }
+
+    public void setIsParsed(boolean mIsParsed) {
+        this.mIsParsed = mIsParsed;
     }
 
     public int getSN() {
@@ -60,18 +72,18 @@ public class CategoryMap {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof CategoryMap)) return false;
 
         CategoryMap that = (CategoryMap) o;
 
-        if (mCategory != that.mCategory) return false;
-        return mLink.equals(that.mLink);
+        if (getCategory() != that.getCategory()) return false;
+        return getLink().equals(that.getLink());
     }
 
     @Override
     public int hashCode() {
-        int result = mCategory;
-        result = 31 * result + mLink.hashCode();
+        int result = getCategory().hashCode();
+        result = 31 * result + getLink().hashCode();
         return result;
     }
 }

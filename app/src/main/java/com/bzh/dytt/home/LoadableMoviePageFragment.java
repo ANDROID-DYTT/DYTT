@@ -10,8 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.bzh.dytt.data.TypeConsts;
+import com.bzh.dytt.data.MovieCategory;
 import com.bzh.dytt.data.VideoDetail;
+import com.bzh.dytt.data.db.DataTypeConverter;
 import com.bzh.dytt.data.network.Resource;
 
 import java.util.List;
@@ -23,9 +24,9 @@ public class LoadableMoviePageFragment extends SingleListFragment<VideoDetail> {
     @Inject
     ViewModelProvider.Factory mFactory;
 
-    public static LoadableMoviePageFragment newInstance(TypeConsts.MovieCategory category) {
+    public static LoadableMoviePageFragment newInstance(MovieCategory category) {
         Bundle args = new Bundle();
-        args.putInt("MOVIE_CATEGORY", category.ordinal());
+        args.putInt("MOVIE_CATEGORY", category.getId());
         LoadableMoviePageFragment fragment = new LoadableMoviePageFragment();
         fragment.setArguments(args);
         return fragment;
@@ -48,8 +49,7 @@ public class LoadableMoviePageFragment extends SingleListFragment<VideoDetail> {
 
     @Override
     protected ViewModel createViewModel() {
-        TypeConsts.MovieCategory category = TypeConsts.MovieCategory.values()[getArguments().getInt("MOVIE_CATEGORY",
-                0)];
+        MovieCategory category = DataTypeConverter.intToEnum(getArguments().getInt("MOVIE_CATEGORY", 0));
         LoadableMoviePageViewModel viewModel = ViewModelProviders.of(this, mFactory).get(LoadableMoviePageViewModel
                 .class);
         viewModel.setCategory(category);

@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.bzh.dytt.BaseFragment;
 import com.bzh.dytt.R;
-import com.bzh.dytt.data.TypeConsts;
+import com.bzh.dytt.data.MovieCategory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +47,11 @@ public class AllMoviePageFragment extends BaseFragment {
         mViewPager.setAdapter(mMovieTabAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        List<TypeConsts.MovieCategory> typeList = new ArrayList<>();
-        typeList.add(TypeConsts.MovieCategory.NEW_MOVIE);
-        typeList.add(TypeConsts.MovieCategory.CHINA_MOVIE);
-        typeList.add(TypeConsts.MovieCategory.OUMEI_MOVIE);
-        typeList.add(TypeConsts.MovieCategory.RIHAN_MOVIE);
+        List<MovieCategory> typeList = new ArrayList<>();
+        typeList.add(MovieCategory.NEW_MOVIE);
+        typeList.add(MovieCategory.CHINA_MOVIE);
+        typeList.add(MovieCategory.OUMEI_MOVIE);
+        typeList.add(MovieCategory.RIHAN_MOVIE);
 
         mMovieTabAdapter.setTabData(typeList);
     }
@@ -59,7 +59,7 @@ public class AllMoviePageFragment extends BaseFragment {
     @VisibleForTesting
     public static class MovieTabAdapter extends FragmentStatePagerAdapter {
 
-        private List<TypeConsts.MovieCategory> mTabData = new ArrayList<>();
+        private List<MovieCategory> mTabData = new ArrayList<>();
 
         MovieTabAdapter(FragmentManager fm) {
             super(fm);
@@ -82,7 +82,7 @@ public class AllMoviePageFragment extends BaseFragment {
             return mTabData.get(position).getTitle();
         }
 
-        void setTabData(List<TypeConsts.MovieCategory> tabData) {
+        void setTabData(List<MovieCategory> tabData) {
             mTabData.clear();
             mTabData.addAll(tabData);
             notifyDataSetChanged();

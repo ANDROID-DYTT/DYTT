@@ -5,9 +5,9 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 
 import com.bzh.dytt.data.db.AppDatabase;
-import com.bzh.dytt.data.network.DyttService;
 import com.bzh.dytt.data.db.HomeAreaDao;
 import com.bzh.dytt.data.db.HomeItemDao;
+import com.bzh.dytt.data.network.DyttService;
 import com.bzh.dytt.util.LiveDataCallAdapterFactory;
 
 import java.io.IOException;
@@ -31,11 +31,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 @Module(includes = ViewModelModule.class)
 public class AppModule {
 
-    // "http://www.dytt8.net")
     private String mBaseUrl;
 
     public AppModule(String baseUrl) {
-        this.mBaseUrl = baseUrl;
+        mBaseUrl = baseUrl;
     }
 
     @Singleton
@@ -47,7 +46,7 @@ public class AppModule {
                 Request request = chain.request();
                 Response response = chain.proceed(request);
                 return response.newBuilder()
-//                        .header("Cache-Control", "public, max-age=1")
+                        .header("Cache-Control", "public, max-age=1")
                         .removeHeader("Pragma")
                         .build();
             }

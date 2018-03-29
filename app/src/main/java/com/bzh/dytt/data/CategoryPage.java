@@ -11,23 +11,23 @@ public class CategoryPage {
     @PrimaryKey
     @ColumnInfo(name = "category")
     @NonNull
-    private int mCategory;
+    private MovieCategory mCategory;
 
     @ColumnInfo(name = "next_page")
     @NonNull
     private int mNextPage;
 
-    public CategoryPage(int category, int nextPage) {
+    public CategoryPage(MovieCategory category, int nextPage) {
         mCategory = category;
         mNextPage = nextPage;
     }
 
     @NonNull
-    public int getCategory() {
+    public MovieCategory getCategory() {
         return mCategory;
     }
 
-    public void setCategory(@NonNull int category) {
+    public void setCategory(@NonNull MovieCategory category) {
         mCategory = category;
     }
 

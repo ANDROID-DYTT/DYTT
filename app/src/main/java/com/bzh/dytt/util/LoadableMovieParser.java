@@ -1,7 +1,7 @@
 package com.bzh.dytt.util;
 
 import com.bzh.dytt.data.CategoryMap;
-import com.bzh.dytt.data.TypeConsts;
+import com.bzh.dytt.data.MovieCategory;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,12 +25,12 @@ public class LoadableMovieParser {
         mInternalMovieListParser = new InternalMovieListParser();
     }
 
-    public List<CategoryMap> getMovieList(String html, TypeConsts.MovieCategory category) {
+    public List<CategoryMap> getMovieList(String html, MovieCategory category) {
         return mInternalMovieListParser.parse(html, category);
     }
 
     private static class InternalMovieListParser {
-        public List<CategoryMap> parse(String html, TypeConsts.MovieCategory category) {
+        public List<CategoryMap> parse(String html, MovieCategory category) {
             Document document = Jsoup.parse(html);
             Elements elements = document.select("div.co_content8").select("ul");
             Elements hrefs = elements.select("a[href]");
@@ -47,7 +47,7 @@ public class LoadableMovieParser {
                 String link = element.attr("href");
                 categoryMap.setLink(link);
                 categoryMap.setSN(Integer.parseInt(link.substring(link.lastIndexOf('/') + 1, link.lastIndexOf('.'))));
-                categoryMap.setCategory(category.ordinal());
+                categoryMap.setCategory(category);
                 categoryMaps.add(categoryMap);
             }
 

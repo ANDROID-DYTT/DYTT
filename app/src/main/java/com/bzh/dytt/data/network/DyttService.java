@@ -21,4 +21,6 @@ public interface DyttService {
     @GET("/html/gndy/{category_string}")
     Call<ResponseBody> getMovieListByCategory2(@Path("category_string") String category);
 
+    @GET("http://s.ygdy8.com/plus/so.php?kwtype=0&searchtype=title&keyword={query}")
+    LiveData<ApiResponse<ResponseBody>> search(@Path("query") String query);
 }

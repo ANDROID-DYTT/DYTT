@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 import com.bzh.dytt.BaseViewModel;
 import com.bzh.dytt.DataRepository;
 import com.bzh.dytt.data.CategoryMap;
-import com.bzh.dytt.data.TypeConsts;
+import com.bzh.dytt.data.MovieCategory;
 import com.bzh.dytt.data.VideoDetail;
 import com.bzh.dytt.data.network.Resource;
 import com.bzh.dytt.data.network.Status;
@@ -23,13 +23,13 @@ import javax.inject.Inject;
 public class LoadableMoviePageViewModel extends BaseViewModel {
 
     private LiveData<Resource<List<VideoDetail>>> mVideoList;
-    private TypeConsts.MovieCategory mCategory;
+    private MovieCategory mCategory;
     private CategoryHandler mCategoryHandler;
 
     private Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>> mVideoDetailFunction = new Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>>() {
         @Override
         public LiveData<Resource<List<VideoDetail>>> apply(Resource<List<CategoryMap>> categoryMaps) {
-            return mDataRepository.getVideoDetailsByCategory(mCategory.ordinal());
+            return mDataRepository.getVideoDetailsByCategory(mCategory);
         }
     };
 
@@ -38,7 +38,7 @@ public class LoadableMoviePageViewModel extends BaseViewModel {
         super(repository);
     }
 
-    public void setCategory(TypeConsts.MovieCategory category) {
+    public void setCategory(MovieCategory category) {
         mCategory = category;
         mCategoryHandler = new CategoryHandler(mDataRepository, mCategory);
         mVideoList = Transformations.switchMap(mCategoryHandler.getCategoryMap(), mVideoDetailFunction);
@@ -65,11 +65,11 @@ public class LoadableMoviePageViewModel extends BaseViewModel {
 
         private DataRepository mRepository;
 
-        private TypeConsts.MovieCategory mMovieCategory;
+        private MovieCategory mMovieCategory;
 
         private boolean mIsRunning;
 
-        CategoryHandler(DataRepository repository, TypeConsts.MovieCategory movieCategory) {
+        CategoryHandler(DataRepository repository, MovieCategory movieCategory) {
             mRepository = repository;
             mMovieCategory = movieCategory;
         }

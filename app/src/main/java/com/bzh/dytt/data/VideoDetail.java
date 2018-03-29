@@ -2,10 +2,8 @@ package com.bzh.dytt.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -79,10 +77,21 @@ public class VideoDetail {
     private boolean mValidVideoItem = true;
 
     @ColumnInfo(name = "category")
-    private int mCategory;
+    private MovieCategory mCategory;
 
     @ColumnInfo(name = "serial_number")
     private int mSN;
+
+    @ColumnInfo(name = "query")
+    private String mQuery;
+
+    public String getQuery() {
+        return mQuery;
+    }
+
+    public void setQuery(String query) {
+        mQuery = query;
+    }
 
     public int getSN() {
         return mSN;
@@ -253,11 +262,11 @@ public class VideoDetail {
         mValidVideoItem = validVideoItem;
     }
 
-    public int getCategory() {
+    public MovieCategory getCategory() {
         return mCategory;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(MovieCategory category) {
         mCategory = category;
     }
 

@@ -4,7 +4,7 @@ import com.bzh.dytt.data.CategoryMap;
 import com.bzh.dytt.data.HomeArea;
 import com.bzh.dytt.data.HomeItem;
 import com.bzh.dytt.data.HomeType;
-import com.bzh.dytt.data.TypeConsts;
+import com.bzh.dytt.data.MovieCategory;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -83,7 +83,7 @@ public class HomePageParser {
                     CategoryMap categoryMap = new CategoryMap();
                     categoryMap.setLink(link);
                     categoryMap.setSN(Integer.parseInt(link.substring(link.lastIndexOf('/') + 1, link.lastIndexOf('.'))));
-                    categoryMap.setCategory(TypeConsts.MovieCategory.HOME_LATEST_MOVIE.ordinal());
+                    categoryMap.setCategory(MovieCategory.HOME_LATEST_MOVIE);
                     result.add(categoryMap);
                 }
             }
