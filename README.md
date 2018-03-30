@@ -4,7 +4,13 @@
 
 # Preview Image
 
-![](https://github.com/BullfrogTeam/DYTT/blob/update_readme/resource/device-2018-03-30-160004.png)
+<img src="https://github.com/BullfrogTeam/DYTT/blob/update_readme/resource/device-2018-03-30-160004.png" width="250" height="500">
+
+<img src="https://github.com/BullfrogTeam/DYTT/blob/update_readme/resource/device-2018-03-30-160048.png" width="250" height="500" style="display:inline-block;">
+
+<img src="https://github.com/BullfrogTeam/DYTT/blob/update_readme/resource/device-2018-03-30-160142.png" width="250" height="500">
+
+<img src="https://github.com/BullfrogTeam/DYTT/blob/update_readme/resource/device-2018-03-30-160213.png" width="250" height="500">
 
 # Code Guide
 
