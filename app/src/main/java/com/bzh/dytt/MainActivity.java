@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity
 
         // You should keep this limit low, especially if your pages have complex layouts.
         mContainer.setOffscreenPageLimit(1);
-//        mPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
-//        mContainer.setAdapter(mPagerAdapter);
+        mPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
+        mContainer.setAdapter(mPagerAdapter);
 
     }
 

@@ -24,12 +24,14 @@ public class FetchSearchVideoDetailTask implements Runnable {
     private final DyttService mService;
     private VideoDetailPageParser mParser;
     private AppDatabase mDatabase;
+    private String mQuery;
 
-    public FetchSearchVideoDetailTask(CategoryMap categoryMap, AppDatabase database, DyttService service, VideoDetailPageParser parser) {
+    public FetchSearchVideoDetailTask(CategoryMap categoryMap, AppDatabase database, DyttService service, VideoDetailPageParser parser, String query) {
         mCategoryMap = categoryMap;
         mService = service;
         mParser = parser;
         mDatabase = database;
+        mQuery = query;
     }
 
     @Override
@@ -48,6 +50,7 @@ public class FetchSearchVideoDetailTask implements Runnable {
                 videoDetail.setSN(mCategoryMap.getSN());
                 videoDetail.setDetailLink(mCategoryMap.getLink());
                 videoDetail.setCategory(mCategoryMap.getCategory());
+                videoDetail.setQuery(mQuery);
                 mDatabase.videoDetailDAO().updateVideoDetail(videoDetail);
                 mCategoryMap.setIsParsed(true);
                 mDatabase.categoryMapDAO().updateCategory(mCategoryMap);

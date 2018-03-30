@@ -23,7 +23,6 @@ import com.bzh.dytt.util.RateLimiter;
 import com.bzh.dytt.util.VideoDetailPageParser;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -194,7 +193,7 @@ public class DataRepository {
                     for (CategoryMap category : categoryMaps) {
                         boolean isParsed = mAppDatabase.categoryMapDAO().IsParsed(category.getLink());
                         if (!isParsed) {
-                            getSearchVideoDetailNew(category);
+                            getSearchVideoDetailNew(category, query);
                         }
                     }
                 } catch (IOException e) {
@@ -306,8 +305,8 @@ public class DataRepository {
         mAppExecutors.networkIO().execute(task);
     }
 
-    public void getSearchVideoDetailNew(CategoryMap categoryMap) {
-        FetchSearchVideoDetailTask task = new FetchSearchVideoDetailTask(categoryMap, mAppDatabase, mService, mVideoDetailPageParser);
+    public void getSearchVideoDetailNew(CategoryMap categoryMap, String query) {
+        FetchSearchVideoDetailTask task = new FetchSearchVideoDetailTask(categoryMap, mAppDatabase, mService, mVideoDetailPageParser, query);
         mAppExecutors.networkIO().execute(task);
     }
 

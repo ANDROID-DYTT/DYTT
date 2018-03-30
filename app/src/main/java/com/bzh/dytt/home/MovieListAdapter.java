@@ -4,7 +4,6 @@ package com.bzh.dytt.home;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
@@ -71,9 +70,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
                 public void onClick(View view) {
                     Activity activity = getActivityByHolder(holder);
                     if (activity != null) {
-                        Intent intent = new Intent(activity, SingleActivity.class);
-                        intent.putExtra("DETAIL_LINK", videoDetail.getDetailLink());
-                        activity.startActivity(intent);
+                        SingleActivity.startDetailPage(activity, videoDetail.getDetailLink());
                     }
                 }
             });
