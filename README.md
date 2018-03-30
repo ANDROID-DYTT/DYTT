@@ -4,7 +4,7 @@
 
 # Preview Image
 
-
+![](https://github.com/BullfrogTeam/DYTT/blob/update_readme/resource/device-2018-03-30-160004.png)
 
 # Code Guide
 
