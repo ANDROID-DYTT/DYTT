@@ -60,10 +60,4 @@ public class TestUtils {
         }
         return sb.toString();
     }
-
-    @Test
-    public void test() {
-        String link = "http://www.dytt8.net/html/gndy/dyzz/20180322/56549.html";
-        System.out.println(Integer.parseInt(link.substring(link.lastIndexOf('/') + 1, link.lastIndexOf('.'))));
-    }
 }

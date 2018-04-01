@@ -19,6 +19,11 @@ android {
         }
     }
 
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-common/java"
+        test.java.srcDirs += "src/test-common/java"
+    }
+
     testOptions {
         unitTests.returnDefaultValues = true
     }
