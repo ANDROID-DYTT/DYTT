@@ -24,6 +24,3 @@
 # hide the original source file mName.
 #-renamesourcefileattribute SourceFile
 
-# Retrofit
--dontwarn okio.**
--dontwarn javax.annotation.**

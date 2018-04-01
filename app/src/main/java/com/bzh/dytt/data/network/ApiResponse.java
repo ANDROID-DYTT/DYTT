@@ -1,6 +1,7 @@
 package com.bzh.dytt.data.network;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -12,6 +13,8 @@ import retrofit2.Response;
  * @param <T>
  */
 public class ApiResponse<T> {
+
+    private static final String TAG = "ApiResponse";
 
     public final int code;
 
@@ -29,7 +32,7 @@ public class ApiResponse<T> {
 
     public ApiResponse(Response<T> response) {
         code = response.code();
-        if(response.isSuccessful()) {
+        if (response.isSuccessful()) {
             body = response.body();
             errorMessage = null;
         } else {
@@ -38,7 +41,7 @@ public class ApiResponse<T> {
                 try {
                     message = response.errorBody().string();
                 } catch (IOException ignored) {
-                    // Timber.e(ignored, "error while parsing response");
+                    Log.e(TAG, "ApiResponse: error while parsing response", ignored);
                 }
             }
             if (message == null || message.trim().length() == 0) {
