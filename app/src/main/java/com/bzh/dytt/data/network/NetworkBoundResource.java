@@ -10,36 +10,51 @@ import android.support.annotation.WorkerThread;
 
 import com.bzh.dytt.AppExecutors;
 
+/**
+ * A generic class that can provide a resource backed by both the sqlite database and the network.
+ * <p>
+ * You can read more about it in the <a href="https://developer.android.com/arch">Architecture
+ * Guide</a>.
+ * <p>
+ * 有关NetworkBoundResource的设计意图可以参考： https://developer.android.com/topic/libraries/architecture/guide.html#addendum
+ *
+ * Test Case :
+ * 1. db success without network
+ * 2. db success with network success
+ * 3. db success with network failure
+ * 4. network success
+ * 5. network failure
+ *
+ * @param <ResultType>
+ * @param <RequestType>
+ */
 public abstract class NetworkBoundResource<ResultType, RequestType> {
-
-    private static final String TAG = "NetworkBoundResource";
 
     private final AppExecutors mAppExecutors;
 
-    private MediatorLiveData<Resource<ResultType>> result = new MediatorLiveData<>();
+    private MediatorLiveData<Resource<ResultType>> mResult = new MediatorLiveData<>();
 
     @MainThread
     public NetworkBoundResource(AppExecutors appExecutors) {
         mAppExecutors = appExecutors;
 
-        result.setValue(Resource.<ResultType>loading(null));
+        mResult.setValue(Resource.<ResultType>loading(null));
 
         final LiveData<ResultType> dbSource = loadFromDb();
 
-        result.addSource(dbSource, new Observer<ResultType>() {
+        mResult.addSource(dbSource, new Observer<ResultType>() {
 
             @Override
             public void onChanged(@Nullable ResultType data) {
-                result.removeSource(dbSource);
+                mResult.removeSource(dbSource);
 
                 if (shouldFetch(data)) {
                     fetchFromNetwork(dbSource);
                 } else {
-
-                    result.addSource(dbSource, new Observer<ResultType>() {
+                    mResult.addSource(dbSource, new Observer<ResultType>() {
                         @Override
                         public void onChanged(@Nullable ResultType newData) {
-                            result.setValue(Resource.success(newData));
+                            mResult.setValue(Resource.success(newData));
                         }
                     });
                 }
@@ -54,19 +69,19 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
 
         // we re-attach dbSource as a new source,
         // it will dispatch its latest value quickly
-        result.addSource(dbSource, new Observer<ResultType>() {
+        mResult.addSource(dbSource, new Observer<ResultType>() {
             @Override
             public void onChanged(@Nullable ResultType newData) {
-                result.setValue(Resource.loading(newData));
+                mResult.setValue(Resource.loading(newData));
             }
         });
 
-        result.addSource(apiResponse, new Observer<ApiResponse<RequestType>>() {
+        mResult.addSource(apiResponse, new Observer<ApiResponse<RequestType>>() {
             @Override
             public void onChanged(@Nullable final ApiResponse<RequestType> response) {
 
-                result.removeSource(apiResponse);
-                result.removeSource(dbSource);
+                mResult.removeSource(apiResponse);
+                mResult.removeSource(dbSource);
 
                 //noinspection ConstantConditions
                 if (response.isSuccessful()) {
@@ -80,10 +95,10 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
                                     // we specially request a new live data,
                                     // otherwise we will get immediately last cached value,
                                     // which may not be updated with latest results received from network.
-                                    result.addSource(loadFromDb(), new Observer<ResultType>() {
+                                    mResult.addSource(loadFromDb(), new Observer<ResultType>() {
                                         @Override
                                         public void onChanged(@Nullable ResultType newData) {
-                                            result.setValue(Resource.success(newData));
+                                            mResult.setValue(Resource.success(newData));
                                         }
                                     });
                                 }
@@ -93,10 +108,10 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
                 } else {
                     onFetchFailed();
 
-                    result.addSource(dbSource, new Observer<ResultType>() {
+                    mResult.addSource(dbSource, new Observer<ResultType>() {
                         @Override
                         public void onChanged(@Nullable ResultType newData) {
-                            result.setValue(Resource.error(response.errorMessage, newData));
+                            mResult.setValue(Resource.error(response.errorMessage, newData));
                         }
                     });
                 }
@@ -107,10 +122,10 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
     // returns a LiveData that represents the resource, implemented
     // in the base class.
     public final LiveData<Resource<ResultType>> getAsLiveData() {
-        return result;
+        return mResult;
     }
 
-    // Called to insertItem the result of the API response into the database
+    // Called to insertItem the mResult of the API response into the database
     @WorkerThread
     protected abstract void saveCallResult(@NonNull RequestType item);
 
