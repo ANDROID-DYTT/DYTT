@@ -1,216 +1,90 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0055)http://www.dytt8.net/html/gndy/dyzz/20180330/56601.html -->
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META http-equiv=Content-Type content="text/html; charset=gb2312">
+    <title>2017年高分获奖剧情《魅影缝匠》BD中英双字幕迅雷下载_电影天堂</title>
+    <meta name=keywords content="魅影缝匠下载">
+    <meta name=description content="魅影缝匠免费下载,迅雷下载">
+    <link href="/css/dytt8.css" rel="stylesheet" type="text/css"/>
+    <base target="_blank">
+</head>
+<body>
+<div id="header">
+    <div class="contain"><h4><a href="/index.html"></a></h4>
+        <div id="headerright">
+            <div id="about" align="right">
+                <SCRIPT src="/js2/760h.js"></SCRIPT>
+            </div>
 
-<title>2018年惊悚动作《通勤营救/疾速救援》BD中英双字幕迅雷下载_电影天堂</title>
-<meta name="keywords" content="通勤营救,疾速救援下载">
-<meta name="description" content="通勤营救,疾速救援免费下载,迅雷下载">
-<link href="./movie_detail_files/dytt8.css" rel="stylesheet" type="text/css"><!--<base target="_blank">--><base href="." target="_blank">
-<style type="text/css" abt="234"></style><link type="text/css" rel="stylesheet" charset="utf-8" href="./movie_detail_files/xl_style.css"><link type="text/css" rel="stylesheet" charset="utf-8" href="./movie_detail_files/style.css"><script>//console.log('a')
-</script><script>doAdblock();
-function doAdblock(){
-    (function() {
-        function A() {}
-        A.prototype = {
-            rules: {
-                'pps_pps': {
-                    'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/common\/pps_flvplay_s\.swf/,
-                    'replace': 'http://swf.adtchrome.com/pps_20140420.swf'
-                },
-                '17173_in':{
-                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
-                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
-                },
-                '17173_out':{
-                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
-                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
-                },
-                '17173_live':{
-                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
-                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
-                },
-                '17173_live_out':{
-                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
-                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
-                }
-            },
-            _done: null,
-            get done() {
-                if(!this._done) {
-                    this._done = new Array();
-                }
-                return this._done;
-            },
-            addAnimations: function() {
-                var style = document.createElement('style');
-                style.type = 'text/css';
-                style.innerHTML = 'object,embed{\
-                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
-                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
-                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
-                animation-duration:.001s;animation-name:playerInserted;}\
-                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
-                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
-                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
-                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
-                document.getElementsByTagName('head')[0].appendChild(style);
-            },
-            animationsHandler: function(e) {
-                if(e.animationName === 'playerInserted') {
-                    this.replace(e.target);
-                }
-            },
-            replace: function(elem) {
-                if (/http:\/\/v.youku.com\/v_show\/.*/.test(window.location.href)){
-                    var tag = document.getElementById("playerBox").getAttribute("player")
-                    if (tag == "adt"){
-                        console.log("adt adv")
-                        return;
-                    }
-                }
-                if(this.done.indexOf(elem) != -1) return;
-                this.done.push(elem);
-                var player = elem.data || elem.src;
-                if(!player) return;
-                var i, find, replace = false;
-                for(i in this.rules) {
-                    find = this.rules[i]['find'];
-                    if(find.test(player)) {
-                        replace = this.rules[i]['replace'];
-                        if('function' === typeof this.rules[i]['preHandle']) {
-                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
-                        }else{
-                            this.reallyReplace.bind(this, elem, find, replace)();
-                        }
-                        break;
-                    }
-                }
-            },
-            reallyReplace: function(elem, find, replace) {
-                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
-                var b = elem.querySelector("param[name='movie']");
-                this.reloadPlugin(elem);
-            },
-            reloadPlugin: function(elem) {
-                var nextSibling = elem.nextSibling;
-                var parentNode = elem.parentNode;
-                parentNode.removeChild(elem);
-                var newElem = elem.cloneNode(true);
-                this.done.push(newElem);
-                if(nextSibling) {
-                    parentNode.insertBefore(newElem, nextSibling);
-                } else {
-                    parentNode.appendChild(newElem);
-                }
-            },
-            init: function() {
-                var handler = this.animationsHandler.bind(this);
-                document.body.addEventListener('webkitAnimationStart', handler, false);
-                document.body.addEventListener('msAnimationStart', handler, false);
-                document.body.addEventListener('oAnimationStart', handler, false);
-                document.body.addEventListener('animationstart', handler, false);
-                this.addAnimations();
-            }
-        };
-        new A().init();
-    })();
-}
-// 20140730
-(function cnbeta() {
-    if (document.URL.indexOf('cnbeta.com') >= 0) {
-        var elms = document.body.querySelectorAll("p>embed");
-        Array.prototype.forEach.call(elms, function(elm) {
-            elm.style.marginLeft = "0px";
-        });
-    }
-})();
-//baidu
-if(document.URL.indexOf('www.baidu.com') >= 0){
-    if(document && document.getElementsByTagName && document.getElementById && document.body){
-        var aa = function(){
-            var all = document.body.querySelectorAll("#content_left div,#content_left table");
-            for(var i = 0; i < all.length; i++){
-                if(/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))){all[i].style.display= "none";all[i].style.visibility='hidden';}
-            }
-            all = document.body.querySelectorAll('.result.c-container[id="1"]');
-            //if(all.length == 1) return;
-            for(var i = 0; i < all.length; i++){
-                if(all[i].innerHTML && all[i].innerHTML.indexOf('广告')>-1){
-                    all[i].style.display= "none";all[i].style.visibility='hidden';
-                }
-            }
-        }
-        aa();
-        document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified',aa)
-    };
-}
-if (document.URL.indexOf("tv.sohu.com") >= 0){
-    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
-}
-if (document.URL.indexOf("56.com") >= 0){
-    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
-}
-if (document.URL.indexOf("iqiyi.com") >= 0){
-    if (document.cookie.indexOf("player_forcedType=h5_VOD")==-1){
-        document.cookie='player_forcedType=h5_VOD'
-        if(localStorage.reloadTime && Date.now() - parseInt(localStorage.reloadTime)<60000){
-            console.log('no reload')
-        }else{
-            location.reload()
-            localStorage.reloadTime = Date.now();
-        }
-    }
-}
-</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head><body><div id="header"><div class="contain"><h4><a href="http://www.dytt8.net/index.html"></a></h4>
-				<div id="headerright"><div id="about" align="right">
-                      <script src="http://www.dytt8.net/js2/760h.js"></script>
-					</div>
-					
-			</div>
-		
-		<div id="menu"><div class="contain"><ul>
-					<li>
-<a href="http://www.ygdy8.net/html/gndy/dyzz/index.html">最新影片</a></li><li>
-<a href="http://www.ygdy8.net/html/gndy/index.html">经典影片</a></li><li>
-<a href="http://www.ygdy8.net/html/gndy/china/index.html">国内电影</a></li><li>
-<a href="http://www.ygdy8.net/html/gndy/oumei/index.html">欧美电影</a></li><li>
-<a href="http://www.dytt8.net/html/gndy/rihan/index.html">日韩电影</a></li><li>
-<a href="http://www.dytt8.net/html/tv/hytv/index.html">华语电视</a></li><li>
-<a href="http://www.dytt8.net/html/tv/rihantv/index.html">日韩电视</a></li><li>
-<a href="http://www.dytt8.net/html/tv/oumeitv/index.html">欧美电视</a></li><li>
-<a href="http://www.dytt8.net/html/zongyi2013/index.html">最新综艺</a></li><li>
-<a href="http://www.dytt8.net/html/2009zongyi/index.html">旧版综艺</a></li><li>
-<a href="http://www.dytt8.net/html/dongman/index.html">动漫资源</a></li><li>
-<a href="http://www.dytt8.net/html/game/index.html">游戏下载</a></li><li>
-<a href="http://www.dytt8.net/html/gndy/jddy/20160320/50523.html">高分经典</a></li><li>
- 
+        </div>
+
+        <div id="menu">
+            <div class="contain">
+                <ul>
+                    <li>
+                        <a href="http://www.ygdy8.net/html/gndy/dyzz/index.html">最新影片</a></li>
+                    <li>
+                        <a href="http://www.ygdy8.net/html/gndy/index.html">经典影片</a></li>
+                    <li>
+                        <a href="http://www.ygdy8.net/html/gndy/china/index.html">国内电影</a></li>
+                    <li>
+                        <a href="http://www.ygdy8.net/html/gndy/oumei/index.html">欧美电影</a></li>
+                    <li>
+                        <a href="/html/gndy/rihan/index.html">日韩电影</a></li>
+                    <li>
+                        <a href="/html/tv/hytv/index.html">华语电视</a></li>
+                    <li>
+                        <a href="/html/tv/rihantv/index.html">日韩电视</a></li>
+                    <li>
+                        <a href="/html/tv/oumeitv/index.html">欧美电视</a></li>
+                    <li>
+                        <a href="/html/zongyi2013/index.html">最新综艺</a></li>
+                    <li>
+                        <a href="/html/2009zongyi/index.html">旧版综艺</a></li>
+                    <li>
+                        <a href="/html/dongman/index.html">动漫资源</a></li>
+                    <li>
+                        <a href="/html/game/index.html">游戏下载</a></li>
+                    <li>
+                        <a href="/html/gndy/jddy/20160320/50523.html">高分经典</a></li>
+                    <li>
 
 
-<a href="http://www.dytt8.net/html/gndy/dyzz/20180330/56601.html#" onclick="javascript:window.external.AddFavorite(&#39;http://www.dytt8.net&#39;, &#39;电影天堂-www.dytt8.net&#39;)" target="_self">加入收藏</a></li><li>
-<a href="http://www.dytt8.net/html/gndy/dyzz/20180330/index.html" onclick="this.style.behavior=&#39;url(#default#homepage)&#39;;this.setHomePage(&#39;http://www.dytt8.net/&#39;);return(false);" style="behavior: url(#default#homepage)">设为主页</a></li>
-</ul>
-			</div>
-		 
- </div>
+                        <a href="#"
+                           onclick="javascript:window.external.AddFavorite('http://www.dytt8.net', '电影天堂-www.dytt8.net')"
+                           target="_self">加入收藏</a></li>
+                    <li>
+                        <a href="index.html"
+                           onClick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.dytt8.net/');return(false);"
+                           style="behavior: url(#default#homepage)">设为主页</a></li>
+                </ul>
+            </div>
+
+        </div>
 
 
-<div class="bd2">
-<div class="bd4l" style="width: 960px">
-<table cellspacing="1" border="0" cellpadding="4" width="100%">
- 
-<tbody><tr align="center">
- 
-<script src="http://www.dytt8.net/js2/960.js"></script>
- 
-</tr>
-</tbody></table>
-</div>
+        <div class="bd2">
+            <div class="bd4l" style="width: 960px">
+                <table cellspacing="1" border="0" cellpadding="4" width="100%">
 
- 
-<!--##########}end:header###########--><link href="./movie_detail_files/searchpage.css" rel="stylesheet" type="text/css">
-<div class="path"><ul>当前位置：<a href="http://www.dytt8.net/">本站首页</a>&gt;<a href="http://www.dytt8.net/html/gndy/index.html">电影</a>&gt;<a href="http://www.dytt8.net/html/gndy/dyzz/index.html">最新电影</a>&gt;下载页面&nbsp; &nbsp; 
-<font color="red">影片地址：</font>
-<script language="javascript">
+                    <tr align="center">
+
+                        <SCRIPT src="/js2/960.js"></SCRIPT>
+
+                    </tr>
+                </table>
+            </div>
+
+
+            <!--##########}end:header###########-->
+            <link href="/css/searchpage.css" rel="stylesheet" type="text/css"/>
+            <div class="path">
+                <ul>当前位置：<a href='http://www.dytt8.net/'>本站首页</a>><a
+                        href='/html/gndy/index.html'>电影</a>><a href='/html/gndy/dyzz/index.html'>最新电影</a>>下载页面&nbsp;
+                    &nbsp;
+                    <font color=red>影片地址：</font>
+                    <script language="javascript">
 function dygod(){
 var clipBoardContent="";
 clipBoardContent+=document.title;
@@ -220,283 +94,363 @@ window.clipboardData.setData("Text",clipBoardContent);
 alert("网址已复制，粘贴给好友请按Crtl+V！");
 } 
 document.write("<input name="urlText"   id="urlText" class="InputTextBox" value="");document.write(location.href);document.write(""  size="38" />");
-</script> 
-
-<input type="button" name="Submit2" onclick="dygod()" value="点此复制给好友">
-<input type="button" value="收藏本影片" id="copy" onclick="javascript:d=document;window.external.AddFavorite(&#39;&#39;+d.location.href+&#39;&#39;, &#39;&#39;+d.title+&#39;&#39;)">
-
-</ul></div>
-<!--{start:body content-->
-<div class="bd3">
-<!--{start:内容区左侧-->
-<div class="bd3l">
-
-<a href="javascript:window.external.addFavorite(&#39;http://www.dytt8.net/&#39;,&#39;dytt8.net-电影天堂&#39;)" class="style11" target="_self"><img src="./movie_detail_files/bbs_btn.gif" alt="电影天堂" border="0"></a>&nbsp;&nbsp;
-<!--{start:最新下载排行 Top10-->
-<div class="co_area1">
-<div class="title_all"><p>本站推荐电影</p></div>
-<div class="co_content2">
-<ul>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20180103/55959.html">2017年科幻动作《全球风暴》</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171230/55920.html">2017年高分恐怖《小丑回魂》</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20171224/55874.html">2017年惊悚悬疑《雪人/雪中</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20171222/55861.html">2017年喜剧《性别之战》BD中</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171218/55832.html">2017年甄子丹刘德华动作《追</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171208/55749.html">2017年詹妮弗·劳伦斯悬疑惊</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20171206/55738.html">2017年动作喜剧《宝贝特攻》</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171205/55728.html">2017年8.3高分战争《敦刻尔</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171205/55726.html">2017年高分获奖剧情《相爱相</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171202/55684.html">2017年高分剧情《天才枪手》</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20171202/55682.html">2017年爱情喜剧《胡杨的夏天</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171130/55665.html">2017年动作喜剧《王牌特工2</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171130/55664.html">2017年动作《英伦对决》国英</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171123/55603.html">2017年动作《美国刺客/美国</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171105/55468.html">2017年悬疑动作《极寒之城》</a><br>
-
-</ul>
-</div>
-</div>
-<!--}end:最新下载排行 Top10-->
-<div class="co_area2">
-<div class="title_all"><p>本站推荐电视剧</p></div>
-<div class="co_content2">
-<ul>
-·<a href="http://www.dytt8.net/html/tv/oumeitv/20170926/55118.html">2017主打美剧《小谢尔顿 第</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180215/56329.html">2018韩国KBS2晨间剧《波浪啊</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180305/56442.html">2018韩国KBS2水木剧《推理的</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180228/56381.html">2018韩国KBS2日日剧《人偶之</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20171205/55719.html">2017韩国SBS晨间剧《快乐姐</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180330/56597.html">2018韩国SBS水木剧《Switch-</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20171115/55547.html">2017韩国KBS1日日剧《即使恨</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20171123/55604.html">2017韩国MBC晨间剧《逆流》</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20171129/55651.html">2017韩国MBC日日剧《前世的</a><br>
-·<a href="http://www.dytt8.net/html/tv/oumeitv/20170928/55135.html">2017主打美剧《海豹突击队 </a><br>
-·<a href="http://www.dytt8.net/html/tv/oumeitv/20170929/55148.html">2017主打美剧《犯罪心理 第</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180322/56546.html">2018韩国TVN水木剧《我的大</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180322/56545.html">2018韩国MBC水木剧《牵着手,</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180112/56070.html">2018韩国MBN水曜剧《延南洞5</a><br>
-·<a href="http://www.dytt8.net/html/tv/hytv/20180313/56493.html">2018年香港电视剧《果栏中的</a><br>
-
-</ul>
-</div>
-</div>
-<!--{start:本周下载排行 Top10-->
-<div class="co_area2">
-<div class="title_all"><p>电影下载排行</p></div>
-<div class="co_content2">
-<ul>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180331/56602.html">2017年剧情《心灵想要大声呼</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180330/56599.html">2018年奇幻惊悚《我杀死了巨</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180330/56600.html">2017年惊悚恐怖《房客》BD中</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180330/56595.html">2018年惊悚喜剧《门》BD韩语</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180330/56594.html">2017年动作《亚瑟王和圆桌骑</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180329/56593.html">2018年获奖动画《大世界/好</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180329/56592.html">2018年惊悚恐怖《杂交种》BD</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180329/56591.html">2017年喜剧《小鬼警察：新兵</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180329/56590.html">2018年科幻喜剧《念力/心灵</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180329/56589.html">2018年剧情惊悚《校花与野出</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180329/56588.html">2017年惊悚动作《速度与激战</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180328/56587.html">2017年恐怖《灵蚀/日蚀亡灵</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180328/56586.html">2018年奇幻动作喜剧《史前超</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180328/56585.html">2018年奇幻爱情《时空偷渡少</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20180328/56582.html">2017年高分获奖剧情《魅影缝</a><br>
-
-</ul>
-</div>
-</div>
-<!--}end:本周下载排行 Top10-->
-<!--{start:总下载排行 Top10-->
-<div class="co_area2">
-<div class="title_all"><p>电视剧下载排行</p></div>
-<div class="co_content2">
-<ul>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180330/56597.html">2018韩国SBS水木剧《Switch-</a><br>
-·<a href="http://www.dytt8.net/html/tv/oumeitv/20180330/56596.html">2018主打美剧《亿万 第三季</a><br>
-·<a href="http://www.dytt8.net/html/tv/hytv/20180328/56584.html">2018年内地电视剧《好久不见</a><br>
-·<a href="http://www.dytt8.net/html/tv/hytv/20180328/56583.html">2018年内地电视剧《南方有乔</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180326/56571.html">2018韩国MBC周末剧《富家公</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180322/56546.html">2018韩国TVN水木剧《我的大</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180322/56545.html">2018韩国MBC水木剧《牵着手,</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180318/56527.html">2018韩国KBS2周末剧《一起生</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180317/56521.html">2018韩国TVN周末剧《Live》</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180314/56499.html">2018韩国OCN月火剧《那个男</a><br>
-·<a href="http://www.dytt8.net/html/tv/rihantv/20180314/56498.html">2018韩国MBC月火剧《伟大的</a><br>
-·<a href="http://www.dytt8.net/html/tv/hytv/20180313/56493.html">2018年香港电视剧《果栏中的</a><br>
-·<a href="http://www.dytt8.net/html/tv/hytv/20180313/56492.html">2018年香港电视剧《翻生武林</a><br>
-·<a href="http://www.dytt8.net/html/tv/hytv/20180313/56491.html">2018年内地电视剧《人生若如</a><br>
-
-</ul>
-</div>
-</div>
-<!--}end:总下载排行 Top10-->
-<!--{start:左下角-->
-<div class="co_area2">
-<div class="co_content2">
-<ul>
-
-
-</ul>
-</div>
-</div>
-<!--}end:左下角-->
-
-
-<!--{start:左下角2-->
-<div class="co_area2">
-<div class="co_content2">
-<ul>
-
-
-</ul>
-</div>
-</div>
-<!--}end:左下角-->
-
-
-</div>
-<!--}end:内容区左侧-->
-<div class="bd3r">
-<div>
-<!--{start:搜索-->
-<div class="search">
-<script src="./movie_detail_files/search.js" language="javascript"></script><form method="post" action="http://s.ygdy8.com/plus/so.php">
-<input type="text" name="keyword" onfocus="this.value=&#39;&#39;;this.focus();" value="关键词" id="skeyword">
-<input type="submit" name="Submit" value="搜索" id="ssubmit">
-<span>热门：
-<a href="http://www.dytt8.net/html/gndy/jddy/20160320/50523.html">精华-IMDB评分8分以上影片300余部</a><br>
-</span>
-</form>
-
-</div>
-<!--}end:搜索-->
-
-<div class="x"></div>
-
-<div class="x"></div>
-</div>
-<div class="co_area2">
-<div class="title_all"><h1><font color="#07519a">2018年惊悚动作《通勤营救/疾速救援》BD中英双字幕</font></h1></div>
-<div class="co_content8">
-<ul>
-
-
-
-发布时间：2018-03-30  
- 
- 
 
 
 
 
+                    </script>
 
-      
-        &nbsp;
-      
-       
-      <div id="Zoom">
-<!--Content Start--><span style="FONT-SIZE: 12px">
-美国][通勤营救/疾速救援][HD-mkv.720p.中英双字][2018年惊悚动作] <br><br><img border="0" src="./movie_detail_files/TxihO.jpg" alt=""> <br><br>◎译　　名　通勤营救/疾速救援(台)/追命列车(港) <br>◎片　　名　The Commuter <br>◎年　　代　2018 <br>◎产　　地　美国/英国 <br>◎类　　别　动作/犯罪/惊悚 <br>◎语　　言　英语 <br>◎字　　幕　中英双字幕 <br>◎上映日期　2018-01-12(美国)/2018-03-30(中国) <br>◎IMDb评分 6.4/10 from 17,079 users <br>◎豆瓣评分　6.7/10 from 1,029 users <br>◎文件格式　x264 + aac <br>◎视频尺寸　1280 x 720 <br>◎文件大小　1CD <br>◎片　　长　105分钟/104分钟(中国) <br>◎导　　演　佐米·希尔拉 Jaume Collet-Serra <br>◎主　　演　连姆·尼森 Liam Neeson <br>　　　　　　维拉·法米加 Vera Farmiga <br>　　　　　　帕特里克·威尔森 Patrick Wilson <br>　　　　　　乔纳森·班克斯 Jonathan Banks <br>　　　　　　山姆·尼尔 Sam Neill <br>　　　　　　伊丽莎白·麦戈文 Elizabeth McGovern <br>　　　　　　基连·斯科特 Killian Scott <br>　　　　　　沙扎德·拉蒂夫 Shazad Latif <br>　　　　　　安迪·尼曼 Andy Nyman <br>　　　　　　克拉拉·拉戈 Clara Lago <br>　　　　　　罗兰·默勒 Roland M&#248;ller <br>　　　　　　弗洛伦斯·皮尤 Florence Pugh <br>　　　　　　迪恩·查尔斯·查普曼 Dean-Charles Chapman <br>　　　　　　埃拉-雷·史密斯 Ella-Rae Smith <br>　　　　　　妮拉·阿利亚 Nila Aalia <br>　　　　　　柯林·麦克法兰 Colin McFarlane <br>　　　　　　寇布勒·霍尔德布鲁克-史密斯 Kobna Holdbrook-Smith <br>　　　　　　亚当·那加提斯 Adam Nagaitis <br>　　　　　　金斯利·本-阿德 Kingsley Ben-Adir <br>　　　　　　戴姆森·伊德瑞斯 Damson Idris <br>　　　　　　本·卡普兰 Ben Caplan <br>　　　　　　利蒂希娅·赖特 Letitia Wright <br>　　　　　　杰米·比米什 Jamie Beamish <br><br>◎简　　介 <br><br>　　影片将故事设定在一列通勤列车上，一位十年如一日乘坐列车上下班的商界人士麦考利（连姆·尼森 饰），偶遇一位主动搭讪的“神秘乘客”乔安娜（维拉·法米加 饰）。乔安娜为麦考利提供了一个极具诱惑性的任务——找出车上的一位乘客，即可获得一笔巨额现金作为回报。但在寻找的过程中，麦考利逐渐发现自己卷入到一场致命的危险处境中。 <br><br>　　他是否能够从这辆“恐怖列车”中成功逃脱，背后又隐藏着怎样的惊天阴谋。随着列车不断加速，真相逐一揭开...... <br><br><img border="0" src="./movie_detail_files/MEUzx.jpg" alt=""> <br><br><br><strong><font color="#ff0000"><font size="4">【下载地址】</font></font></strong> <br><br><br>
-<table style="BORDER-BOTTOM: #cccccc 1px dotted; BORDER-LEFT: #cccccc 1px dotted; TABLE-LAYOUT: fixed; BORDER-TOP: #cccccc 1px dotted; BORDER-RIGHT: #cccccc 1px dotted" border="0" cellspacing="0" cellpadding="6" width="95%" align="center">
-    <tbody>
-        <tr>
-            <td style="WORD-WRAP: break-word" bgcolor="#fdfddf"><a href="http://www.dytt8.net/html/gndy/dyzz/20180330/56601.html#" target="_self" thunderpid="" thundertype="" thunderrestitle="ftp://ygdy8:ygdy8@yg45.dydytt.net:3062/阳光电影www.ygdy8.com.通勤营救.HD.720p.中英双字幕.mkv" onclick="return OnDownloadClick_Simple(this,2);" oncontextmenu="ThunderNetwork_SetHref(this)" laolbwxx="thunder://QUFmdHA6Ly95Z2R5ODp5Z2R5OEB5ZzQ1LmR5ZHl0dC5uZXQ6MzA2Mi8lRTklOTglQjMlRTUlODUlODklRTclOTQlQjUlRTUlQkQlQjF3d3cueWdkeTguY29tLiVFOSU4MCU5QSVFNSU4QiVBNCVFOCU5MCVBNSVFNiU5NSU5MS5IRC43MjBwLiVFNCVCOCVBRCVFOCU4QiVCMSVFNSU4RiU4QyVFNSVBRCU5NyVFNSVCOSU5NS5ta3ZaWg==">ftp://ygdy8:ygdy8@yg45.dydytt.net:3062/阳光电影www.ygdy8.com.通勤营救.HD.720p.中英双字幕.mkv</a></td>
-        </tr>
-    </tbody>
-</table>
-<p>&nbsp;</p>
-<p>
-</p><table style="BORDER-BOTTOM: #cccccc 1px dotted; BORDER-LEFT: #cccccc 1px dotted; TABLE-LAYOUT: fixed; BORDER-TOP: #cccccc 1px dotted; BORDER-RIGHT: #cccccc 1px dotted" border="0" cellspacing="0" cellpadding="6" width="95%" align="center">
-    <tbody>
-        <tr>
-            <td style="WORD-WRAP: break-word" bgcolor="#fdfddf"><a href="magnet:?xt=urn:btih:42f8d48b1362a3a71a10a7ee2f7a3223b67750b0&amp;dn=%e9%98%b3%e5%85%89%e7%94%b5%e5%bd%b1www.ygdy8.com.%e9%80%9a%e5%8b%a4%e8%90%a5%e6%95%91.HD.720p.%e4%b8%ad%e8%8b%b1%e5%8f%8c%e5%ad%97%e5%b9%95.mkv&amp;tr=udp%3a%2f%2ftracker.leechers-paradise.org%3a6969%2fannounce&amp;tr=udp%3a%2f%2feddie4.nl%3a6969%2fannounce&amp;tr=udp%3a%2f%2fshadowshq.eddie4.nl%3a6969%2fannounce&amp;tr=udp%3a%2f%2ftracker.opentrackr.org%3a1337%2fannounce"><strong><font style="BACKGROUND-COLOR: #ff9966" color="#0000ff" size="4">磁力链下载点击这里</font></strong></a></td>
-        </tr>
-    </tbody>
-</table>
-<p></p> <br><center></center>
+                    <input type="button" name="Submit2" onClick='dygod()'
+                           value="点此复制给好友">
+                    <INPUT type="button" value='收藏本影片' id="copy"
+                           onclick="javascript:d=document;window.external.AddFavorite(''+d.location.href+'', ''+d.title+'')">
+
+                </ul>
+            </div>
+            <!--{start:body content-->
+            <div class="bd3">
+                <!--{start:内容区左侧-->
+                <div class="bd3l">
+
+                    <a href="javascript:window.external.addFavorite('http://www.dytt8.net/','dytt8.net-电影天堂')"
+                       class="style11" target=_self><img src="/images/bbs_btn.gif" alt="电影天堂"
+                                                         border="0"/></a></a></span>&nbsp;&nbsp;</a>
+                    <!--{start:最新下载排行 Top10-->
+                    <div class="co_area1">
+                        <div class="title_all"><p>本站推荐电影</p></div>
+                        <div class="co_content2">
+                            <ul>
+                                ?<a href='/html/gndy/dyzz/20180103/55959.html'>2017年科幻动作《全球风暴》</a><br/>
+                                ?<a href='/html/gndy/dyzz/20171230/55920.html'>2017年高分恐怖《小丑回魂》</a><br/>
+                                ?<a href='/html/gndy/jddy/20171224/55874.html'>2017年惊悚悬疑《雪人/雪中</a><br/>
+                                ?<a href='/html/gndy/jddy/20171222/55861.html'>2017年喜剧《性别之战》BD中</a><br/>
+                                ?<a href='/html/gndy/dyzz/20171218/55832.html'>2017年甄子丹刘德华动作《追</a><br/>
+                                ?<a href='/html/gndy/dyzz/20171208/55749.html'>2017年詹妮弗?劳伦斯悬疑惊</a><br/>
+                                ?<a href='/html/gndy/jddy/20171206/55738.html'>2017年动作喜剧《宝贝特攻》</a><br/>
+                                ?<a href='/html/gndy/dyzz/20171205/55728.html'>2017年8.3高分战争《敦刻尔</a><br/>
+                                ?<a href='/html/gndy/dyzz/20171205/55726.html'>2017年高分获奖剧情《相爱相</a><br/>
+                                ?<a href='/html/gndy/dyzz/20171202/55684.html'>2017年高分剧情《天才枪手》</a><br/>
+                                ?<a href='/html/gndy/jddy/20171202/55682.html'>2017年爱情喜剧《胡杨的夏天</a><br/>
+                                ?<a href='/html/gndy/dyzz/20171130/55665.html'>2017年动作喜剧《王牌特工2</a><br/>
+                                ?<a href='/html/gndy/dyzz/20171130/55664.html'>2017年动作《英伦对决》国英</a><br/>
+                                ?<a href='/html/gndy/dyzz/20171123/55603.html'>2017年动作《美国刺客/美国</a><br/>
+                                ?<a href='/html/gndy/dyzz/20171105/55468.html'>2017年悬疑动作《极寒之城》</a><br/>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!--}end:最新下载排行 Top10-->
+                    <div class="co_area2">
+                        <div class="title_all"><p>本站推荐电视剧</p></div>
+                        <div class="co_content2">
+                            <ul>
+                                ?<a href='/html/tv/hytv/20180313/56493.html'>2018年香港电视剧《果栏中的</a><br/>
+                                ?<a href='/html/tv/hytv/20180313/56492.html'>2018年香港电视剧《翻生武林</a><br/>
+                                ?<a href='/html/tv/hytv/20180308/56466.html'>2018年内地电视剧《老男孩(</a><br/>
+                                ?<a href='/html/tv/hytv/20180328/56583.html'>2018年内地电视剧《南方有乔</a><br/>
+                                ?<a href='/html/tv/hytv/20180308/56465.html'>2018年内地电视剧《烈火如歌</a><br/>
+                                ?<a href='/html/tv/hytv/20180308/56464.html'>2018年内地电视剧《利刃出击</a><br/>
+                                ?<a href='/html/tv/hytv/20180308/56463.html'>2018年内地电视剧《美好生活</a><br/>
+                                ?<a href='/html/tv/hytv/20180115/56104.html'>2018年内地电视剧《凤囚凰》</a><br/>
+                                ?<a href='/html/tv/hytv/20180303/56409.html'>2018年内地电视剧《新笑傲江</a><br/>
+                                ?<a href='/html/tv/hytv/20180303/56408.html'>2018年香港电视剧《三个女人</a><br/>
+                                ?<a href='/html/tv/rihantv/20180314/56499.html'>2018韩国OCN月火剧《那个男</a><br/>
+                                ?<a href='/html/tv/rihantv/20180314/56498.html'>2018韩国MBC月火剧《伟大的</a><br/>
+                                ?<a href='/html/tv/rihantv/20180215/56330.html'>2018韩国JTBC月火剧《加油吧</a><br/>
+                                ?<a href='/html/tv/rihantv/20180215/56329.html'>2018韩国KBS2晨间剧《波浪啊</a><br/>
+                                ?<a href='/html/tv/rihantv/20180228/56382.html'>2018韩国SBS月火剧《要先接</a><br/>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!--{start:本周下载排行 Top10-->
+                    <div class="co_area2">
+                        <div class="title_all"><p>电影下载排行</p></div>
+                        <div class="co_content2">
+                            <ul>
+                                ?<a href='/html/gndy/jddy/20180328/56581.html'>2017年动作喜剧《卧底爷爷》</a><br/>
+                                ?<a href='/html/gndy/dyzz/20180327/56580.html'>2018年喜剧《祖宗十九代》HD</a><br/>
+                                ?<a href='/html/gndy/dyzz/20180327/56579.html'>2017年剧情传记《茉莉牌局》</a><br/>
+                                ?<a href='/html/gndy/jddy/20180327/56578.html'>2017年剧情悬疑《雨和闪电的</a><br/>
+                                ?<a href='/html/gndy/jddy/20180327/56577.html'>2017年奇幻动画《玛丽与魔女</a><br/>
+                                ?<a href='/html/gndy/jddy/20180327/56576.html'>2017年惊悚恐怖《黑暗缪斯/</a><br/>
+                                ?<a href='/html/gndy/dyzz/20180327/56575.html'>2018年科幻动作《移动迷宫3</a><br/>
+                                ?<a href='/html/gndy/jddy/20180327/56574.html'>2017年喜剧《父亲形象/私生</a><br/>
+                                ?<a href='/html/gndy/dyzz/20180326/56573.html'>2016年科幻动作《X战警：天</a><br/>
+                                ?<a href='/html/gndy/jddy/20180326/56572.html'>2017年惊悚动作《国王口信》</a><br/>
+                                ?<a href='/html/gndy/jddy/20180326/56570.html'>2016年恐怖《育婴室》HD国语</a><br/>
+                                ?<a href='/html/gndy/jddy/20180326/56569.html'>2017年动画《哥斯拉：怪兽行</a><br/>
+                                ?<a href='/html/gndy/jddy/20180326/56568.html'>2017年获奖纪录片《强岛》BD</a><br/>
+                                ?<a href='/html/gndy/jddy/20180326/56567.html'>2017年动画《赛尔号大电影6</a><br/>
+                                ?<a href='/html/gndy/jddy/20180325/56566.html'>2017年惊悚《马柔本宅秘事/</a><br/>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!--}end:本周下载排行 Top10-->
+                    <!--{start:总下载排行 Top10-->
+                    <div class="co_area2">
+                        <div class="title_all"><p>电视剧下载排行</p></div>
+                        <div class="co_content2">
+                            <ul>
+                                ?<a href='/html/tv/hytv/20180328/56583.html'>2018年内地电视剧《南方有乔</a><br/>
+                                ?<a href='/html/tv/rihantv/20180326/56571.html'>2018韩国MBC周末剧《富家公</a><br/>
+                                ?<a href='/html/tv/rihantv/20180322/56546.html'>2018韩国TVN水木剧《我的大</a><br/>
+                                ?<a href='/html/tv/rihantv/20180322/56545.html'>2018韩国MBC水木剧《牵着手,</a><br/>
+                                ?<a href='/html/tv/rihantv/20180318/56527.html'>2018韩国KBS2周末剧《一起生</a><br/>
+                                ?<a href='/html/tv/rihantv/20180317/56521.html'>2018韩国TVN周末剧《Live》</a><br/>
+                                ?<a href='/html/tv/rihantv/20180314/56499.html'>2018韩国OCN月火剧《那个男</a><br/>
+                                ?<a href='/html/tv/rihantv/20180314/56498.html'>2018韩国MBC月火剧《伟大的</a><br/>
+                                ?<a href='/html/tv/hytv/20180313/56493.html'>2018年香港电视剧《果栏中的</a><br/>
+                                ?<a href='/html/tv/hytv/20180313/56492.html'>2018年香港电视剧《翻生武林</a><br/>
+                                ?<a href='/html/tv/hytv/20180313/56491.html'>2018年内地电视剧《人生若如</a><br/>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!--}end:总下载排行 Top10-->
+                    <!--{start:左下角-->
+                    <div class="co_area2">
+                        <div class="co_content2">
+                            <ul>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!--}end:左下角-->
+
+
+                    <!--{start:左下角2-->
+                    <div class="co_area2">
+                        <div class="co_content2">
+                            <ul>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!--}end:左下角-->
+
+
+                </div>
+                <!--}end:内容区左侧-->
+                <div class="bd3r">
+                    <div>
+                        <!--{start:搜索-->
+                        <div class="search">
+                            <script src="/js/search.js" language="javascript"></script>
+                        </div>
+                        <!--}end:搜索-->
+
+                        <div class="x"></div>
+
+                        <div class="x"></div>
+                    </div>
+                    <div class="co_area2">
+                        <div class="title_all"><h1><font
+                                color=#07519a>2017年高分获奖剧情《魅影缝匠》BD中英双字幕</font></h1></div>
+                        <div class="co_content8">
+                            <ul>
+
+
+                                发布时间：2018-03-28
+
+
+                                <tr>
+
+
+                                <tr>
+                                    <td colspan="2">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center" valign="top">
+                                        <div id="Zoom">
+                                            <!--Content Start--><span style="FONT-SIZE: 12px">
+                                    <td>
+                                        魅影缝匠][BD-mkv.720p.中英双字][2017年高分获奖剧情] <br/><br/><img
+                                            border="0" src="http://www.imageto.org/images/kj9Ny.jpg"
+                                            alt=""/> <br/><br/>◎译　　名　魅影缝匠/霓裳魅影(港/台)/幽冥端绪/幽灵线条/一缕浮生/衣缕浮生/丝缕幻象
+                                        <br/>◎片　　名　Phantom Thread <br/>◎年　　代　2017 <br/>◎产　　地　美国
+                                        <br/>◎类　　别　剧情/爱情 <br/>◎语　　言　英语 <br/>◎字　　幕　中英双字幕 <br/>◎上映日期　2017-12-25(美国点映)/2018-01-19(美国)
+                                        <br/>◎IMDb评分 7.8/10 from 43,364 users <br/>◎豆瓣评分　7.8/10 from
+                                        22,878 users <br/>◎文件格式　x264 + aac <br/>◎视频尺寸　1280 x 720
+                                        <br/>◎文件大小　1CD <br/>◎片　　长　130分钟 <br/>◎导　　演　保罗&middot;托马斯&middot;安德森
+                                        Paul Thomas Anderson <br/>◎主　　演　丹尼尔&middot;戴-刘易斯 Daniel
+                                        Day-Lewis <br/>　　　　　　薇姬&middot;克里普斯 Vicky Krieps <br/>　　　　　　莱丝利&middot;曼维尔
+                                        Lesley Manville <br/>　　　　　　卡米拉&middot;拉瑟福德 Camilla
+                                        Rutherford <br/>　　　　　　吉娜&middot;麦基 Gina McKee <br/>　　　　　　布莱恩&middot;格里森
+                                        Brian Gleeson <br/>　　　　　　哈里特&middot;桑塞姆&middot;哈里斯 Harriet
+                                        Sansom Harris <br/>　　　　　　理查德&middot;格拉翰 Richard Graham <br/>　　　　　　西拉斯&middot;卡森
+                                        Silas Carson <br/>　　　　　　朱莉娅&middot;戴维斯 Julia Davis <br/>　　　　　　简&middot;佩里
+                                        Jane Perry <br/><br/>◎简　　介 <br/><br/>　　故事发生在二十世纪五十年代的伦敦，雷诺兹（丹尼尔&middot;戴-刘易斯
+                                        Daniel Day Lewis 饰）和妹妹西丽奥（莱丝利&middot;曼维尔 Lesley Manville
+                                        饰）一起经营着名为&ldquo;伍德科克之家&rdquo;的制衣所，在伦敦当时的上流社会之中，能够穿上雷诺兹亲手缝制的礼服是每一个王公显贵和明星名流的愿望。
+                                        <br/><br/>　　一次偶然中，雷诺兹在餐馆里遇见了名为阿尔玛（薇姬&middot;克里普斯 Vicky
+                                        Krieps
+                                        饰）的女服务生，两人一见钟情。雷诺兹将阿尔玛领入了五光十色的花花世界，但阿尔玛眼中却一直凝望着雷诺兹的身影。在生活中，雷诺兹是一个特别难缠和挑剔的怪人，朝夕相处之下，他和阿尔玛之间屡屡产生矛盾。眼看着雷诺兹的态度越来越冷淡，阿尔玛知道，自己必须采取行动，来捍卫她的爱情。
+                                        <br/><br/>◎获奖情况 <br/><br/>　　第90届奥斯卡金像奖 (2018) <br/>　　最佳影片(提名)
+                                        梅根&middot;埃里森/乔安妮&middot;塞拉尔/保罗&middot;托马斯&middot;安德森/丹尼尔&middot;卢皮
+                                        <br/>　　最佳导演(提名) 保罗&middot;托马斯&middot;安德森 <br/>　　最佳男主角(提名)
+                                        丹尼尔&middot;戴-刘易斯 <br/>　　最佳女配角(提名) 莱丝利&middot;曼维尔 <br/>　　最佳服装设计
+                                        马克&middot;布里奇斯 <br/>　　最佳原创配乐(提名) 强尼&middot;格林伍德 <br/><br/>　　第75届金球奖
+                                        (2018) <br/>　　电影类 剧情片最佳男主角(提名) 丹尼尔&middot;戴-刘易斯 <br/>　　电影类
+                                        最佳原创配乐(提名) 强尼&middot;格林伍德 <br/><br/>　　第71届英国电影学院奖 (2018)
+                                        <br/>　　电影奖 最佳男主角(提名) 丹尼尔&middot;戴-刘易斯 <br/>　　电影奖 最佳女配角(提名)
+                                        莱丝利&middot;曼维尔 <br/>　　电影奖 最佳服装设计 <br/>　　电影奖 最佳原创音乐(提名) 强尼&middot;格林伍德
+                                        <br/><br/>　　第83届纽约影评人协会奖 (2017) <br/>　　最佳剧本 保罗&middot;托马斯&middot;安德森
+                                        <br/><br/>　　第89届美国国家评论协会奖 (2017) <br/>　　最佳原创剧本 保罗&middot;托马斯&middot;安德森
+                                        <br/>　　年度佳片 <br/><br/>　　第23届美国评论家选择电影奖 (2018) <br/>　　最佳男主角(提名)
+                                        丹尼尔&middot;戴-刘易斯 <br/>　　最佳配乐(提名) <br/>　　最佳美术指导(提名) <br/>　　最佳服装设计
+                                        <br/><br/>　　第22届金卫星奖 (2018) <br/>　　电影部门 最佳男主角(提名) 丹尼尔&middot;戴-刘易斯
+                                        <br/>　　电影部门 最佳美术指导(提名) <br/>　　电影部门 最佳服装设计(提名) 马克&middot;布里奇斯
+                                        <br/><br/>　　第52届美国国家影评人协会奖 (2018) <br/>　　最佳影片(提名) <br/>　　最佳导演(提名)
+                                        保罗&middot;托马斯&middot;安德森 <br/>　　最佳男主角(提名) 丹尼尔&middot;戴-刘易斯
+                                        <br/>　　最佳女配角(提名) 莱丝利&middot;曼维尔 <br/>　　最佳剧本(提名) 保罗&middot;托马斯&middot;安德森
+                                        <br/><br/>　　第38届波士顿影评人协会奖 (2017) <br/>　　最佳影片 <br/>　　最佳导演 保罗&middot;托马斯&middot;安德森
+                                        <br/>　　最佳音乐 强尼&middot;格林伍德 <br/><br/>　　第43届洛杉矶影评人协会奖 (2017)
+                                        <br/>　　最佳配乐 强尼&middot;格林伍德 <br/><br/>　　第4届豆瓣电影年度榜单 (2017)
+                                        <br/>　　2017-2018北美颁奖季热门佳片(提名) <br/><br/><img border="0"
+                                                                                     src="http://www.imageto.org/images/Sqf0l.jpg"
+                                                                                     alt=""/>
+                                        <br/><br/><br/><strong><font color="#ff0000"><font size="4">【下载地址】</font></font></strong>
+                                        <br/><br/><br/>
+                                        <table style="BORDER-BOTTOM: #cccccc 1px dotted; BORDER-LEFT: #cccccc 1px dotted; TABLE-LAYOUT: fixed; BORDER-TOP: #cccccc 1px dotted; BORDER-RIGHT: #cccccc 1px dotted"
+                                               border="0" cellspacing="0" cellpadding="6"
+                                               width="95%" align="center">
+                                            <tbody>
+                                            <tr>
+                                                <td style="WORD-WRAP: break-word" bgcolor="#fdfddf">
+                                                    <a href="ftp://ygdy8:ygdy8@yg45.dydytt.net:7166/阳光电影www.ygdy8.com.魅影缝匠.BD.720p.中英双字幕.mkv">ftp://ygdy8:ygdy8@yg45.dydytt.net:7166/阳光电影www.ygdy8.com.魅影缝匠.BD.720p.中英双字幕.mkv</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>&nbsp;</p>
+                                        <p>
+                                        <table style="BORDER-BOTTOM: #cccccc 1px dotted; BORDER-LEFT: #cccccc 1px dotted; TABLE-LAYOUT: fixed; BORDER-TOP: #cccccc 1px dotted; BORDER-RIGHT: #cccccc 1px dotted"
+                                               border="0" cellspacing="0" cellpadding="6"
+                                               width="95%" align="center">
+                                            <tbody>
+                                            <tr>
+                                                <td style="WORD-WRAP: break-word" bgcolor="#fdfddf">
+                                                    <a href="magnet:?xt=urn:btih:cf732c5fec17fc42505daa2effc3e12a74412d05&amp;dn=%e9%98%b3%e5%85%89%e7%94%b5%e5%bd%b1www.ygdy8.com.%e9%ad%85%e5%bd%b1%e7%bc%9d%e5%8c%a0.BD.720p.%e4%b8%ad%e8%8b%b1%e5%8f%8c%e5%ad%97%e5%b9%95.mkv&amp;tr=udp%3a%2f%2ftracker.leechers-paradise.org%3a6969%2fannounce&amp;tr=udp%3a%2f%2feddie4.nl%3a6969%2fannounce&amp;tr=udp%3a%2f%2fshadowshq.eddie4.nl%3a6969%2fannounce&amp;tr=udp%3a%2f%2ftracker.opentrackr.org%3a1337%2fannounce"><strong><font
+                                                            style="BACKGROUND-COLOR: #ff9966"
+                                                            color="#0000ff"
+                                                            size="4">磁力链下载点击这里</font></strong></a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        </p> <br>
+                                        <center></center>
+
+
+                                    </td>
+
+                                </tr>
+                                <script language=javascript src="/js2/750.js"></script>
+
+                                <br>
+                                <font color=red>下载地址2：<a href="http://www.ygdy8.net/"
+                                                         target="_blank" title="迅雷电影">点击进入</a>
+                                </font>
+                                &nbsp; &nbsp; <font
+                                    color=#07519a>温馨提示：如遇迅雷无法下载可换用无限制版尝试用磁力下载!</font>
+                                <font color=red><a href="/js/thunder.htm" target="_blank"
+                                                   title="点击下载">无限制版下载</a> </font>
+                                <BR><BR>
+                                <font color=red>下载方法：安装软件后,点击即可下载,谢谢大家支持，欢迎每天来！</font><BR>
+
+
+                                <tr>
+                                    <td colspan="2">
+                                        <hr color="#CC6600" size="1px"/>
+                                    </td>
+                                </tr>
+                                </tr>
+                                <center><a href="http://www.dytt8.net/" target="_blank"><font
+                                        color="blue">点击进去首发区（第一时间更新）：想第一时间下载本站的影片吗？ </font></a>下载方法:不会下载的网友先看看"<a
+                                        href=" " target="_blank" title="本站电影下载教程"><font
+                                        color="blue">本站电影下载教程</font></a>"
+                                </center>
+                        </div>
+                        <td colspan="2">
+                            <hr color="#CC6600" size="1px"/>
+                        </td>
+                        <table border=0 cellpadding=0 cellspacing=0 width=700>
+                            <tr>
+                                <td width=350 align=left>
+                                    ●本栏目本周最新资源列表：<br>?<a href='/html/gndy/jddy/20180328/56581.html'>2017年动作喜剧《卧底爷爷》BD中英双字幕</a><br>
+                                    ?<a href='/html/gndy/dyzz/20180327/56580.html'>2018年喜剧《祖宗十九代》HD国语中字</a><br>
+                                    ?<a href='/html/gndy/dyzz/20180327/56579.html'>2017年剧情传记《茉莉牌局》BD中英双字幕</a><br>
+                                    ?<a href='/html/gndy/jddy/20180327/56578.html'>2017年剧情悬疑《雨和闪电的气息》BD中英双</a><br>
+                                    ?<a href='/html/gndy/jddy/20180327/56577.html'>2017年奇幻动画《玛丽与魔女之花》BD日语中</a><br>
+                                    ?<a href='/html/gndy/jddy/20180327/56576.html'>2017年惊悚恐怖《黑暗缪斯/阴诗咒》BD中英</a><br>
+                                    ?<a href='/html/gndy/dyzz/20180327/56575.html'>2018年科幻动作《移动迷宫3：死亡解药》HD</a><br>
+                                    ?<a href='/html/gndy/jddy/20180327/56574.html'>2017年喜剧《父亲形象/私生子寻父记》BD中</a><br>
+                                    ?<a href='/html/gndy/dyzz/20180326/56573.html'>2016年科幻动作《X战警：天启》BD国英双语</a><br>
+                                    ?<a href='/html/gndy/jddy/20180326/56572.html'>2017年惊悚动作《国王口信》BD中英双字幕</a><br>
+                                </td>
+                                <td width=350 align=left>●本栏目本周最热门资源列表：<br>?<a
+                                        href='/html/gndy/jddy/20180328/56581.html'>2017年动作喜剧《卧底爷爷》BD中英双字幕</a><br>
+                                    ?<a href='/html/gndy/dyzz/20180327/56580.html'>2018年喜剧《祖宗十九代》HD国语中字</a><br>
+                                    ?<a href='/html/gndy/dyzz/20180327/56579.html'>2017年剧情传记《茉莉牌局》BD中英双字幕</a><br>
+                                    ?<a href='/html/gndy/jddy/20180327/56578.html'>2017年剧情悬疑《雨和闪电的气息》BD中英双</a><br>
+                                    ?<a href='/html/gndy/jddy/20180327/56577.html'>2017年奇幻动画《玛丽与魔女之花》BD日语中</a><br>
+                                    ?<a href='/html/gndy/jddy/20180327/56576.html'>2017年惊悚恐怖《黑暗缪斯/阴诗咒》BD中英</a><br>
+                                    ?<a href='/html/gndy/dyzz/20180327/56575.html'>2018年科幻动作《移动迷宫3：死亡解药》HD</a><br>
+                                    ?<a href='/html/gndy/jddy/20180327/56574.html'>2017年喜剧《父亲形象/私生子寻父记》BD中</a><br>
+                                    ?<a href='/html/gndy/dyzz/20180326/56573.html'>2016年科幻动作《X战警：天启》BD国英双语</a><br>
+                                    ?<a href='/html/gndy/jddy/20180326/56572.html'>2017年惊悚动作《国王口信》BD中英双字幕</a><br>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="x"></div>
+
+                        <script src="http://dytt8.net/js/webThunderDetect.js"
+                                charset="utf-8"></script>
+                        <script src="/js/base64.js"></script>
+                        <script language="javascript"> var thunderPath = ""; var thunderPid = "";
 
 
 
+                        </script>
+                        <script src="/js/thunderForum.js"></script>
+                    </div>
+                    <div class="x"></div>
+                </div>
+                <div class="x"></div>
+            </div>
+            <div class="x"></div>
+        </div>
+        <!--}end:body conten-->
+        <!--{start:友情链接-->
+        <div class="bd6">
+            <ul>
+                <center>
+                    <script language=javascript src="/js2/950d.js"></script>
+                </center>
+            </ul>
+            <div class="x"></div>
+        </div>
+        <!--}end:友情链接-->
+        <!--{start:footer-->
+        <div class="footer">
+            <a href="/about.html">关于本站</a> - <a href="/index.html">电影下载</a> - <a
+                href="/plus/sitemap.html">网站地图</a> - <br/>
+            Copyright @ 2018 www.dytt8.net. All Rights Reserved .
+            <div style='display:none'>
+                <script language=javascript src="/js/tj.js"></script>
+                <script language=javascript src="/js2/pf.js"></script>
+            </div>
+            <br/>
+        </div>
+    </div>
+    <!--}end:footer-->
+    <!--}end:body conten-->
 
 
-
-      <script language="javascript" src="http://www.dytt8.net/js2/750.js"></script>
-
-<br>
-<font color="red">下载地址2：<a href="http://www.ygdy8.net/" target="_blank" title="迅雷电影">点击进入</a> </font>
-&nbsp; &nbsp; <font color="#07519a">温馨提示：如遇迅雷无法下载可换用无限制版尝试用磁力下载!</font>
-<font color="red"><a href="http://www.dytt8.net/js/thunder.htm" target="_blank" title="点击下载">无限制版下载</a> </font>
-<br><br>
-<font color="red">下载方法：安装软件后,点击即可下载,谢谢大家支持，欢迎每天来！</font><br>
-
-
-
-      
-        <hr color="#CC6600" size="1px">
-      
-
-        <center><a href="http://www.dytt8.net/" target="_blank"><font color="blue">点击进去首发区（第一时间更新）：想第一时间下载本站的影片吗？ </font></a>下载方法:不会下载的网友先看看"<a href="http://www.dytt8.net/html/gndy/dyzz/20180330/56601.html" target="_blank" title="本站电影下载教程"><font color="blue">本站电影下载教程</font></a>"   </center>
-</span></div>
-   <hr color="#CC6600" size="1px">
-<table border="0" cellpadding="0" cellspacing="0" width="700"><tbody><tr><td width="350" align="left">
-●本栏目本周最新资源列表：<br>·<a href="http://www.dytt8.net/html/gndy/jddy/20180330/56600.html">2017年惊悚恐怖《房客》BD中英双字幕</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180330/56599.html">2018年奇幻惊悚《我杀死了巨人》BD中英双字</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180330/56594.html">2017年动作《亚瑟王和圆桌骑士》BD中英双字</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180329/56592.html">2018年惊悚恐怖《杂交种》BD中英双字幕</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180329/56591.html">2017年喜剧《小鬼警察：新兵》BD中英双字幕</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180329/56588.html">2017年惊悚动作《速度与激战》BD英语中字</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180328/56587.html">2017年恐怖《灵蚀/日蚀亡灵》BD西班牙语中</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20180328/56582.html">2017年高分获奖剧情《魅影缝匠》BD中英双字</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180328/56581.html">2017年动作喜剧《卧底爷爷》BD中英双字幕</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20180327/56580.html">2018年喜剧《祖宗十九代》HD国语中字</a><br>
-</td><td width="350" align="left">●本栏目本周最热门资源列表：<br>·<a href="http://www.dytt8.net/html/gndy/jddy/20180330/56599.html">2018年奇幻惊悚《我杀死了巨人》BD中英双字</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180330/56600.html">2017年惊悚恐怖《房客》BD中英双字幕</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180330/56594.html">2017年动作《亚瑟王和圆桌骑士》BD中英双字</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180329/56592.html">2018年惊悚恐怖《杂交种》BD中英双字幕</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180329/56591.html">2017年喜剧《小鬼警察：新兵》BD中英双字幕</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180329/56588.html">2017年惊悚动作《速度与激战》BD英语中字</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180328/56587.html">2017年恐怖《灵蚀/日蚀亡灵》BD西班牙语中</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20180328/56582.html">2017年高分获奖剧情《魅影缝匠》BD中英双字</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20180328/56581.html">2017年动作喜剧《卧底爷爷》BD中英双字幕</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20180327/56580.html">2018年喜剧《祖宗十九代》HD国语中字</a><br>
-</td></tr></tbody></table>
-
-<div class="x"></div>
- 
-<script src="./movie_detail_files/webThunderDetect.js" charset="utf-8"></script><script type="text/javascript" src="./movie_detail_files/iplookup.php"></script> 
-<script src="./movie_detail_files/base64.js"></script>
-<script language="javascript"> var thunderPath = ""; var thunderPid = ""; </script>
-<script src="./movie_detail_files/thunderForum.js"></script> 
-</ul></div>
-<div class="x"></div>
-</div>
-<div class="x"></div>
-</div>
-<div class="x"></div>
-</div>
-<!--}end:body conten-->
-<!--{start:友情链接-->
-<div class="bd6">
-<ul>
-<center><script language="javascript" src="http://www.dytt8.net/js2/950d.js"></script></center> 
-</ul>
-<div class="x"></div>
-</div>
-<!--}end:友情链接-->
-<!--{start:footer-->
-<div class="footer">
-<a href="http://www.dytt8.net/about.html">关于本站</a> - <a href="http://www.dytt8.net/index.html">电影下载</a> -  <a href="http://www.dytt8.net/plus/sitemap.html">网站地图</a> - <br>
-Copyright @ 2018 www.dytt8.net. All Rights Reserved .<div style="display:none">
-<script language="javascript" src="./movie_detail_files/tj.js"></script> 
-<script language="javascript" src="http://www.dytt8.net/js2/pf.js"></script> 
-</div><br>
-</div>
-</div>
-<!--}end:footer-->
-<!--}end:body conten-->
-
-
-
-
-
-
-</div></div><div id="showXLdiv" style="display: none;"></div></body></html>
+</body>
+</html>

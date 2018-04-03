@@ -73,7 +73,6 @@ public class VideoDetailPageParser {
             splitRegular = "【";
             fillMovieDetail(patterRegular, splitRegular, videoDetail, html);
 
-
             videoDetail.setCoverUrl(coverUrl);
             videoDetail.setPublishTime(publishTime);
             videoDetail.setDownloadLink(downloadUrls.get(0));

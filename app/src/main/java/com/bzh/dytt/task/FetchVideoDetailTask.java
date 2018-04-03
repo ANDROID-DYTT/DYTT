@@ -6,7 +6,8 @@ import android.util.Log;
 
 import com.bzh.dytt.data.CategoryMap;
 import com.bzh.dytt.data.VideoDetail;
-import com.bzh.dytt.data.db.AppDatabase;
+import com.bzh.dytt.data.db.CategoryMapDAO;
+import com.bzh.dytt.data.db.VideoDetailDAO;
 import com.bzh.dytt.data.network.ApiResponse;
 import com.bzh.dytt.data.network.DyttService;
 import com.bzh.dytt.util.VideoDetailPageParser;
@@ -21,16 +22,19 @@ public class FetchVideoDetailTask implements Runnable {
     private static final String TAG = "FetchVideoDetailTask";
 
     private final CategoryMap mCategoryMap;
+    private final CategoryMapDAO mCategoryMapDAO;
+    private final VideoDetailDAO mVideoDetailDAO;
     private final DyttService mService;
     private VideoDetailPageParser mParser;
-    private AppDatabase mDatabase;
 
-    public FetchVideoDetailTask(CategoryMap categoryMap, AppDatabase database, DyttService service, VideoDetailPageParser parser) {
+    public FetchVideoDetailTask(CategoryMap categoryMap, CategoryMapDAO categoryMapDAO, VideoDetailDAO videoDetailDAO, DyttService service, VideoDetailPageParser parser) {
         mCategoryMap = categoryMap;
+        mCategoryMapDAO = categoryMapDAO;
+        mVideoDetailDAO = videoDetailDAO;
         mService = service;
         mParser = parser;
-        mDatabase = database;
     }
+
 
     @Override
     public void run() {
@@ -49,9 +53,9 @@ public class FetchVideoDetailTask implements Runnable {
                 videoDetail.setSN(mCategoryMap.getSN());
                 videoDetail.setDetailLink(mCategoryMap.getLink());
                 videoDetail.setCategory(mCategoryMap.getCategory());
-                mDatabase.videoDetailDAO().updateVideoDetail(videoDetail);
+                mVideoDetailDAO.updateVideoDetail(videoDetail);
                 mCategoryMap.setIsParsed(true);
-                mDatabase.categoryMapDAO().updateCategory(mCategoryMap);
+                mCategoryMapDAO.updateCategory(mCategoryMap);
             }
         } catch (IOException e) {
             Log.e("FetchVideoDetailTask", "Something wrong when fetch video detail " + e.getMessage());

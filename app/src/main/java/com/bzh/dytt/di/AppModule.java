@@ -5,6 +5,9 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 
 import com.bzh.dytt.data.db.AppDatabase;
+import com.bzh.dytt.data.db.CategoryMapDAO;
+import com.bzh.dytt.data.db.CategoryPageDAO;
+import com.bzh.dytt.data.db.VideoDetailDAO;
 import com.bzh.dytt.data.network.DyttService;
 import com.bzh.dytt.util.LiveDataCallAdapterFactory;
 
@@ -90,5 +93,23 @@ public class AppModule {
     @Provides
     AppDatabase provideDb(Application app) {
         return Room.databaseBuilder(app, AppDatabase.class, AppDatabase.DATABASE_NAME).fallbackToDestructiveMigration().build();
+    }
+
+    @Singleton
+    @Provides
+    CategoryMapDAO provideCategoryMapDao(AppDatabase db) {
+        return db.categoryMapDAO();
+    }
+
+    @Singleton
+    @Provides
+    CategoryPageDAO provideCategroyPageDao(AppDatabase db) {
+        return db.categoryPageDAO();
+    }
+
+    @Singleton
+    @Provides
+    VideoDetailDAO provideVideoDetailDao(AppDatabase db) {
+        return db.videoDetailDAO();
     }
 }

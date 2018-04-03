@@ -1,17 +1,13 @@
 package com.bzh.dytt.util;
 
+import com.bzh.dytt.TestUtils;
 import com.bzh.dytt.data.CategoryMap;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-
-import okio.BufferedSource;
-import okio.Okio;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -28,7 +24,7 @@ public class HomePageParserTest {
 
     @Test
     public void parseLatestMovieCategoryMap() throws IOException {
-        String homeHtml = getResource("home.html");
+        String homeHtml = TestUtils.getResource(getClass(), "home.html");
 
         List<CategoryMap> result = mHomePageParser.parseLatestMovieCategoryMap(homeHtml);
         assertNotNull(result);
@@ -36,9 +32,4 @@ public class HomePageParserTest {
         assertEquals("/html/gndy/dyzz/20180403/56620.html", result.get(0).getLink());
     }
 
-    private String getResource(String fileName) throws IOException {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("api-response/" + fileName);
-        BufferedSource source = Okio.buffer(Okio.source(inputStream));
-        return source.readString(StandardCharsets.UTF_8);
-    }
 }

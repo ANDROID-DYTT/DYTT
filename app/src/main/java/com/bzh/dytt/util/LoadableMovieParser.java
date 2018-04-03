@@ -25,7 +25,7 @@ public class LoadableMovieParser {
         mInternalMovieListParser = new InternalMovieListParser();
     }
 
-    public List<CategoryMap> getMovieList(String html, MovieCategory category) {
+    public List<CategoryMap> parseCategoryMap(String html, MovieCategory category) {
         return mInternalMovieListParser.parse(html, category);
     }
 
@@ -45,7 +45,7 @@ public class LoadableMovieParser {
                 CategoryMap categoryMap = new CategoryMap();
 
                 String link = element.attr("href");
-                categoryMap.setLink(link);
+                categoryMap.setLink(link.substring(link.indexOf('/', 7)));
                 categoryMap.setSN(Integer.parseInt(link.substring(link.lastIndexOf('/') + 1, link.lastIndexOf('.'))));
                 categoryMap.setCategory(category);
                 categoryMaps.add(categoryMap);
@@ -53,10 +53,5 @@ public class LoadableMovieParser {
 
             return categoryMaps;
         }
-
-        private boolean isFilmType(String fullName) {
-            return fullName.contains("》");
-        }
     }
-
 }
