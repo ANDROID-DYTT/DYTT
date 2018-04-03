@@ -2,10 +2,12 @@ package com.bzh.dytt.data.network;
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.bzh.dytt.AppExecutors;
 import com.bzh.dytt.util.ApiUtil;
@@ -48,23 +50,16 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 @RunWith(Parameterized.class)
 public class NetworkBoundResourceTest {
 
+    private static final String TAG = "NetworkBoundResourceTes";
     private final boolean useRealExecutors;
-
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-
     private Function<Foo, Void> saveCallResult;
-
     private Function<Foo, Boolean> shouldFetch;
-
     private AtomicBoolean fetchedOnce = new AtomicBoolean(false);
-
     private MutableLiveData<Foo> dbData = new MutableLiveData<>();
-
     private Function<Void, LiveData<ApiResponse<Foo>>> createCall;
-
     private CountingAppExecutors countingAppExecutors;
-
     private NetworkBoundResource<Foo, Foo> networkBoundResource;
 
     public NetworkBoundResourceTest(boolean useRealExecutors) {
@@ -193,6 +188,39 @@ public class NetworkBoundResourceTest {
         drain();
         assertThat(saved.get(), is(false));
         verify(observer).onChanged(Resource.<Foo>error("error", null));
+    }
+
+    @Test
+    public void testLive() {
+
+        final MediatorLiveData<String> mediatorLiveData = new MediatorLiveData<>();
+
+        final MutableLiveData<String> liveData = new MutableLiveData<>();
+
+        mediatorLiveData.addSource(liveData, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                mediatorLiveData.removeSource(liveData);
+                mediatorLiveData.addSource(liveData, new Observer<String>() {
+                    @Override
+                    public void onChanged(@Nullable String s) {
+                        Log.d(TAG, "onChanged() called with: s = [" + s + "]");
+                        mediatorLiveData.setValue(s);
+                    }
+                });
+            }
+        });
+
+        mediatorLiveData.observeForever(new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                Log.d(TAG, "onChanged() called with: s = [" + s + "]");
+            }
+        });
+
+
+        liveData.setValue("haha");
+        mediatorLiveData.setValue("haha");
     }
 
     @Test
