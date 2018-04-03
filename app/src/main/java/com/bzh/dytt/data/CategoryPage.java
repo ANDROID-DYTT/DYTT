@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Objects;
+
 @Entity(tableName = "category_page")
 public class CategoryPage {
 
@@ -38,5 +40,19 @@ public class CategoryPage {
 
     public void setNextPage(@NonNull int nextPage) {
         mNextPage = nextPage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CategoryPage that = (CategoryPage) o;
+        return mCategory == that.mCategory;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(mCategory);
     }
 }

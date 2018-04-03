@@ -26,7 +26,7 @@ public class HomePageParserTest {
     public void parseLatestMovieCategoryMap() throws IOException {
         String homeHtml = TestUtils.getResource(getClass(), "home.html");
 
-        List<CategoryMap> result = mHomePageParser.parseLatestMovieCategoryMap(homeHtml);
+        List<CategoryMap> result = mHomePageParser.parse(homeHtml);
         assertNotNull(result);
         assertTrue(result.size() > 0);
         assertEquals("/html/gndy/dyzz/20180403/56620.html", result.get(0).getLink());

@@ -12,11 +12,11 @@ import android.support.annotation.Nullable;
 import com.bzh.dytt.BaseViewModel;
 import com.bzh.dytt.DataRepository;
 import com.bzh.dytt.data.CategoryMap;
+import com.bzh.dytt.data.MovieCategory;
 import com.bzh.dytt.data.VideoDetail;
 import com.bzh.dytt.data.network.Resource;
 import com.bzh.dytt.data.network.Status;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,13 +36,7 @@ public class NewMovieViewModel extends BaseViewModel {
         mVideoList = (MediatorLiveData<Resource<List<VideoDetail>>>) Transformations.switchMap(mCategoryHandler.getCategoryMap(), new Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>>() {
             @Override
             public LiveData<Resource<List<VideoDetail>>> apply(Resource<List<CategoryMap>> result) {
-                List<String> linkList = new ArrayList<>();
-                if (result.data != null) {
-                    for (CategoryMap categoryMap : result.data) {
-                        linkList.add(categoryMap.getLink());
-                    }
-                }
-                return mDataRepository.getVideoDetails(linkList);
+                return mDataRepository.getVideoDetailsByCategory(MovieCategory.HOME_LATEST_MOVIE);
             }
         });
 
@@ -90,7 +84,7 @@ public class NewMovieViewModel extends BaseViewModel {
 
         void refresh() {
             unregister();
-            mLiveData = mRepository.getLatestMovie();
+            mLiveData = mRepository.getMovieListByCategory(MovieCategory.HOME_LATEST_MOVIE);
             mLiveData.observeForever(this);
         }
 

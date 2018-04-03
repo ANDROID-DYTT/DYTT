@@ -29,7 +29,7 @@ public class HomePageParser {
 //        mEAParse = new HomePageParser.EATVParse();
     }
 
-    public List<CategoryMap> parseLatestMovieCategoryMap(String html) {
+    public List<CategoryMap> parse(String html) {
         List<CategoryMap> result = new ArrayList<>();
 
         if (html != null && html.length() != 0) {

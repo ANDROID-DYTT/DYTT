@@ -2,6 +2,7 @@ package com.bzh.dytt.data.network;
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 
+import com.bzh.dytt.data.MovieCategory;
 import com.bzh.dytt.util.LiveDataCallAdapterFactory;
 import com.bzh.dytt.utils.LiveDataTestUtil;
 
@@ -37,6 +38,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnit4.class)
 public class DyttServiceTest {
 
+    public static final String BASE_URL = "";
     @Rule
     public InstantTaskExecutorRule instantExecutorRule = new InstantTaskExecutorRule();
 
@@ -48,7 +50,7 @@ public class DyttServiceTest {
     public void createService() {
         mockWebServer = new MockWebServer();
         service = new Retrofit.Builder()
-                .baseUrl(mockWebServer.url("/"))
+                .baseUrl(mockWebServer.url(BASE_URL))
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addCallAdapterFactory(new LiveDataCallAdapterFactory())
                 .build()
@@ -63,9 +65,21 @@ public class DyttServiceTest {
     @Test
     public void getHomePage() throws IOException, InterruptedException {
         enqueueResponse("home.html");
-        ApiResponse<ResponseBody> apiResponse = LiveDataTestUtil.getValue(service.getHomePage());
+        ApiResponse<ResponseBody> apiResponse = LiveDataTestUtil.getValue(service.getMovieListByCategory("/"));
         RecordedRequest request = mockWebServer.takeRequest();
-        assertThat(request.getPath(), is("/"));
+        assertThat(URLDecoder.decode(request.getPath(), "UTF-8"), is("//"));
+        assertThat(apiResponse.isSuccessful(), is(true));
+        assertThat(apiResponse.errorMessage, nullValue());
+        assertThat(apiResponse.body.contentLength(), is(not(0l)));
+    }
+
+    @Test
+    public void getMovieListByCategory() throws IOException, InterruptedException {
+        enqueueResponse("new_movie.html");
+        ApiResponse<ResponseBody> apiResponse = LiveDataTestUtil.getValue(
+                service.getMovieListByCategory(MovieCategory.NEW_MOVIE.getDefaultUrl()));
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertThat(URLDecoder.decode(request.getPath(), "UTF-8"), is("//html/gndy/dyzz/list_23_1.html"));
         assertThat(apiResponse.isSuccessful(), is(true));
         assertThat(apiResponse.errorMessage, nullValue());
         assertThat(apiResponse.body.contentLength(), is(not(0l)));
@@ -74,14 +88,14 @@ public class DyttServiceTest {
     @Test
     public void getVideoDetail() throws IOException, InterruptedException {
         enqueueResponse("movie_detail.html");
-        Response<ResponseBody> response = service.getVideoDetail("html/gndy/dyzz/20180330/56601.html").execute();
+        Response<ResponseBody> response = service.getVideoDetail("/html/gndy/dyzz/20180330/56601.html").execute();
         ApiResponse<ResponseBody> apiResponse = new ApiResponse<>(response);
         RecordedRequest request = mockWebServer.takeRequest();
-        assertThat(URLDecoder.decode(request.getPath(), "UTF-8"), is("/html/gndy/dyzz/20180330/56601.html"));
+        assertThat(URLDecoder.decode(request.getPath(), "UTF-8"), is("//html/gndy/dyzz/20180330/56601.html"));
         assertThat(apiResponse.isSuccessful(), is(true));
         assertThat(apiResponse.body.contentLength(), is(not(0l)));
-
     }
+
 
     private void enqueueResponse(String fileName) throws IOException {
         enqueueResponse(fileName, Collections.<String, String>emptyMap());
@@ -96,6 +110,5 @@ public class DyttServiceTest {
         }
         mockWebServer.enqueue(mockResponse.setBody(source.readString(StandardCharsets.UTF_8)));
     }
-
 
 }

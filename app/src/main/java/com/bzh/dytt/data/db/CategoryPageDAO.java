@@ -7,6 +7,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.bzh.dytt.data.CategoryPage;
+import com.bzh.dytt.data.MovieCategory;
 
 import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 
@@ -17,7 +18,7 @@ public interface CategoryPageDAO {
     void insertPage(CategoryPage page);
 
     @Query("SELECT * FROM category_page WHERE category = :category")
-    CategoryPage nextPage(int category);
+    CategoryPage nextPage(MovieCategory category);
 
     @Update
     void updatePage(CategoryPage page);

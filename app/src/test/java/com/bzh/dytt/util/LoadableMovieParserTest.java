@@ -26,7 +26,7 @@ public class LoadableMovieParserTest {
     @Test
     public void getMovieList() throws IOException {
         String newMovie = TestUtils.getResource(getClass(), "new_movie.html");
-        List<CategoryMap> result = loadableMovieParser.parseCategoryMap(newMovie, MovieCategory.NEW_MOVIE);
+        List<CategoryMap> result = loadableMovieParser.parse(newMovie, MovieCategory.NEW_MOVIE);
 
         assertNotNull(result);
         assertTrue(result.size() > 0);

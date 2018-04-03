@@ -19,8 +19,7 @@ import com.bzh.dytt.data.network.NetworkBoundResource;
 import com.bzh.dytt.data.network.Resource;
 import com.bzh.dytt.task.FetchSearchVideoDetailTask;
 import com.bzh.dytt.task.FetchVideoDetailTask;
-import com.bzh.dytt.util.HomePageParser;
-import com.bzh.dytt.util.LoadableMovieParser;
+import com.bzh.dytt.util.CategoryPageParser;
 import com.bzh.dytt.util.RateLimiter;
 import com.bzh.dytt.util.VideoDetailPageParser;
 
@@ -39,73 +38,24 @@ import retrofit2.Response;
 public class DataRepository {
 
     private AppExecutors mAppExecutors;
-
     private DyttService mService;
-
     private CategoryMapDAO mCategoryMapDAO;
-
     private CategoryPageDAO mCategoryPageDAO;
     private VideoDetailDAO mVideoDetailDAO;
-    private HomePageParser mHomePageParser;
-
-    private LoadableMovieParser mLoadableMovieParser;
-
+    private CategoryPageParser mCategoryPageParser;
     private VideoDetailPageParser mVideoDetailPageParser;
 
     private RateLimiter<String> mRepoListRateLimit = new RateLimiter<>(10, TimeUnit.MINUTES);
 
     @Inject
-    DataRepository(AppExecutors appExecutors, DyttService service, CategoryMapDAO categoryMapDAO, CategoryPageDAO categoryPageDAO, VideoDetailDAO videoDetailDAO, HomePageParser homePageParser, VideoDetailPageParser videoDetailPageParser, LoadableMovieParser loadableMovieParser) {
+    DataRepository(AppExecutors appExecutors, DyttService service, CategoryMapDAO categoryMapDAO, CategoryPageDAO categoryPageDAO, VideoDetailDAO videoDetailDAO, CategoryPageParser categoryPageParser, VideoDetailPageParser videoDetailPageParser) {
         mAppExecutors = appExecutors;
         mService = service;
         mCategoryMapDAO = categoryMapDAO;
         mCategoryPageDAO = categoryPageDAO;
         mVideoDetailDAO = videoDetailDAO;
-        mHomePageParser = homePageParser;
-        mLoadableMovieParser = loadableMovieParser;
+        mCategoryPageParser = categoryPageParser;
         mVideoDetailPageParser = videoDetailPageParser;
-    }
-
-    public LiveData<Resource<List<CategoryMap>>> getLatestMovie() {
-        return new NetworkBoundResource<List<CategoryMap>, ResponseBody>(mAppExecutors) {
-
-            @Override
-            protected void saveCallResult(@NonNull ResponseBody responseBody) {
-                try {
-
-                    String html = new String(responseBody.bytes(), "GB2312");
-
-                    List<CategoryMap> categoryMaps = mHomePageParser.parseLatestMovieCategoryMap(html);
-                    mCategoryMapDAO.insertCategoryMapList(categoryMaps);
-
-                    List<VideoDetail> details = new ArrayList<>();
-                    for (CategoryMap category : categoryMaps) {
-                        VideoDetail videoDetail = new VideoDetail();
-                        details.add(videoDetail.updateValue(category));
-                    }
-                    mVideoDetailDAO.insertVideoDetailList(details);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            protected boolean shouldFetch(@Nullable List<CategoryMap> data) {
-                return data == null || data.isEmpty() || mRepoListRateLimit.shouldFetch("LATEST_MOVIE");
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<List<CategoryMap>> loadFromDb() {
-                return mCategoryMapDAO.getMovieLinksByCategory(MovieCategory.HOME_LATEST_MOVIE);
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<ApiResponse<ResponseBody>> createCall() {
-                return mService.getHomePage();
-            }
-        }.getAsLiveData();
     }
 
     public LiveData<Resource<List<CategoryMap>>> getMovieListByCategory(final MovieCategory movieCategory) {
@@ -114,26 +64,17 @@ public class DataRepository {
             @Override
             protected void saveCallResult(@NonNull ResponseBody responseBody) {
                 try {
-                    String item = new String(responseBody.bytes(), "GB2312");
-                    List<CategoryMap> categoryMaps = mLoadableMovieParser.parseCategoryMap(item, movieCategory);
+
+                    String html = new String(responseBody.bytes(), "GB2312");
+                    List<CategoryMap> categoryMaps = mCategoryPageParser.parse(html, movieCategory);
                     mCategoryMapDAO.insertCategoryMapList(categoryMaps);
 
                     List<VideoDetail> details = new ArrayList<>();
                     for (CategoryMap category : categoryMaps) {
                         VideoDetail videoDetail = new VideoDetail();
-                        videoDetail.setDetailLink(category.getLink());
-                        videoDetail.setSN(category.getSN());
-                        videoDetail.setCategory(category.getCategory());
-                        details.add(videoDetail);
+                        details.add(videoDetail.updateValue(category));
                     }
                     mVideoDetailDAO.insertVideoDetailList(details);
-//
-//                    for (CategoryMap category : categoryMaps) {
-//                        boolean isParsed = mCategoryMapDAO.IsParsed(category.getLink());
-//                        if (!isParsed) {
-//                            getVideoDetailNew(category);
-//                        }
-//                    }
 
                     mCategoryPageDAO.insertPage(movieCategory.getDefaultPage());
                 } catch (IOException e) {
@@ -166,8 +107,9 @@ public class DataRepository {
             @Override
             protected void saveCallResult(@NonNull ResponseBody responseBody) {
                 try {
-                    String item = new String(responseBody.bytes(), "GB2312");
-                    List<CategoryMap> categoryMaps = mLoadableMovieParser.parseCategoryMap(item, movieCategory);
+                    String html = new String(responseBody.bytes(), "GB2312");
+
+                    List<CategoryMap> categoryMaps = mCategoryPageParser.parse(html, movieCategory);
                     for (CategoryMap category : categoryMaps) {
                         category.setQuery(query);
                     }
@@ -176,21 +118,11 @@ public class DataRepository {
                     List<VideoDetail> details = new ArrayList<>();
                     for (CategoryMap category : categoryMaps) {
                         VideoDetail videoDetail = new VideoDetail();
-                        videoDetail.setDetailLink(category.getLink());
-                        videoDetail.setSN(category.getSN());
-                        videoDetail.setQuery(query);
-                        videoDetail.setCategory(category.getCategory());
-                        details.add(videoDetail);
+                        details.add(videoDetail.updateValue(category));
                     }
                     mVideoDetailDAO.insertVideoDetailList(details);
 
-//                    for (CategoryMap category : categoryMaps) {
-//                        boolean isParsed = mCategoryMapDAO.IsParsed(category.getLink());
-//                        if (!isParsed) {
-//                            getSearchVideoDetailNew(category, query);
-//                        }
-//                    }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -221,13 +153,13 @@ public class DataRepository {
             @Override
             public void run() {
                 try {
-                    CategoryPage nextPage = mCategoryPageDAO.nextPage(movieCategory.ordinal());
+                    CategoryPage nextPage = mCategoryPageDAO.nextPage(movieCategory);
                     Response<ResponseBody> response = mService.getMovieListByCategory2(movieCategory.getNextPageUrl(nextPage)).execute();
                     ApiResponse<ResponseBody> apiResponse = new ApiResponse<>(response);
                     if (apiResponse.isSuccessful()) {
 
                         String item = new String(apiResponse.body.bytes(), "GB2312");
-                        List<CategoryMap> categoryMaps = mLoadableMovieParser.parseCategoryMap(item, movieCategory);
+                        List<CategoryMap> categoryMaps = mCategoryPageParser.parse(item, movieCategory);
                         mCategoryMapDAO.insertCategoryMapList(categoryMaps);
 
                         List<VideoDetail> details = new ArrayList<>();
@@ -242,13 +174,6 @@ public class DataRepository {
 
                         mCategoryPageDAO.updatePage(nextPage);
 
-//                        for (CategoryMap category : categoryMaps) {
-//                            boolean isParsed = mCategoryMapDAO.IsParsed(category.getLink());
-//                            if (!isParsed) {
-//                                getVideoDetailNew(category);
-//                            }
-//                        }
-
                         liveData.postValue(Resource.success(categoryMaps));
                     } else {
                         liveData.postValue(Resource.<List<CategoryMap>>error(apiResponse.errorMessage, null));
@@ -262,17 +187,6 @@ public class DataRepository {
     }
 
     public LiveData<Resource<List<VideoDetail>>> getVideoDetailsByCategory(final MovieCategory category) {
-        return new DatabaseBoundResource<List<VideoDetail>>(mAppExecutors) {
-            @NonNull
-            @Override
-            protected LiveData<List<VideoDetail>> loadFromDb() {
-                return mVideoDetailDAO.getVideoDetailsByCategory(category);
-
-            }
-        }.getAsLiveData();
-    }
-
-    public LiveData<Resource<List<VideoDetail>>> getVideoDetails(final List<String> detailLinks) {
         return new DatabaseBoundResource<List<VideoDetail>>(mAppExecutors) {
 
             @NonNull
@@ -292,6 +206,17 @@ public class DataRepository {
             @NonNull
             @Override
             protected LiveData<List<VideoDetail>> loadFromDb() {
+                return mVideoDetailDAO.getVideoDetailsByCategory(category);
+
+            }
+        }.getAsLiveData();
+    }
+
+    public LiveData<Resource<List<VideoDetail>>> getVideoDetails(final List<String> detailLinks) {
+        return new DatabaseBoundResource<List<VideoDetail>>(mAppExecutors) {
+            @NonNull
+            @Override
+            protected LiveData<List<VideoDetail>> loadFromDb() {
                 return mVideoDetailDAO.getVideoDetails(detailLinks.toArray(new String[]{}));
 
             }
@@ -302,16 +227,23 @@ public class DataRepository {
         return new DatabaseBoundResource<List<VideoDetail>>(mAppExecutors) {
             @NonNull
             @Override
+            protected void processDBData(List<VideoDetail> newData) {
+                super.processDBData(newData);
+                for (VideoDetail videoDetail : newData) {
+                    boolean isValid = mVideoDetailDAO.IsValid(videoDetail.getDetailLink());
+                    if (!isValid) {
+                        FetchSearchVideoDetailTask task = new FetchSearchVideoDetailTask(videoDetail, mVideoDetailDAO, mService, mVideoDetailPageParser);
+                        mAppExecutors.networkIO().execute(task);
+                    }
+                }
+            }
+
+            @NonNull
+            @Override
             protected LiveData<List<VideoDetail>> loadFromDb() {
                 return mVideoDetailDAO.getVideoDetailsByCategoryAndQuery(category, query);
 
             }
         }.getAsLiveData();
     }
-
-    public void getSearchVideoDetailNew(CategoryMap categoryMap, String query) {
-        FetchSearchVideoDetailTask task = new FetchSearchVideoDetailTask(categoryMap, mCategoryMapDAO, mVideoDetailDAO, mService, mVideoDetailPageParser, query);
-        mAppExecutors.networkIO().execute(task);
-    }
-
 }

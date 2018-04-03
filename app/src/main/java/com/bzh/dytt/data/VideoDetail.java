@@ -300,7 +300,8 @@ public class VideoDetail {
         setSN(videoDetail.getSN());
         setDetailLink(videoDetail.getDetailLink());
         setCategory(videoDetail.getCategory());
-        setValidVideoItem(videoDetail.getName() != null && videoDetail.getName().length() != 0);
+        setQuery(videoDetail.getQuery());
+        setValidVideoItem(true);
         return this;
     }
 
@@ -308,6 +309,7 @@ public class VideoDetail {
         setDetailLink(category.getLink());
         setSN(category.getSN());
         setCategory(category.getCategory());
+        setQuery(category.getQuery());
         return this;
     }
 }

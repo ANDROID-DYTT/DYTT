@@ -16,17 +16,17 @@ public abstract class DatabaseBoundResource<ResultType> {
 
     private final AppExecutors mAppExecutors;
 
-    private MediatorLiveData<Resource<ResultType>> result = new MediatorLiveData<>();
+    private MediatorLiveData<Resource<ResultType>> mResult = new MediatorLiveData<>();
 
     @MainThread
     public DatabaseBoundResource(AppExecutors appExecutors) {
         mAppExecutors = appExecutors;
 
-        result.setValue(Resource.<ResultType>loading(null));
+        mResult.setValue(Resource.<ResultType>loading(null));
 
         final LiveData<ResultType> dbSource = loadFromDb();
 
-        result.addSource(dbSource, new Observer<ResultType>() {
+        mResult.addSource(dbSource, new Observer<ResultType>() {
             @Override
             public void onChanged(@Nullable final ResultType newData) {
                 mAppExecutors.networkIO().execute(new Runnable() {
@@ -35,7 +35,7 @@ public abstract class DatabaseBoundResource<ResultType> {
                         processDBData(newData);
                     }
                 });
-                result.setValue(Resource.success(newData));
+                mResult.setValue(Resource.success(newData));
             }
         });
     }
@@ -53,6 +53,6 @@ public abstract class DatabaseBoundResource<ResultType> {
     // returns a LiveData that represents the resource, implemented
     // in the base class.
     public final LiveData<Resource<ResultType>> getAsLiveData() {
-        return result;
+        return mResult;
     }
 }

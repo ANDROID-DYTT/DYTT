@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public abstract class SingleListFragment<T> extends BaseFragment {
                 }
                 break;
                 case SUCCESS: {
+                    Log.d(TAG, "onChanged() called with: result = [" + result + "]");
                     mSwipeRefresh.setRefreshing(false);
                     if (result.data == null || result.data.isEmpty()) {
                         mEmpty.setVisibility(View.VISIBLE);

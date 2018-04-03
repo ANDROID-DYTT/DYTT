@@ -49,9 +49,9 @@ public class AllMoviePageFragment extends BaseFragment {
 
         List<MovieCategory> typeList = new ArrayList<>();
         typeList.add(MovieCategory.NEW_MOVIE);
-        typeList.add(MovieCategory.CHINA_MOVIE);
-        typeList.add(MovieCategory.OUMEI_MOVIE);
-        typeList.add(MovieCategory.RIHAN_MOVIE);
+//        typeList.add(MovieCategory.CHINA_MOVIE);
+//        typeList.add(MovieCategory.OUMEI_MOVIE);
+//        typeList.add(MovieCategory.RIHAN_MOVIE);
 
         mMovieTabAdapter.setTabData(typeList);
     }

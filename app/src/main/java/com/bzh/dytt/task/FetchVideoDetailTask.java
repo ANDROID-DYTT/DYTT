@@ -19,7 +19,7 @@ public class FetchVideoDetailTask implements Runnable {
     private final VideoDetail mVideoDetail;
     private final VideoDetailDAO mVideoDetailDAO;
     private final DyttService mService;
-    private VideoDetailPageParser mParser;
+    private final VideoDetailPageParser mParser;
 
     public FetchVideoDetailTask(VideoDetail videoDetail, VideoDetailDAO videoDetailDAO, DyttService service, VideoDetailPageParser parser) {
         mVideoDetail = videoDetail;
@@ -35,7 +35,8 @@ public class FetchVideoDetailTask implements Runnable {
             ApiResponse<ResponseBody> apiResponse = new ApiResponse<>(response);
             if (apiResponse.isSuccessful()) {
                 VideoDetail videoDetail = mParser.parseVideoDetail(new String(apiResponse.body.bytes(), "GB2312"));
-                mVideoDetailDAO.updateVideoDetail(videoDetail.updateValue(mVideoDetail));
+                videoDetail.updateValue(mVideoDetail);
+                mVideoDetailDAO.updateVideoDetail(videoDetail);
             }
         } catch (IOException e) {
             Log.e("FetchVideoDetailTask", "Something wrong when fetch video detail " + e.getMessage());

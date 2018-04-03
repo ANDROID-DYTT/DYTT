@@ -55,19 +55,22 @@ public enum MovieCategory {
         String result;
         switch (id) {
             case 1:
-                result = "dyzz/list_23_%d.html";
+                result = "/html/gndy/dyzz/list_23_%d.html";
                 break;
             case 2:
-                result = "china/list_4_%d.html";
+                result = "/html/gndy/china/list_4_%d.html";
                 break;
             case 3:
-                result = "oumei/list_7_%d.html";
+                result = "/html/gndy/oumei/list_7_%d.html";
                 break;
             case 4:
-                result = "rihan/list_6_%d.html";
+                result = "/html/gndy/rihan/list_6_%d.html";
+                break;
+            case 5:
+                result = "/";
                 break;
             default:
-                result = "dyzz/list_23_%d.html";
+                result = "/html/gndy/dyzz/list_23_%d.html";
         }
         return result;
     }

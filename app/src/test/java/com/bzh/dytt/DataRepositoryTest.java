@@ -16,6 +16,7 @@ import com.bzh.dytt.data.network.ApiResponse;
 import com.bzh.dytt.data.network.DyttService;
 import com.bzh.dytt.data.network.Resource;
 import com.bzh.dytt.util.ApiUtil;
+import com.bzh.dytt.util.CategoryPageParser;
 import com.bzh.dytt.util.HomePageParser;
 import com.bzh.dytt.util.InstantAppExecutors;
 import com.bzh.dytt.util.LoadableMovieParser;
@@ -49,12 +50,11 @@ public class DataRepositoryTest {
     private CategoryPageDAO categoryPageDAO;
     private VideoDetailDAO videoDetailDAO;
     private DyttService dyttService;
-    private HomePageParser homePageParser;
+    private CategoryPageParser categoryPageParser;
     private VideoDetailPageParser videoDetailPageParser;
-    private LoadableMovieParser loadableMovieParser;
 
     @Before
-    public void init() throws Exception {
+    public void init() {
 
         dyttService = mock(DyttService.class);
         AppDatabase appDatabase = mock(AppDatabase.class);
@@ -65,48 +65,134 @@ public class DataRepositoryTest {
         when(appDatabase.categoryMapDAO()).thenReturn(categoryMapDAO);
         when(appDatabase.categoryPageDAO()).thenReturn(categoryPageDAO);
         when(appDatabase.videoDetailDAO()).thenReturn(videoDetailDAO);
-
-        homePageParser = new HomePageParser();
         videoDetailPageParser = new VideoDetailPageParser();
-        loadableMovieParser = new LoadableMovieParser();
-
-        dataRepository = new DataRepository(new InstantAppExecutors(), dyttService, categoryMapDAO, categoryPageDAO, videoDetailDAO, homePageParser, videoDetailPageParser, loadableMovieParser);
+        categoryPageParser = new CategoryPageParser(new HomePageParser(), new LoadableMovieParser());
+        dataRepository = new DataRepository(new InstantAppExecutors(), dyttService, categoryMapDAO, categoryPageDAO, videoDetailDAO, categoryPageParser, videoDetailPageParser);
     }
 
     @Test
-    public void getLatestMovie() throws IOException {
+    public void getMovieListByCategory_Home_Latest_Movie() throws IOException {
+        MovieCategory movieCategory = MovieCategory.HOME_LATEST_MOVIE;
 
         // Support DB
         MutableLiveData<List<CategoryMap>> dbLiveData = new MutableLiveData<>();
-        when(categoryMapDAO.getMovieLinksByCategory(MovieCategory.HOME_LATEST_MOVIE)).thenReturn(dbLiveData);
+        when(categoryMapDAO.getMovieLinksByCategory(movieCategory)).thenReturn(dbLiveData);
 
         // Support Success API
         String resource = TestUtils.getResource(getClass(), "home.html");
         LiveData<ApiResponse<ResponseBody>> call = ApiUtil.successCall(ResponseBody.create(MediaType.parse("text/html"), resource));
-        when(dyttService.getHomePage()).thenReturn(call);
+        when(dyttService.getMovieListByCategory(movieCategory.getDefaultUrl())).thenReturn(call);
 
         // Support Category Maps
-        List<CategoryMap> categoryMaps = homePageParser.parseLatestMovieCategoryMap(resource);
+        List<CategoryMap> categoryMaps = categoryPageParser.parse(resource, movieCategory);
 
         // Support Video Details
         List<VideoDetail> videoDetails = new ArrayList<>();
         for (CategoryMap category : categoryMaps) {
             VideoDetail videoDetail = new VideoDetail();
-            videoDetail.setDetailLink(category.getLink());
-            videoDetail.setSN(category.getSN());
-            videoDetail.setCategory(category.getCategory());
-            videoDetails.add(videoDetail);
+            videoDetails.add(videoDetail.updateValue(category));
         }
 
         // Init
-        LiveData<Resource<List<CategoryMap>>> latestMovie = dataRepository.getLatestMovie();
+        LiveData<Resource<List<CategoryMap>>> latestMovie = dataRepository.getMovieListByCategory(movieCategory);
         Observer<Resource<List<CategoryMap>>> observer = mock(Observer.class);
         latestMovie.observeForever(observer);
         verify(observer).onChanged(Resource.<List<CategoryMap>>loading(null));
 
         // Post Update Result
         MutableLiveData<List<CategoryMap>> updateDBLiveData = new MutableLiveData<>();
-        when(categoryMapDAO.getMovieLinksByCategory(MovieCategory.HOME_LATEST_MOVIE)).thenReturn(updateDBLiveData);
+        when(categoryMapDAO.getMovieLinksByCategory(movieCategory)).thenReturn(updateDBLiveData);
+
+        // Start Verify
+        dbLiveData.postValue(null);
+        verify(observer).onChanged(Resource.<List<CategoryMap>>loading(null));
+        verify(categoryMapDAO).insertCategoryMapList(categoryMaps);
+        verify(videoDetailDAO).insertVideoDetailList(videoDetails);
+        verify(categoryPageDAO).insertPage(movieCategory.getDefaultPage());
+
+        // Verify Result
+        updateDBLiveData.postValue(categoryMaps);
+        verify(observer).onChanged(Resource.success(categoryMaps));
+    }
+
+    @Test
+    public void getMovieListByCategory_New_Movie() throws IOException {
+        MovieCategory movieCategory = MovieCategory.NEW_MOVIE;
+
+        // Support DB
+        MutableLiveData<List<CategoryMap>> dbLiveData = new MutableLiveData<>();
+        when(categoryMapDAO.getMovieLinksByCategory(movieCategory)).thenReturn(dbLiveData);
+
+        // Support Success API
+        String resource = TestUtils.getResource(getClass(), "new_movie.html");
+        LiveData<ApiResponse<ResponseBody>> call = ApiUtil.successCall(ResponseBody.create(MediaType.parse("text/html"), resource));
+        when(dyttService.getMovieListByCategory(movieCategory.getDefaultUrl())).thenReturn(call);
+
+        // Support Category Maps
+        List<CategoryMap> categoryMaps = categoryPageParser.parse(resource, movieCategory);
+
+        // Support Video Details
+        List<VideoDetail> videoDetails = new ArrayList<>();
+        for (CategoryMap category : categoryMaps) {
+            VideoDetail videoDetail = new VideoDetail();
+            videoDetails.add(videoDetail.updateValue(category));
+        }
+
+        // Init
+        LiveData<Resource<List<CategoryMap>>> latestMovie = dataRepository.getMovieListByCategory(movieCategory);
+        Observer<Resource<List<CategoryMap>>> observer = mock(Observer.class);
+        latestMovie.observeForever(observer);
+        verify(observer).onChanged(Resource.<List<CategoryMap>>loading(null));
+
+        // Post Update Result
+        MutableLiveData<List<CategoryMap>> updateDBLiveData = new MutableLiveData<>();
+        when(categoryMapDAO.getMovieLinksByCategory(movieCategory)).thenReturn(updateDBLiveData);
+
+        // Start Verify
+        dbLiveData.postValue(null);
+        verify(observer).onChanged(Resource.<List<CategoryMap>>loading(null));
+        verify(categoryMapDAO).insertCategoryMapList(categoryMaps);
+        verify(videoDetailDAO).insertVideoDetailList(videoDetails);
+        verify(categoryPageDAO).insertPage(movieCategory.getDefaultPage());
+
+        // Verify Result
+        updateDBLiveData.postValue(categoryMaps);
+        verify(observer).onChanged(Resource.success(categoryMaps));
+    }
+
+    @Test
+    public void search() throws IOException {
+        MovieCategory movieCategory = MovieCategory.SEARCH_MOVIE;
+        String query = "魅影缝匠";
+
+        // DB
+        MutableLiveData<List<CategoryMap>> dbLiveData = new MutableLiveData<>();
+        when(categoryMapDAO.getMovieLinksByCategoryAndQuery(movieCategory, query)).thenReturn(dbLiveData);
+
+        // NET
+        String resource = TestUtils.getResource(getClass(), "query.html");
+        LiveData<ApiResponse<ResponseBody>> call = ApiUtil.successCall(ResponseBody.create(MediaType.parse("text/html"), resource));
+        String url = String.format("http://s.ygdy8.com/plus/so.php?kwtype=0&searchtype=title&keyword=%s", query);
+        when(dyttService.search(url)).thenReturn(call);
+
+        // Support Category Maps
+        List<CategoryMap> categoryMaps = categoryPageParser.parse(resource, movieCategory);
+        // Support Video Details
+        List<VideoDetail> videoDetails = new ArrayList<>();
+        for (CategoryMap category : categoryMaps) {
+            VideoDetail videoDetail = new VideoDetail();
+            videoDetails.add(videoDetail.updateValue(category));
+        }
+
+        // Init
+        LiveData<Resource<List<CategoryMap>>> searchLiveData = dataRepository.search(movieCategory, query);
+        Observer<Resource<List<CategoryMap>>> observer = mock(Observer.class);
+        searchLiveData.observeForever(observer);
+        verify(observer).onChanged(Resource.<List<CategoryMap>>loading(null));
+
+        // Update Result
+        MutableLiveData<List<CategoryMap>> updateDBLiveData = new MutableLiveData<>();
+        when(categoryMapDAO.getMovieLinksByCategoryAndQuery(movieCategory, query)).thenReturn(updateDBLiveData);
 
         // Start Verify
         dbLiveData.postValue(null);
@@ -116,6 +202,6 @@ public class DataRepositoryTest {
 
         // Verify Result
         updateDBLiveData.postValue(categoryMaps);
-        verify(observer).onChanged(Resource.<List<CategoryMap>>success(categoryMaps));
+        verify(observer).onChanged(Resource.success(categoryMaps));
     }
 }
