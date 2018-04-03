@@ -5,8 +5,6 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 
 import com.bzh.dytt.data.db.AppDatabase;
-import com.bzh.dytt.data.db.HomeAreaDao;
-import com.bzh.dytt.data.db.HomeItemDao;
 import com.bzh.dytt.data.network.DyttService;
 import com.bzh.dytt.util.LiveDataCallAdapterFactory;
 
@@ -92,17 +90,5 @@ public class AppModule {
     @Provides
     AppDatabase provideDb(Application app) {
         return Room.databaseBuilder(app, AppDatabase.class, AppDatabase.DATABASE_NAME).fallbackToDestructiveMigration().build();
-    }
-
-    @Singleton
-    @Provides
-    HomeAreaDao provideHomeAreaDao(AppDatabase db) {
-        return db.homeAreaDAO();
-    }
-
-    @Singleton
-    @Provides
-    HomeItemDao provideHomeItemDao(AppDatabase db) {
-        return db.homeItemDAO();
     }
 }

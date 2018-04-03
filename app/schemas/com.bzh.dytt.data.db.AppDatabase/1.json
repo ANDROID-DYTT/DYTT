@@ -2,106 +2,8 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "bff51684da7ed5457b7c3d2c107bc1e5",
+    "identityHash": "4a576929e3d41778ce5bf08db97f13d2",
     "entities": [
-      {
-        "tableName": "homeareas",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `type` INTEGER NOT NULL, `link` TEXT, PRIMARY KEY(`id`))",
-        "fields": [
-          {
-            "fieldPath": "mId",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "mTitle",
-            "columnName": "title",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "mType",
-            "columnName": "type",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "mDetailLink",
-            "columnName": "link",
-            "affinity": "TEXT",
-            "notNull": false
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "homeitems",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `time` TEXT, `link` TEXT NOT NULL, `type` INTEGER NOT NULL, `time_millis` INTEGER NOT NULL)",
-        "fields": [
-          {
-            "fieldPath": "mId",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "mTitle",
-            "columnName": "title",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "mTime",
-            "columnName": "time",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "mDetailLink",
-            "columnName": "link",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "mType",
-            "columnName": "type",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "mTimeMillis",
-            "columnName": "time_millis",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [
-          {
-            "name": "index_homeitems_link_type",
-            "unique": true,
-            "columnNames": [
-              "link",
-              "type"
-            ],
-            "createSql": "CREATE UNIQUE INDEX `index_homeitems_link_type` ON `${TABLE_NAME}` (`link`, `type`)"
-          }
-        ],
-        "foreignKeys": []
-      },
       {
         "tableName": "video_detail",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`link` TEXT NOT NULL, `name` TEXT, `years` TEXT, `country` TEXT, `type` TEXT, `imdb_grade` TEXT, `imdb_grade_userds` TEXT, `douban_grade` TEXT, `douban_grade_users` TEXT, `file_size` TEXT, `duration` TEXT, `director` TEXT, `leading_role` TEXT, `description` TEXT, `cover_url` TEXT, `download_link` TEXT, `show_time` TEXT, `publish_time` TEXT, `translation_name` TEXT, `is_valid_video_item` INTEGER NOT NULL, `category` INTEGER, `serial_number` INTEGER NOT NULL, `query` TEXT, PRIMARY KEY(`link`))",
@@ -337,7 +239,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"bff51684da7ed5457b7c3d2c107bc1e5\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"4a576929e3d41778ce5bf08db97f13d2\")"
     ]
   }
 }
