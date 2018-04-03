@@ -8,24 +8,18 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
-import android.util.Log;
 
 import com.bzh.dytt.AppExecutors;
-import com.bzh.dytt.data.network.ApiResponse;
 import com.bzh.dytt.data.network.Resource;
 
-import java.util.List;
-
-public abstract class DatabaseResource<ResultType> {
-
-    private static final String TAG = "DatabaseResource";
+public abstract class DatabaseBoundResource<ResultType> {
 
     private final AppExecutors mAppExecutors;
 
     private MediatorLiveData<Resource<ResultType>> result = new MediatorLiveData<>();
 
     @MainThread
-    public DatabaseResource(AppExecutors appExecutors) {
+    public DatabaseBoundResource(AppExecutors appExecutors) {
         mAppExecutors = appExecutors;
 
         result.setValue(Resource.<ResultType>loading(null));
@@ -34,10 +28,22 @@ public abstract class DatabaseResource<ResultType> {
 
         result.addSource(dbSource, new Observer<ResultType>() {
             @Override
-            public void onChanged(@Nullable ResultType newData) {
+            public void onChanged(@Nullable final ResultType newData) {
+                mAppExecutors.networkIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        processDBData(newData);
+                    }
+                });
                 result.setValue(Resource.success(newData));
             }
         });
+    }
+
+    @NonNull
+    @WorkerThread
+    protected void processDBData(ResultType newData) {
+
     }
 
     @NonNull

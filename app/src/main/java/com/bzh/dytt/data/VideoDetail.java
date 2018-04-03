@@ -7,6 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity(
         tableName = "video_detail",
@@ -74,7 +75,7 @@ public class VideoDetail {
     private String mTranslationName;
 
     @ColumnInfo(name = "is_valid_video_item")
-    private boolean mValidVideoItem = true;
+    private boolean mValidVideoItem;
 
     @ColumnInfo(name = "category")
     private MovieCategory mCategory;
@@ -270,11 +271,43 @@ public class VideoDetail {
         mCategory = category;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VideoDetail that = (VideoDetail) o;
+        return mSN == that.mSN &&
+                Objects.equals(mDetailLink, that.mDetailLink);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(mDetailLink, mSN);
+    }
+
     @Override
     public String toString() {
         return "VideoDetail{" +
                 "mDetailLink='" + mDetailLink + '\'' +
                 ", mName='" + mName + '\'' +
                 '}';
+    }
+
+    public VideoDetail updateValue(VideoDetail videoDetail) {
+        setQuery(videoDetail.getQuery());
+        setSN(videoDetail.getSN());
+        setDetailLink(videoDetail.getDetailLink());
+        setCategory(videoDetail.getCategory());
+        setValidVideoItem(videoDetail.getName() != null && videoDetail.getName().length() != 0);
+        return this;
+    }
+
+    public VideoDetail updateValue(CategoryMap category) {
+        setDetailLink(category.getLink());
+        setSN(category.getSN());
+        setCategory(category.getCategory());
+        return this;
     }
 }

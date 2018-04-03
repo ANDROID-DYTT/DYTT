@@ -23,9 +23,6 @@ public interface CategoryMapDAO {
     @Query("SELECT * FROM category_map WHERE category = :category ORDER BY serial_number DESC")
     LiveData<List<CategoryMap>> getMovieLinksByCategory(MovieCategory category);
 
-    @Query("SELECT is_parsed FROM category_map WHERE link = :link")
-    boolean IsParsed(String link);
-
     @Query("SELECT * FROM category_map WHERE category = :category AND `query`=:query ORDER BY serial_number DESC")
     LiveData<List<CategoryMap>> getMovieLinksByCategoryAndQuery(MovieCategory category, String query);
 

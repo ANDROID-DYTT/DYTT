@@ -19,9 +19,6 @@ public class CategoryMap {
     @NonNull
     private String mLink;
 
-    @ColumnInfo(name = "is_parsed")
-    private boolean mIsParsed;
-
     @ColumnInfo(name = "serial_number")
     private int mSN;
 
@@ -51,14 +48,6 @@ public class CategoryMap {
 
     public void setCategory(@NonNull MovieCategory category) {
         mCategory = category;
-    }
-
-    public boolean getIsParsed() {
-        return mIsParsed;
-    }
-
-    public void setIsParsed(boolean mIsParsed) {
-        this.mIsParsed = mIsParsed;
     }
 
     public int getSN() {

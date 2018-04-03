@@ -11,7 +11,7 @@ import com.bzh.dytt.data.MovieCategory;
 import com.bzh.dytt.data.VideoDetail;
 import com.bzh.dytt.data.db.CategoryMapDAO;
 import com.bzh.dytt.data.db.CategoryPageDAO;
-import com.bzh.dytt.data.db.DatabaseResource;
+import com.bzh.dytt.data.db.DatabaseBoundResource;
 import com.bzh.dytt.data.db.VideoDetailDAO;
 import com.bzh.dytt.data.network.ApiResponse;
 import com.bzh.dytt.data.network.DyttService;
@@ -73,28 +73,18 @@ public class DataRepository {
             protected void saveCallResult(@NonNull ResponseBody responseBody) {
                 try {
 
-                    String item = new String(responseBody.bytes(), "GB2312");
+                    String html = new String(responseBody.bytes(), "GB2312");
 
-                    List<CategoryMap> categoryMaps = mHomePageParser.parseLatestMovieCategoryMap(item);
+                    List<CategoryMap> categoryMaps = mHomePageParser.parseLatestMovieCategoryMap(html);
                     mCategoryMapDAO.insertCategoryMapList(categoryMaps);
 
                     List<VideoDetail> details = new ArrayList<>();
                     for (CategoryMap category : categoryMaps) {
                         VideoDetail videoDetail = new VideoDetail();
-                        videoDetail.setDetailLink(category.getLink());
-                        videoDetail.setSN(category.getSN());
-                        videoDetail.setCategory(category.getCategory());
-                        details.add(videoDetail);
+                        details.add(videoDetail.updateValue(category));
                     }
                     mVideoDetailDAO.insertVideoDetailList(details);
-
-                    for (CategoryMap category : categoryMaps) {
-                        boolean isParsed = mCategoryMapDAO.IsParsed(category.getLink());
-                        if (!isParsed) {
-                            getVideoDetailNew(category);
-                        }
-                    }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -108,7 +98,6 @@ public class DataRepository {
             @Override
             protected LiveData<List<CategoryMap>> loadFromDb() {
                 return mCategoryMapDAO.getMovieLinksByCategory(MovieCategory.HOME_LATEST_MOVIE);
-
             }
 
             @NonNull
@@ -138,13 +127,13 @@ public class DataRepository {
                         details.add(videoDetail);
                     }
                     mVideoDetailDAO.insertVideoDetailList(details);
-
-                    for (CategoryMap category : categoryMaps) {
-                        boolean isParsed = mCategoryMapDAO.IsParsed(category.getLink());
-                        if (!isParsed) {
-                            getVideoDetailNew(category);
-                        }
-                    }
+//
+//                    for (CategoryMap category : categoryMaps) {
+//                        boolean isParsed = mCategoryMapDAO.IsParsed(category.getLink());
+//                        if (!isParsed) {
+//                            getVideoDetailNew(category);
+//                        }
+//                    }
 
                     mCategoryPageDAO.insertPage(movieCategory.getDefaultPage());
                 } catch (IOException e) {
@@ -195,12 +184,12 @@ public class DataRepository {
                     }
                     mVideoDetailDAO.insertVideoDetailList(details);
 
-                    for (CategoryMap category : categoryMaps) {
-                        boolean isParsed = mCategoryMapDAO.IsParsed(category.getLink());
-                        if (!isParsed) {
-                            getSearchVideoDetailNew(category, query);
-                        }
-                    }
+//                    for (CategoryMap category : categoryMaps) {
+//                        boolean isParsed = mCategoryMapDAO.IsParsed(category.getLink());
+//                        if (!isParsed) {
+//                            getSearchVideoDetailNew(category, query);
+//                        }
+//                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -253,12 +242,12 @@ public class DataRepository {
 
                         mCategoryPageDAO.updatePage(nextPage);
 
-                        for (CategoryMap category : categoryMaps) {
-                            boolean isParsed = mCategoryMapDAO.IsParsed(category.getLink());
-                            if (!isParsed) {
-                                getVideoDetailNew(category);
-                            }
-                        }
+//                        for (CategoryMap category : categoryMaps) {
+//                            boolean isParsed = mCategoryMapDAO.IsParsed(category.getLink());
+//                            if (!isParsed) {
+//                                getVideoDetailNew(category);
+//                            }
+//                        }
 
                         liveData.postValue(Resource.success(categoryMaps));
                     } else {
@@ -273,7 +262,7 @@ public class DataRepository {
     }
 
     public LiveData<Resource<List<VideoDetail>>> getVideoDetailsByCategory(final MovieCategory category) {
-        return new DatabaseResource<List<VideoDetail>>(mAppExecutors) {
+        return new DatabaseBoundResource<List<VideoDetail>>(mAppExecutors) {
             @NonNull
             @Override
             protected LiveData<List<VideoDetail>> loadFromDb() {
@@ -284,7 +273,22 @@ public class DataRepository {
     }
 
     public LiveData<Resource<List<VideoDetail>>> getVideoDetails(final List<String> detailLinks) {
-        return new DatabaseResource<List<VideoDetail>>(mAppExecutors) {
+        return new DatabaseBoundResource<List<VideoDetail>>(mAppExecutors) {
+
+            @NonNull
+            @Override
+            protected void processDBData(List<VideoDetail> newData) {
+                super.processDBData(newData);
+
+                for (VideoDetail videoDetail : newData) {
+                    boolean isValid = mVideoDetailDAO.IsValid(videoDetail.getDetailLink());
+                    if (!isValid) {
+                        FetchVideoDetailTask task = new FetchVideoDetailTask(videoDetail, mVideoDetailDAO, mService, mVideoDetailPageParser);
+                        mAppExecutors.networkIO().execute(task);
+                    }
+                }
+            }
+
             @NonNull
             @Override
             protected LiveData<List<VideoDetail>> loadFromDb() {
@@ -295,7 +299,7 @@ public class DataRepository {
     }
 
     public LiveData<Resource<List<VideoDetail>>> getVideoDetailsByCategoryAndQuery(final MovieCategory category, final String query) {
-        return new DatabaseResource<List<VideoDetail>>(mAppExecutors) {
+        return new DatabaseBoundResource<List<VideoDetail>>(mAppExecutors) {
             @NonNull
             @Override
             protected LiveData<List<VideoDetail>> loadFromDb() {
@@ -303,11 +307,6 @@ public class DataRepository {
 
             }
         }.getAsLiveData();
-    }
-
-    public void getVideoDetailNew(CategoryMap categoryMap) {
-        FetchVideoDetailTask task = new FetchVideoDetailTask(categoryMap, mCategoryMapDAO, mVideoDetailDAO, mService, mVideoDetailPageParser);
-        mAppExecutors.networkIO().execute(task);
     }
 
     public void getSearchVideoDetailNew(CategoryMap categoryMap, String query) {
