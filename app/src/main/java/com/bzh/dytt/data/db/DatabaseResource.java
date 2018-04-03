@@ -12,14 +12,14 @@ import android.support.annotation.WorkerThread;
 import com.bzh.dytt.AppExecutors;
 import com.bzh.dytt.data.network.Resource;
 
-public abstract class DatabaseBoundResource<ResultType> {
+public abstract class DatabaseResource<ResultType> {
 
     private final AppExecutors mAppExecutors;
 
     private MediatorLiveData<Resource<ResultType>> mResult = new MediatorLiveData<>();
 
     @MainThread
-    public DatabaseBoundResource(AppExecutors appExecutors) {
+    public DatabaseResource(AppExecutors appExecutors) {
         mAppExecutors = appExecutors;
 
         mResult.setValue(Resource.<ResultType>loading(null));

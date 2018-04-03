@@ -11,7 +11,7 @@ import com.bzh.dytt.data.MovieCategory;
 import com.bzh.dytt.data.VideoDetail;
 import com.bzh.dytt.data.db.CategoryMapDAO;
 import com.bzh.dytt.data.db.CategoryPageDAO;
-import com.bzh.dytt.data.db.DatabaseBoundResource;
+import com.bzh.dytt.data.db.DatabaseResource;
 import com.bzh.dytt.data.db.VideoDetailDAO;
 import com.bzh.dytt.data.network.ApiResponse;
 import com.bzh.dytt.data.network.DyttService;
@@ -187,7 +187,7 @@ public class DataRepository {
     }
 
     public LiveData<Resource<List<VideoDetail>>> getVideoDetailsByCategory(final MovieCategory category) {
-        return new DatabaseBoundResource<List<VideoDetail>>(mAppExecutors) {
+        return new DatabaseResource<List<VideoDetail>>(mAppExecutors) {
 
             @NonNull
             @Override
@@ -213,7 +213,7 @@ public class DataRepository {
     }
 
     public LiveData<Resource<List<VideoDetail>>> getVideoDetails(final List<String> detailLinks) {
-        return new DatabaseBoundResource<List<VideoDetail>>(mAppExecutors) {
+        return new DatabaseResource<List<VideoDetail>>(mAppExecutors) {
             @NonNull
             @Override
             protected LiveData<List<VideoDetail>> loadFromDb() {
@@ -224,7 +224,7 @@ public class DataRepository {
     }
 
     public LiveData<Resource<List<VideoDetail>>> getVideoDetailsByCategoryAndQuery(final MovieCategory category, final String query) {
-        return new DatabaseBoundResource<List<VideoDetail>>(mAppExecutors) {
+        return new DatabaseResource<List<VideoDetail>>(mAppExecutors) {
             @NonNull
             @Override
             protected void processDBData(List<VideoDetail> newData) {

@@ -11,14 +11,14 @@ import android.support.annotation.WorkerThread;
 
 import com.bzh.dytt.AppExecutors;
 
-public abstract class PureNetworkBoundResource<ResultType, RequestType> {
+public abstract class NetworkResource<ResultType, RequestType> {
 
     private final AppExecutors mAppExecutors;
 
     private MediatorLiveData<Resource<ResultType>> mResult = new MediatorLiveData<>();
 
     @MainThread
-    public PureNetworkBoundResource(AppExecutors appExecutors) {
+    public NetworkResource(AppExecutors appExecutors) {
         mAppExecutors = appExecutors;
 
         mResult.setValue(Resource.<ResultType>loading(null));
