@@ -35,7 +35,6 @@ public abstract class BaseFragment extends Fragment implements Injectable {
         doViewCreated(view, savedInstanceState);
     }
 
-
     @Override
     public final void onResume() {
         super.onResume();
@@ -48,14 +47,31 @@ public abstract class BaseFragment extends Fragment implements Injectable {
         super.onPause();
     }
 
-    protected void doCreate(@Nullable Bundle savedInstanceState) {
+    @Override
+    public void onDestroyView() {
+        doDestroyView();
+        super.onDestroyView();
+    }
 
+    @Override
+    public void onDestroy() {
+        doDestroy();
+        super.onDestroy();
+    }
+
+
+    protected void doCreate(@Nullable Bundle savedInstanceState) {
     }
 
     protected abstract View doCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
     protected void doViewCreated(View view, Bundle savedInstanceState) {
+    }
 
+    protected void doDestroyView() {
+    }
+
+    protected void doDestroy() {
     }
 
     protected void doResume() {

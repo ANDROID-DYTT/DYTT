@@ -34,8 +34,6 @@ import javax.inject.Inject;
 
 public class SearchFragment extends SingleListFragment<VideoDetail> {
 
-    private static final String TAG = "SearchFragment";
-
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
     @Inject

@@ -2,12 +2,15 @@ package com.bzh.dytt.home;
 
 
 import android.arch.core.util.Function;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.Transformations;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 
 import com.bzh.dytt.BaseViewModel;
 import com.bzh.dytt.DataRepository;
@@ -21,32 +24,43 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class NewMovieViewModel extends BaseViewModel {
-
-    private static final String TAG = "NewMovieViewModel";
+public class NewMovieViewModel extends BaseViewModel implements LifecycleObserver {
 
     private final CategoryHandler mCategoryHandler;
-
-    private MediatorLiveData<Resource<List<VideoDetail>>> mVideoList;
+    private LiveData<Resource<List<VideoDetail>>> mVideoList;
 
     @Inject
     NewMovieViewModel(DataRepository repository) {
         super(repository);
         mCategoryHandler = new CategoryHandler(mDataRepository);
-        mVideoList = (MediatorLiveData<Resource<List<VideoDetail>>>) Transformations.switchMap(mCategoryHandler.getCategoryMap(), new Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>>() {
+        mVideoList = Transformations.switchMap(mCategoryHandler.getCategoryMap(), new Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>>() {
             @Override
             public LiveData<Resource<List<VideoDetail>>> apply(Resource<List<CategoryMap>> result) {
                 return mDataRepository.getVideoDetailsByCategory(MovieCategory.HOME_LATEST_MOVIE);
             }
         });
-
-        refresh();
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void active() {
+        if (mCategoryHandler != null) {
+            mCategoryHandler.refresh();
+        }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    void inactive() {
+        if (mCategoryHandler != null) {
+            mCategoryHandler.unregister();
+        }
+    }
+
+    @VisibleForTesting
     void refresh() {
         mCategoryHandler.refresh();
     }
 
+    @VisibleForTesting
     LiveData<Resource<List<VideoDetail>>> getNewMovieList() {
         return mVideoList;
     }
@@ -87,7 +101,6 @@ public class NewMovieViewModel extends BaseViewModel {
             mLiveData = mRepository.getMovieListByCategory(MovieCategory.HOME_LATEST_MOVIE);
             mLiveData.observeForever(this);
         }
-
 
         MutableLiveData<Resource<List<CategoryMap>>> getCategoryMap() {
             return mCategoryMap;

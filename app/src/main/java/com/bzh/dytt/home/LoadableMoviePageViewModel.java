@@ -2,11 +2,15 @@ package com.bzh.dytt.home;
 
 
 import android.arch.core.util.Function;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.Transformations;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 
 import com.bzh.dytt.BaseViewModel;
 import com.bzh.dytt.DataRepository;
@@ -20,39 +24,53 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class LoadableMoviePageViewModel extends BaseViewModel {
+public class LoadableMoviePageViewModel extends BaseViewModel implements LifecycleObserver {
 
     private LiveData<Resource<List<VideoDetail>>> mVideoList;
     private MovieCategory mCategory;
     private CategoryHandler mCategoryHandler;
-
-    private Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>> mVideoDetailFunction = new Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>>() {
-        @Override
-        public LiveData<Resource<List<VideoDetail>>> apply(Resource<List<CategoryMap>> categoryMaps) {
-            return mDataRepository.getVideoDetailsByCategory(mCategory);
-        }
-    };
 
     @Inject
     LoadableMoviePageViewModel(DataRepository repository) {
         super(repository);
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void active() {
+        if (mCategoryHandler != null) {
+            mCategoryHandler.refreshPage();
+        }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    void inactive() {
+        if (mCategoryHandler != null) {
+            mCategoryHandler.unregister();
+        }
+    }
+
     public void setCategory(MovieCategory category) {
         mCategory = category;
         mCategoryHandler = new CategoryHandler(mDataRepository, mCategory);
-        mVideoList = Transformations.switchMap(mCategoryHandler.getCategoryMap(), mVideoDetailFunction);
-        mCategoryHandler.refreshPage();
+        mVideoList = Transformations.switchMap(mCategoryHandler.getCategoryMap(), new Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>>() {
+            @Override
+            public LiveData<Resource<List<VideoDetail>>> apply(Resource<List<CategoryMap>> categoryMaps) {
+                return mDataRepository.getVideoDetailsByCategory(mCategory);
+            }
+        });
     }
 
+    @VisibleForTesting
     void refresh() {
         mCategoryHandler.refreshPage();
     }
 
+    @VisibleForTesting
     void loadNextPage() {
         mCategoryHandler.nextPage();
     }
 
+    @VisibleForTesting
     LiveData<Resource<List<VideoDetail>>> getMovieList() {
         return mVideoList;
     }
@@ -116,6 +134,5 @@ public class LoadableMoviePageViewModel extends BaseViewModel {
         MutableLiveData<Resource<List<CategoryMap>>> getCategoryMap() {
             return mCategoryMap;
         }
-
     }
 }

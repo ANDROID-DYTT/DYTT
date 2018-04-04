@@ -6,6 +6,8 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -75,5 +77,17 @@ public class LoadableMoviePageFragment extends SingleListFragment<VideoDetail> {
     @Override
     protected void doRefresh() {
         ((LoadableMoviePageViewModel) mViewModel).refresh();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getLifecycle().addObserver(((LoadableMoviePageViewModel) mViewModel));
+    }
+
+    @Override
+    protected void doDestroyView() {
+        getLifecycle().removeObserver(((LoadableMoviePageViewModel) mViewModel));
+        super.doDestroyView();
     }
 }
