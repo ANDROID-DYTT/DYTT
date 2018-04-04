@@ -23,32 +23,48 @@ public abstract class NetworkResource<ResultType, RequestType> {
 
         mResult.setValue(Resource.<ResultType>loading(null));
 
-        final LiveData<ApiResponse<RequestType>> apiResponse = createCall();
-
-        mResult.addSource(apiResponse, new Observer<ApiResponse<RequestType>>() {
+        Runnable diskRunnable = new Runnable() {
             @Override
-            public void onChanged(@Nullable final ApiResponse<RequestType> response) {
-                mResult.removeSource(apiResponse);
+            public void run() {
+                onPreProcess();
+                Runnable mainRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        final LiveData<ApiResponse<RequestType>> apiResponse = createCall();
+                        mResult.addSource(apiResponse, new Observer<ApiResponse<RequestType>>() {
+                            @Override
+                            public void onChanged(@Nullable final ApiResponse<RequestType> response) {
+                                mResult.removeSource(apiResponse);
 
-                if (response.isSuccessful()) {
-                    mAppExecutors.diskIO().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            final ResultType newData = saveCallResult(processResponse(response));
-                            mAppExecutors.mainThread().execute(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mResult.setValue(Resource.success(newData));
+                                if (response.isSuccessful()) {
+                                    mAppExecutors.diskIO().execute(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            final ResultType newData = saveCallResult(processResponse(response));
+                                            mAppExecutors.mainThread().execute(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    mResult.setValue(Resource.success(newData));
+                                                }
+                                            });
+                                        }
+                                    });
+                                } else {
+                                    onFetchFailed();
+                                    mResult.setValue(Resource.<ResultType>error(response.errorMessage, null));
                                 }
-                            });
-                        }
-                    });
-                } else {
-                    onFetchFailed();
-                    mResult.setValue(Resource.<ResultType>error(response.errorMessage, null));
-                }
+                            }
+                        });
+                    }
+                };
+                mAppExecutors.mainThread().execute(mainRunnable);
             }
-        });
+        };
+        mAppExecutors.diskIO().execute(diskRunnable);
+    }
+
+    @WorkerThread
+    protected void onPreProcess() {
     }
 
     @WorkerThread

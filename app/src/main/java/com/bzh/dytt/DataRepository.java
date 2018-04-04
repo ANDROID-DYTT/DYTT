@@ -1,7 +1,6 @@
 package com.bzh.dytt;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -16,6 +15,7 @@ import com.bzh.dytt.data.db.VideoDetailDAO;
 import com.bzh.dytt.data.network.ApiResponse;
 import com.bzh.dytt.data.network.DyttService;
 import com.bzh.dytt.data.network.NetworkBoundResource;
+import com.bzh.dytt.data.network.NetworkResource;
 import com.bzh.dytt.data.network.Resource;
 import com.bzh.dytt.task.FetchSearchVideoDetailTask;
 import com.bzh.dytt.task.FetchVideoDetailTask;
@@ -25,6 +25,7 @@ import com.bzh.dytt.util.VideoDetailPageParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -32,7 +33,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 @Singleton
 public class DataRepository {
@@ -148,42 +148,45 @@ public class DataRepository {
     }
 
     public LiveData<Resource<List<CategoryMap>>> getNextMovieListByCategory(final MovieCategory movieCategory) {
-        final MutableLiveData<Resource<List<CategoryMap>>> liveData = new MutableLiveData<>();
-        mAppExecutors.networkIO().execute(new Runnable() {
+        return new NetworkResource<List<CategoryMap>, ResponseBody>(mAppExecutors) {
+
+            private CategoryPage mNextPage;
+
             @Override
-            public void run() {
-                try {
-                    CategoryPage nextPage = mCategoryPageDAO.nextPage(movieCategory);
-                    Response<ResponseBody> response = mService.getMovieListByCategory2(movieCategory.getNextPageUrl(nextPage)).execute();
-                    ApiResponse<ResponseBody> apiResponse = new ApiResponse<>(response);
-                    if (apiResponse.isSuccessful()) {
-
-                        String item = new String(apiResponse.body.bytes(), "GB2312");
-                        List<CategoryMap> categoryMaps = mCategoryPageParser.parse(item, movieCategory);
-                        mCategoryMapDAO.insertCategoryMapList(categoryMaps);
-
-                        List<VideoDetail> details = new ArrayList<>();
-                        for (CategoryMap category : categoryMaps) {
-                            VideoDetail videoDetail = new VideoDetail();
-                            videoDetail.setDetailLink(category.getLink());
-                            videoDetail.setSN(category.getSN());
-                            videoDetail.setCategory(category.getCategory());
-                            details.add(videoDetail);
-                        }
-                        mVideoDetailDAO.insertVideoDetailList(details);
-
-                        mCategoryPageDAO.updatePage(nextPage);
-
-                        liveData.postValue(Resource.success(categoryMaps));
-                    } else {
-                        liveData.postValue(Resource.<List<CategoryMap>>error(apiResponse.errorMessage, null));
-                    }
-                } catch (Exception e) {
-                    liveData.postValue(Resource.<List<CategoryMap>>error(e.getMessage(), null));
-                }
+            protected void onPreProcess() {
+                super.onPreProcess();
+                mNextPage = mCategoryPageDAO.nextPage(movieCategory);
             }
-        });
-        return liveData;
+
+            @Override
+            protected List<CategoryMap> saveCallResult(@NonNull ResponseBody item) {
+                try {
+                    String html = new String(item.bytes(), "GB2312");
+
+                    List<CategoryMap> categoryMaps = mCategoryPageParser.parse(html, movieCategory);
+                    mCategoryMapDAO.insertCategoryMapList(categoryMaps);
+
+                    List<VideoDetail> details = new ArrayList<>();
+                    for (CategoryMap category : categoryMaps) {
+                        VideoDetail videoDetail = new VideoDetail();
+                        videoDetail.updateValue(category);
+                        details.add(videoDetail);
+                    }
+                    mVideoDetailDAO.insertVideoDetailList(details);
+
+                    mCategoryPageDAO.updatePage(mNextPage);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return Collections.emptyList();
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<ResponseBody>> createCall() {
+                return mService.getMovieListByCategory(movieCategory.getNextPageUrl(mNextPage));
+            }
+        }.getAsLiveData();
     }
 
     public LiveData<Resource<List<VideoDetail>>> getVideoDetailsByCategory(final MovieCategory category) {

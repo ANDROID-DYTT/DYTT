@@ -1,1216 +1,1978 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0050)http://www.dytt8.net/html/gndy/dyzz/list_23_1.html -->
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<META http-equiv=Content-Type content="text/html; charset=gb2312">
+	<title>电影 / 国内电影_电影天堂-迅雷电影下载</title>
+	<META content="迅雷电影,免费电影下载" name=keywords>
+	<META content="迅雷电影下载,迅雷下载,最好的电影下载网站" name=description>
+	<link href="/css/dytt8.css" rel="stylesheet" type="text/css" /><base target="_blank">
+</head><body><div id="header"><div class="contain"><h4><a href="/index.html"></a></h4>
+	<div id="headerright"><div id="about" align="right">
+		<SCRIPT src="/js2/760h.js"></SCRIPT>
+	</div>
 
-<title>电影 / 最新电影_电影天堂-迅雷电影下载</title>
-<meta content="迅雷电影,免费电影下载" name="keywords">
-<meta content="迅雷电影下载,迅雷下载,最好的电影下载网站" name="description">
-<link href="./new_movie_files/dytt8.css" rel="stylesheet" type="text/css"><!--<base target="_blank">--><base href="." target="_blank">
-<style type="text/css" abt="234"></style><script>//console.log('a')
-</script><script>doAdblock();
-function doAdblock(){
-    (function() {
-        function A() {}
-        A.prototype = {
-            rules: {
-                'pps_pps': {
-                    'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/common\/pps_flvplay_s\.swf/,
-                    'replace': 'http://swf.adtchrome.com/pps_20140420.swf'
-                },
-                '17173_in':{
-                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
-                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
-                },
-                '17173_out':{
-                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
-                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
-                },
-                '17173_live':{
-                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
-                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
-                },
-                '17173_live_out':{
-                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
-                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
-                }
-            },
-            _done: null,
-            get done() {
-                if(!this._done) {
-                    this._done = new Array();
-                }
-                return this._done;
-            },
-            addAnimations: function() {
-                var style = document.createElement('style');
-                style.type = 'text/css';
-                style.innerHTML = 'object,embed{\
-                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
-                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
-                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
-                animation-duration:.001s;animation-name:playerInserted;}\
-                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
-                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
-                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
-                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
-                document.getElementsByTagName('head')[0].appendChild(style);
-            },
-            animationsHandler: function(e) {
-                if(e.animationName === 'playerInserted') {
-                    this.replace(e.target);
-                }
-            },
-            replace: function(elem) {
-                if (/http:\/\/v.youku.com\/v_show\/.*/.test(window.location.href)){
-                    var tag = document.getElementById("playerBox").getAttribute("player")
-                    if (tag == "adt"){
-                        console.log("adt adv")
-                        return;
-                    }
-                }
-                if(this.done.indexOf(elem) != -1) return;
-                this.done.push(elem);
-                var player = elem.data || elem.src;
-                if(!player) return;
-                var i, find, replace = false;
-                for(i in this.rules) {
-                    find = this.rules[i]['find'];
-                    if(find.test(player)) {
-                        replace = this.rules[i]['replace'];
-                        if('function' === typeof this.rules[i]['preHandle']) {
-                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
-                        }else{
-                            this.reallyReplace.bind(this, elem, find, replace)();
-                        }
-                        break;
-                    }
-                }
-            },
-            reallyReplace: function(elem, find, replace) {
-                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
-                var b = elem.querySelector("param[name='movie']");
-                this.reloadPlugin(elem);
-            },
-            reloadPlugin: function(elem) {
-                var nextSibling = elem.nextSibling;
-                var parentNode = elem.parentNode;
-                parentNode.removeChild(elem);
-                var newElem = elem.cloneNode(true);
-                this.done.push(newElem);
-                if(nextSibling) {
-                    parentNode.insertBefore(newElem, nextSibling);
-                } else {
-                    parentNode.appendChild(newElem);
-                }
-            },
-            init: function() {
-                var handler = this.animationsHandler.bind(this);
-                document.body.addEventListener('webkitAnimationStart', handler, false);
-                document.body.addEventListener('msAnimationStart', handler, false);
-                document.body.addEventListener('oAnimationStart', handler, false);
-                document.body.addEventListener('animationstart', handler, false);
-                this.addAnimations();
-            }
-        };
-        new A().init();
-    })();
-}
-// 20140730
-(function cnbeta() {
-    if (document.URL.indexOf('cnbeta.com') >= 0) {
-        var elms = document.body.querySelectorAll("p>embed");
-        Array.prototype.forEach.call(elms, function(elm) {
-            elm.style.marginLeft = "0px";
-        });
-    }
-})();
-//baidu
-if(document.URL.indexOf('www.baidu.com') >= 0){
-    if(document && document.getElementsByTagName && document.getElementById && document.body){
-        var aa = function(){
-            var all = document.body.querySelectorAll("#content_left div,#content_left table");
-            for(var i = 0; i < all.length; i++){
-                if(/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))){all[i].style.display= "none";all[i].style.visibility='hidden';}
-            }
-            all = document.body.querySelectorAll('.result.c-container[id="1"]');
-            //if(all.length == 1) return;
-            for(var i = 0; i < all.length; i++){
-                if(all[i].innerHTML && all[i].innerHTML.indexOf('广告')>-1){
-                    all[i].style.display= "none";all[i].style.visibility='hidden';
-                }
-            }
-        }
-        aa();
-        document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified',aa)
-    };
-}
-if (document.URL.indexOf("tv.sohu.com") >= 0){
-    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
-}
-if (document.URL.indexOf("56.com") >= 0){
-    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
-}
-if (document.URL.indexOf("iqiyi.com") >= 0){
-    if (document.cookie.indexOf("player_forcedType=h5_VOD")==-1){
-        document.cookie='player_forcedType=h5_VOD'
-        if(localStorage.reloadTime && Date.now() - parseInt(localStorage.reloadTime)<60000){
-            console.log('no reload')
-        }else{
-            location.reload()
-            localStorage.reloadTime = Date.now();
-        }
-    }
-}
-</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head><body><div id="header"><div class="contain"><h4><a href="http://www.dytt8.net/index.html"></a></h4>
-				<div id="headerright"><div id="about" align="right">
-                      <script src="http://www.dytt8.net/js2/760h.js"></script>
+	</div>
+
+	<div id="menu"><div class="contain"><ul>
+		<li>
+			<a href="http://www.ygdy8.net/html/gndy/dyzz/index.html">最新影片</a></li><li>
+		<a href="http://www.ygdy8.net/html/gndy/index.html">经典影片</a></li><li>
+		<a href="http://www.ygdy8.net/html/gndy/china/index.html">国内电影</a></li><li>
+		<a href="http://www.ygdy8.net/html/gndy/oumei/index.html">欧美电影</a></li><li>
+		<a href="/html/gndy/rihan/index.html">日韩电影</a></li><li>
+		<a href="/html/tv/hytv/index.html">华语电视</a></li><li>
+		<a href="/html/tv/rihantv/index.html">日韩电视</a></li><li>
+		<a href="/html/tv/oumeitv/index.html">欧美电视</a></li><li>
+		<a href="/html/zongyi2013/index.html">最新综艺</a></li><li>
+		<a href="/html/2009zongyi/index.html">旧版综艺</a></li><li>
+		<a href="/html/dongman/index.html">动漫资源</a></li><li>
+		<a href="/html/game/index.html">游戏下载</a></li><li>
+		<a href="/html/gndy/jddy/20160320/50523.html">高分经典</a></li><li>
+
+		<a href="#" onclick="javascript:window.external.AddFavorite('http://www.dytt8.net', '电影天堂-dytt8.net')" target="_self">加入收藏</a></li><li>
+		<a href="index.html" onClick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.dytt8.net/');return(false);" style="behavior: url(#default#homepage)">设为主页</a></li>
+	</ul>
+	</div>
+
+	</div>
+
+
+	<div class="bd2">
+		<div class="bd4l" style="width: 960px">
+			<table cellspacing="1" border="0" cellpadding="4" width="100%"  >
+
+				<tr align="center" >
+
+					<SCRIPT src="/js2/960.js"></SCRIPT>
+
+				</tr>
+			</table>
+		</div>
+
+
+		<!--##########}end:header###########--><link href="/css/searchpage.css" rel="stylesheet" type="text/css" />
+		<div class="path"><ul>当前位置：<a href='http://www.dytt8.net/'>本站首页</a>><a href='/html/gndy/index.html'>电影</a>><a href='/html/gndy/china/index.html'>国内电影</a>>下载页面</ul></div>
+		<!--{start:body content-->
+		<div class="bd3">
+			<div class="bd3l">
+				<!--{start:内容区左侧-->
+				<!--{start:最新下载排行 Top10-->
+				<!--{start:本周影视下载排行-->
+				<div class="co_area2">
+					<div class="title_all"><p>相关栏目分类</p></div>
+					<div class="co_content2">
+						<ul>
+
+							<td width=160 height="50" valign="left">
+								<!-- cotalog templets-->
+								<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
+									<tr>
+										<td width="10%" bgcolor="#EEEEEE"></td>
+										<td align="center" bgcolor="#EEEEEE" style="border:1px #DDDDDD solid">
+											国内电影
+										</td>
+									</tr>
+								</table>
+								<table width="160" border="0" cellpadding="0" cellspacing="0">
+
+								</table>
+
+								<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
+									<tr>
+										<td width="10%" align="center" bgcolor="#E1EEDF" style="border:1px #E6EAE3 solid">&nbsp;
+										</td>
+										<td align="center" bgcolor="#FAFDF2" style="border:1px #E6EAE3 solid"><a href="/html/gndy/rihan/index.html">日韩电影</a>
+										</td>
+									</tr>
+								</table>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td height="2"></td>
+									</tr>
+								</table>
+
+								<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
+									<tr>
+										<td width="10%" align="center" bgcolor="#E1EEDF" style="border:1px #E6EAE3 solid">&nbsp;
+										</td>
+										<td align="center" bgcolor="#FAFDF2" style="border:1px #E6EAE3 solid"><a href="/html/gndy/oumei/index.html">欧美电影</a>
+										</td>
+									</tr>
+								</table>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td height="2"></td>
+									</tr>
+								</table>
+
+								<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
+									<tr>
+										<td width="10%" align="center" bgcolor="#E1EEDF" style="border:1px #E6EAE3 solid">&nbsp;
+										</td>
+										<td align="center" bgcolor="#FAFDF2" style="border:1px #E6EAE3 solid"><a href="/html/gndy/dyzz/index.html">最新电影</a>
+										</td>
+									</tr>
+								</table>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td height="2"></td>
+									</tr>
+								</table>
+
+								<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
+									<tr>
+										<td width="10%" align="center" bgcolor="#E1EEDF" style="border:1px #E6EAE3 solid">&nbsp;
+										</td>
+										<td align="center" bgcolor="#FAFDF2" style="border:1px #E6EAE3 solid"><a href="/html/gndy/jddy/index.html">综合电影</a>
+										</td>
+									</tr>
+								</table>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td height="2"></td>
+									</tr>
+								</table>
+
+								<!-- cotalog templets End -->
+							</td>
+						</ul>
 					</div>
-					
+				</div>
+				<!--}end:本周影视下载排行-->
+				<!--{start:最新下载排行 Top10-->
+				<div class="co_area1">
+					<div class="title_all"><p>本站推荐电影</p></div>
+					<div class="co_content2">
+						<ul>
+							?<a href='/html/gndy/dyzz/20180103/55959.html'>2017年科幻动作《全球风暴</a><br/>
+							?<a href='/html/gndy/dyzz/20171230/55920.html'>2017年高分恐怖《小丑回魂</a><br/>
+							?<a href='/html/gndy/jddy/20171224/55874.html'>2017年惊悚悬疑《雪人/雪</a><br/>
+							?<a href='/html/gndy/jddy/20171222/55861.html'>2017年喜剧《性别之战》BD</a><br/>
+							?<a href='/html/gndy/dyzz/20171218/55832.html'>2017年甄子丹刘德华动作《</a><br/>
+							?<a href='/html/gndy/dyzz/20171208/55749.html'>2017年詹妮弗?劳伦斯悬疑</a><br/>
+							?<a href='/html/gndy/jddy/20171206/55738.html'>2017年动作喜剧《宝贝特攻</a><br/>
+							?<a href='/html/gndy/dyzz/20171205/55728.html'>2017年8.3高分战争《敦刻</a><br/>
+							?<a href='/html/gndy/dyzz/20171205/55726.html'>2017年高分获奖剧情《相爱</a><br/>
+							?<a href='/html/gndy/dyzz/20171202/55684.html'>2017年高分剧情《天才枪手</a><br/>
+							?<a href='/html/gndy/jddy/20171202/55682.html'>2017年爱情喜剧《胡杨的夏</a><br/>
+							?<a href='/html/gndy/dyzz/20171130/55665.html'>2017年动作喜剧《王牌特工</a><br/>
+							?<a href='/html/gndy/dyzz/20171130/55664.html'>2017年动作《英伦对决》国</a><br/>
+							?<a href='/html/gndy/dyzz/20171123/55603.html'>2017年动作《美国刺客/美</a><br/>
+							?<a href='/html/gndy/dyzz/20171105/55468.html'>2017年悬疑动作《极寒之城</a><br/>
+
+						</ul>
+					</div>
+				</div>
+				<!--}end:最新下载排行 Top10-->
+				<div class="co_area2">
+					<div class="title_all"><p>本站推荐电视剧</p></div>
+					<div class="co_content2">
+						<ul>
+							?<a href='/html/tv/hytv/20110620/32833.html'>2011台湾最新偶像剧《旋风</a><br/>
+							?<a href='/html/tv/gangtai/tw/20101227/30016.html'>2010最新台湾偶像剧《爱似</a><br/>
+							?<a href='/html/tv/gangtai/tw/20100823/27737.html'>2010潘玮柏最新偶像剧《爱</a><br/>
+							?<a href='/html/tv/gangtai/20100726/27236.html'>2010台湾热播偶像剧《钟无</a><br/>
+							?<a href='/html/tv/gangtai/tw/20100517/26035.html'>2010热播偶像剧《呼叫大明</a><br/>
+							?<a href='/html/tv/gangtai/tw/20100118/24051.html'>2010台湾偶像剧《就想赖着</a><br/>
+							?<a href='/html/tv/gangtai/tw/20091005/22040.html'>2009热播偶像剧《下一站幸</a><br/>
+							?<a href='/html/tv/gangtai/tw/20091015/22259.html'>2009台湾八大剧《桃花小妹</a><br/>
+
+						</ul>
+					</div>
+				</div>
+				<div class="co_area2">
+					<div class="title_all"><p>本站推荐</p></div>
+					<div class="co_content2">
+						<ul>
+							<ul>
+								<iframe src="/js2/zxj.htm" width=180 frameborder=0 scrolling=no marginheight=0 marginwidth=0 height="500"></iframe>
+							</ul>
+						</ul>
+					</div>
+				</div>
+
+				<div class="co_area3">
+					<div class="title_all"><p>广告赞助位置</p></div>
+					<div class="co_content2">
+						<ul>
+							<iframe src="/js2/zxj2.htm" width=180 frameborder=0 scrolling=no marginheight=0 marginwidth=0 height="800"></iframe>
+						</ul>
+					</div>
+				</div>
+
 			</div>
-		
-		<div id="menu"><div class="contain"><ul>
-					<li>
-<a href="http://www.ygdy8.net/html/gndy/dyzz/index.html">最新影片</a></li><li>
-<a href="http://www.ygdy8.net/html/gndy/index.html">经典影片</a></li><li>
-<a href="http://www.ygdy8.net/html/gndy/china/index.html">国内电影</a></li><li>
-<a href="http://www.ygdy8.net/html/gndy/oumei/index.html">欧美电影</a></li><li>
-<a href="http://www.dytt8.net/html/gndy/rihan/index.html">日韩电影</a></li><li>
-<a href="http://www.dytt8.net/html/tv/hytv/index.html">华语电视</a></li><li>
-<a href="http://www.dytt8.net/html/tv/rihantv/index.html">日韩电视</a></li><li>
-<a href="http://www.dytt8.net/html/tv/oumeitv/index.html">欧美电视</a></li><li>
-<a href="http://www.dytt8.net/html/zongyi2013/index.html">最新综艺</a></li><li>
-<a href="http://www.dytt8.net/html/2009zongyi/index.html">旧版综艺</a></li><li>
-<a href="http://www.dytt8.net/html/dongman/index.html">动漫资源</a></li><li>
-<a href="http://www.dytt8.net/html/game/index.html">游戏下载</a></li><li>
-<a href="http://www.dytt8.net/html/gndy/jddy/20160320/50523.html">高分经典</a></li><li>
- 
-<a href="http://www.dytt8.net/html/gndy/dyzz/list_23_1.html#" onclick="javascript:window.external.AddFavorite(&#39;http://www.dytt8.net&#39;, &#39;电影天堂-dytt8.net&#39;)" target="_self">加入收藏</a></li><li>
-<a href="http://www.dytt8.net/html/gndy/dyzz/index.html" onclick="this.style.behavior=&#39;url(#default#homepage)&#39;;this.setHomePage(&#39;http://www.dytt8.net/&#39;);return(false);" style="behavior: url(#default#homepage)">设为主页</a></li>
-</ul>
+
+			<!--}end:内容区左侧-->
+			<div class="bd3r">
+				<!--{start:搜索软件介绍等-->
+				<div>
+					<div class="bd3rl">
+						<!--{start:搜索框-->
+						<div class="search">
+							<form onSubmit="window.location=this.field.options[this.field.selectedIndex].value+this.keyword.value; return false;">
+								<div class="searchl">
+									<p>
+										<strong>搜索:</strong>
+										<input name="keyword"  type="text" value="关键字" onFocus="this.select();" class="formhue" />
+										&nbsp;
+
+										<select name="field" style="width:80px;height:17px;" class="formhue">
+											<option value="http://s.ygdy8.com/plus/search.php?kwtype=0&searchtype=title&keyword=">电影搜索</option>
+											<option value="http://s.ygdy8.com/plus/search.php?kwtype=0&searchtype=title&keyword=">电影搜索</option>
+										</select>
+									<p>
+								</div>
+								<div class="searchr">
+									<input name="Submit" type="Submit"  value="立即搜索"  />
+								</div>
+							</form>
+						</div>
+						<!--}end:搜索框-->
+					</div>
+					<div class="bd3rr">
+						<!--{start:迅雷下载 buttton-->
+						<div><a href="javascript:window.external.addFavorite('http://www.dytt8.net/','dytt8.net-电影天堂')" target=_self class="style11" target=_self ><img src="/images/bbs_btn.gif" alt="电影天堂" border="0" /></a></a></span>  </a></div>
+						<!--}end:迅雷下载 buttton-->
+					</div>
+					<div class="x"></div>
+				</div>
+				<div class="co_area2">
+					<div class="title_all"><h1><font color=#008800><a href='http://www.dytt8.net/'>本站首页</a>><a href='/html/gndy/index.html'>电影</a>><a href='/html/gndy/china/index.html'>国内电影</a>></font></h1></div>
+					<div class="co_content8">
+						<ul>
+
+							<td height="220" valign="top"> <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180328/56586.html" class="ulink">2018年奇幻动作喜剧《史前超人》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-28 19:30:11
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">史前超人][HD-mkv.720p.国语中字][2018年奇幻动作喜剧] ◎译 名 The Girl From Future ◎片 名 史前超人 ◎年 代 2018 ◎产 地 中国 ◎类 别 奇幻/动作/喜剧 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-03-27(中国) ◎文件格式 RMVB + aac ◎视频尺寸 1280 x 720 ◎</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180328/56585.html" class="ulink">2018年奇幻爱情《时空偷渡少女》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-28 18:58:07
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">时空偷渡少女][HD-mkv.720p.国语中字][2018年奇幻爱情] ◎译 名 The Girl From Future ◎片 名 时空偷渡少女 ◎年 代 2018 ◎产 地 中国 ◎类 别 爱情/奇幻 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-02-01(中国) ◎豆瓣评分 3.6/10 from 166 users ◎文件格式 RMVB</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/dyzz/index.html'>[最新电影]</a>
+											<a href="/html/gndy/dyzz/20180327/56580.html" class="ulink">2018年喜剧《祖宗十九代》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-27 23:30:46
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">祖宗十九代][HD-mkv.720p.国语中字][2018年喜剧] ◎译 名 The Faces of My Gene ◎片 名 祖宗十九代 ◎年 代 2018 ◎产 地 中国 ◎类 别 喜剧/奇幻 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-02-16(中国) ◎豆瓣评分 4.7/10 from 21,546 users ◎文件格式 RMVB + aa</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180326/56570.html" class="ulink">2016年恐怖《育婴室》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-26 12:55:15
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">育婴室][HD-mkv.720p.国语中字][2016年恐怖] ◎译 名 The Nursery ◎片 名 育婴室 ◎年 代 2016 ◎国 家 中国/泰国 ◎类 别 恐怖 ◎语 言 普通话/英语 ◎字 幕 中文 ◎上映日期 2016-10-28(中国)/2016-10-28(泰国) ◎豆瓣评分 4.3/10 from 1,134 users ◎文件格式 RMVB</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180326/56567.html" class="ulink">2017年动画《赛尔号大电影6：圣者无敌》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-26 09:55:39
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">赛尔号大电影6：圣者无敌][HD-mkv.720p.国语中字][2017年动画喜剧] ◎译 名 Seer Movie 6: Invincible Puni ◎片 名 赛尔号大电影6：圣者无敌/赛尔号6圣者无敌/赛尔号大电影6 ◎年 代 2017 ◎产 地 中国 ◎类 别 儿童/喜剧/动画/奇幻/冒险 ◎语 言 普通话 ◎字 幕 中文</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/dyzz/index.html'>[最新电影]</a>
+											<a href="/html/gndy/dyzz/20180324/56559.html" class="ulink">2017年郭富城刘涛动作《破?局》BD国粤双语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-24 15:52:33
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">破局][BD-mkv.720p.国粤双语中字][2017年郭富城王千源刘涛动作] ◎译 名 破局/肇事者/走到尽头 ◎片 名 Peace Breaker ◎年 代 2017 ◎产 地 中国 ◎类 别 动作/犯罪 ◎语 言 普通话/粤语 ◎字 幕 中文 ◎上映日期 2017-08-17(中国) ◎IMDb评分 6.1/10 from 114 users</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/dyzz/index.html'>[最新电影]</a>
+											<a href="/html/gndy/dyzz/20180323/56556.html" class="ulink">2018年赵又廷杨子姗爱情《南极之恋》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-23 23:22:41
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">南极之恋][HD-mkv.1080p.国语中字][2018年赵又廷杨子姗爱情] ◎译 名 Till the End of the World ◎片 名 南极之恋/南极绝恋 ◎年 代 2018 ◎产 地 中国 ◎类 别 爱情/冒险 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-02-01(中国) ◎IMDb评分 7.1/10 from 39 users</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180323/56555.html" class="ulink">2018年动作恐怖《谜巢/蛛网/蛛巢》HD国英双语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-23 15:45:35
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">谜巢/蛛网/蛛巢][HD-mkv.720p.国英双语中字][2018年动作恐怖] ◎译 名 谜巢/蛛网/蛛巢 ◎片 名 Nest / Guardians of The Tomb ◎年 代 2018 ◎产 地 中国/澳大利亚 ◎类 别 动作/冒险/恐怖 ◎语 言 英语 ◎字 幕 中字 ◎上映日期 2018-01-19(中国) ◎IMDb评分 5.0/10 fr</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180322/56551.html" class="ulink">2018年古装喜剧《金装少年唐伯虎》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-22 21:49:55
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">金装少年唐伯虎][HD-mkv.720p.国语中字][2018年古装喜剧] ◎译 名 Jin Zhuang Shao Nian Tang Bo Hu ◎片 名 金装少年唐伯虎 ◎年 代 2017 ◎产 地 中国 ◎类 别 喜剧/古装 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-03-20(中国) ◎豆瓣评分 4.0/10 from 15 users</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180322/56550.html" class="ulink">2018年喜剧《疯狂熊孩子》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-22 16:13:56
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">疯狂熊孩子][HD-mkv.720p.国语中字][2018年喜剧] ◎译 名 Wild Kids ◎片 名 疯狂熊孩子 ◎年 代 2018 ◎产 地 中国 ◎类 别 儿童/喜剧 ◎语 言 普通话 ◎字 幕 中文 ◎文件格式 RMVB + aac ◎视频尺寸 1280 x 720 ◎文件大? ?1CD ◎片 长 88分钟 ◎导 演 李振 Zhen Li</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180322/56547.html" class="ulink">2018年青春喜剧《飞越网戒所》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-22 09:26:59
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">飞越网戒所][HD-mkv.720p.国语中字][2018年青春喜剧] ⊙片 名 飞越网戒所 ⊙译 名 Flying ⊙年 代 2018 ⊙产 地 中国 ⊙类 别 青春 / 喜剧 / 动作 ⊙语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-03-18(中国) ◎文件格式 RMVB + aac ◎视频尺寸 1280 x 720 ◎文件大? ?1C</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/dyzz/index.html'>[最新电影]</a>
+											<a href="/html/gndy/dyzz/20180321/56543.html" class="ulink">2017年奇幻动作《奇门遁甲》BD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-21 22:37:27
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">奇门遁甲][BD-mkv.720p.国语中字][2017年奇幻动作] ◎译 名 TheThousandFacesofDunjia ◎片 名 奇门遁甲 ◎年 代 2017 ◎产 地 中国/中国香港 ◎类 别 动作/奇幻 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2017-12-14(中国) ◎IMDb评分 5.4/10 from 290 users ◎豆瓣评分</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180319/56532.html" class="ulink">2018年喜剧《跨次元少女大作战》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-19 13:33:12
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">跨次元少女大作战][HD-mkv.720p.国语中字][2018年喜剧] ◎译 名 Cross-Dimension Love ◎片 名 跨次元少女大作战 ◎年 代 2018 ◎产 地 中国 ◎类 别 剧情/喜剧/爱情 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-03-16(中国) ◎文件格式 RMVB + aac ◎视频尺寸 1280</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180319/56531.html" class="ulink">2018年喜剧《不良千金/女神学院》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-19 11:39:56
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">不良千金/女神学院][HD-mkv.720p.国语中字][2018年喜剧] ◎译 名 不良千金/女神学院 ◎片 名 Bad Daughter ◎年 代 2018 ◎产 地 中国 ◎类 别 喜剧 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-03-18(中国) ◎文件格式 RMVB + aac ◎视频尺寸 1280 x 720 ◎文件大</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180318/56529.html" class="ulink">2017年剧情《最后的诗句》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-18 23:30:32
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">最后的诗句][HD-mkv.720p.国语中字][2018年剧情] ◎译 名 最后的诗句 ◎片 名 The Last Verse ◎年 代 2017 ◎产 地 中国台湾 ◎类 别 剧情 ◎语 言 普通话 ◎字 幕 中文 ◎IMDb评分 5.9/10 from 41 users ◎豆瓣评分 7.1/10 from 69 users ◎文件格式 x264 + aac ◎视</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180318/56528.html" class="ulink">2017年惊悚剧情《再看我一眼》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-18 14:45:14
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">再看我一眼][HD-mkv.720p.国语中字][2017年惊悚剧情] ◎译 名 In Soul ◎片 名 再看我一眼 ◎年 代 2017 ◎产 地 中国台湾 ◎类 别 剧情/惊悚 ◎语 言 普通话/闽南语 ◎字 幕 中文 ◎文件格式 x264 + aac ◎视频尺寸 1280 x 720 ◎文件大? ?1CD ◎片 长 85分钟 ◎导 演</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180317/56518.html" class="ulink">2018年悬疑惊悚《五度空间》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-17 09:13:54
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">五度空间][HD-mkv.720p.国语中字][2018年悬疑惊悚] ◎译 名 The 5th Dimension ◎片 名 五度空间 ◎年 代 2018 ◎产 地 中国 ◎类 别 悬疑/惊悚 ◎语 言 普通话 ◎字 幕 中文 ◎文件格式 RMVB + aac ◎视频尺寸 1280 x 720 ◎文件大? ?1CD ◎片 长 88分钟 ◎导 演 夏天</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180316/56515.html" class="ulink">2017年剧情《十八洞村》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-16 22:40:51
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">十八洞村][HD-mkv.1080p.国语中字][2017年剧情] ◎译 名 Hold Your Hands ◎片 名 十八洞村 ◎年 代 2017 ◎产 地 中国 ◎类 别 剧情 ◎语 言 普通话 ◎上映日期 2017-10-13(中国大陆) ◎豆瓣评分 6.7/10 from 1,170 users ◎文件格式 x264 + aac ◎视频尺寸 1920 x 806</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180316/56513.html" class="ulink">2017年动画《大熊猫传奇》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-16 15:31:32
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">大熊猫传奇][HD-mkv.720p.国语中字][2017年动画] ◎译 名 The Legend of Pandas ◎片 名 大熊猫传奇 ◎年 代 2017 ◎产 地 中国 ◎类 别 剧情/动画 ◎语 言 普通话 ◎字 幕 中文 ◎文件格式 RMVB + aac ◎视频尺寸 1280 x 720 ◎文件大? ?1CD ◎片 长 97分钟 ◎导 演</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/dyzz/index.html'>[最新电影]</a>
+											<a href="/html/gndy/dyzz/20180315/56508.html" class="ulink">2018年郭富城赵丽颖奇幻《西游记女儿国》HD国语中英双字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-15 16:33:01
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">西游记女儿国][HD-mkv.720p.国语中英双字][2018年郭富城赵丽颖奇幻] ◎译 名 The Monkey King 3: Kingdom of Women ◎片 名 西游记女儿国/西游记女儿国/西游记之女儿国 ◎年 代 2018 ◎产 地 中国/中国香港 ◎类 别 喜剧/爱情/奇幻 ◎语 言 普通话 ◎字 幕 中英双字幕</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180315/56506.html" class="ulink">2018年奇幻喜剧《齐天大圣?万妖之城》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-15 11:31:57
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">齐天大圣万妖之城][HD-mp4.1080p.国语中字][2018年奇幻喜剧] ◎译 名 Qi Tian Da Sheng Wan Yao Zhi Cheng ◎片 名 齐天大圣万妖之城/齐天大圣万妖之城 ◎年 代 2018 ◎产 地 中国 ◎类 别 奇幻/喜剧/冒险/古装 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-03-02(中国</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180315/56503.html" class="ulink">获奖经典港片《跛豪》BD国粤双语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-15 10:16:46
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">跛豪][BD-mkv.720p.国粤双语中字][获奖经典港片] ◎译 名 To Be Number One ◎片 名 跛豪 ◎年 代 1991 ◎产 地 中国香港 ◎类 别 传记/犯罪/剧情 ◎语 言 国语/粤语 ◎字 幕 中文 ◎IMDb评分 7.3/10 from 383 users ◎豆瓣评分 8.1/10 from 26,584 users ◎文件格式 x2</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/dyzz/index.html'>[最新电影]</a>
+											<a href="/html/gndy/dyzz/20180313/56490.html" class="ulink">2017年范伟高分获奖《不成问题的问题》HD国语中英双字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-13 17:30:11
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">不成问题的问题][HD-mp4.720p.国语中英双字][2017年范伟高分获奖] ◎译 名 Mr. No Problem ◎片 名 不成问题的问题 ◎年 代 2016 ◎产 地 中国/法国 ◎类 别 剧情 ◎语 言 普通话/北京话/重庆话/上海话 ◎字 幕 中英双字幕 ◎上映日期 2016-10-29(东京电影节)/2017-11-2</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180312/56485.html" class="ulink">2017年剧情《阿莉芙》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-12 22:46:15
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">阿莉芙][HD-mkv.720p.国语中字][2017年剧情] ◎译 名 Alifu, the Prince/ss ◎片 名 阿莉芙 ◎年 代 2017 ◎产 地 中国台湾 ◎类 别 剧情/同性 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2017-10-26(东京电影节)/2017-10-27(中国台湾) ◎IMDb评分 6.4/10 from 75 users</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180312/56483.html" class="ulink">2016年喜剧《呆呆计划/?计划》BD国粤双语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-12 11:02:37
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">呆呆计划/?计划][BD-mkv.720p.国粤双语中字][2017年喜剧] ◎译 名 Foolish Plan ◎片 名 呆呆计划/?计划 ◎年 代 2016 ◎产 地 中国 ◎类 别 剧情/喜剧/犯罪 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2016-12-09(中国) ◎豆瓣评分 3.5/10 from 1,184 users ◎文件格式</td>
+								</tr>
+							</table> </td>
+						</ul>
+						<div class="x">
+							<td height="25" align="center" bgcolor="#F4FAE2"> 共101页/2516条记录  首页
+								1
+								<a href='list_4_2.html'>[2]</a>
+								<a href='list_4_3.html'>[3]</a>
+								<a href='list_4_4.html'>[4]</a>
+								<a href='list_4_5.html'>[5]</a>
+								<a href='list_4_6.html'>[6]</a>
+								<a href='list_4_7.html'>[7]</a>
+								<a href='list_4_2.html'>下一页</a>
+								<a href='list_4_101.html'>末页</a>
+								<select name='sldd' style='width:78' onchange='location.href=this.options[this.selectedIndex].value;'>
+									<option value='list_4_1.html' selected>1</option>
+									<option value='list_4_2.html'>2</option>
+									<option value='list_4_3.html'>3</option>
+									<option value='list_4_4.html'>4</option>
+									<option value='list_4_5.html'>5</option>
+									<option value='list_4_6.html'>6</option>
+									<option value='list_4_7.html'>7</option>
+									<option value='list_4_8.html'>8</option>
+									<option value='list_4_9.html'>9</option>
+									<option value='list_4_10.html'>10</option>
+									<option value='list_4_11.html'>11</option>
+									<option value='list_4_12.html'>12</option>
+									<option value='list_4_13.html'>13</option>
+									<option value='list_4_14.html'>14</option>
+									<option value='list_4_15.html'>15</option>
+									<option value='list_4_16.html'>16</option>
+									<option value='list_4_17.html'>17</option>
+									<option value='list_4_18.html'>18</option>
+									<option value='list_4_19.html'>19</option>
+									<option value='list_4_20.html'>20</option>
+									<option value='list_4_21.html'>21</option>
+									<option value='list_4_22.html'>22</option>
+									<option value='list_4_23.html'>23</option>
+									<option value='list_4_24.html'>24</option>
+									<option value='list_4_25.html'>25</option>
+									<option value='list_4_26.html'>26</option>
+									<option value='list_4_27.html'>27</option>
+									<option value='list_4_28.html'>28</option>
+									<option value='list_4_29.html'>29</option>
+									<option value='list_4_30.html'>30</option>
+									<option value='list_4_31.html'>31</option>
+									<option value='list_4_32.html'>32</option>
+									<option value='list_4_33.html'>33</option>
+									<option value='list_4_34.html'>34</option>
+									<option value='list_4_35.html'>35</option>
+									<option value='list_4_36.html'>36</option>
+									<option value='list_4_37.html'>37</option>
+									<option value='list_4_38.html'>38</option>
+									<option value='list_4_39.html'>39</option>
+									<option value='list_4_40.html'>40</option>
+									<option value='list_4_41.html'>41</option>
+									<option value='list_4_42.html'>42</option>
+									<option value='list_4_43.html'>43</option>
+									<option value='list_4_44.html'>44</option>
+									<option value='list_4_45.html'>45</option>
+									<option value='list_4_46.html'>46</option>
+									<option value='list_4_47.html'>47</option>
+									<option value='list_4_48.html'>48</option>
+									<option value='list_4_49.html'>49</option>
+									<option value='list_4_50.html'>50</option>
+									<option value='list_4_51.html'>51</option>
+									<option value='list_4_52.html'>52</option>
+									<option value='list_4_53.html'>53</option>
+									<option value='list_4_54.html'>54</option>
+									<option value='list_4_55.html'>55</option>
+									<option value='list_4_56.html'>56</option>
+									<option value='list_4_57.html'>57</option>
+									<option value='list_4_58.html'>58</option>
+									<option value='list_4_59.html'>59</option>
+									<option value='list_4_60.html'>60</option>
+									<option value='list_4_61.html'>61</option>
+									<option value='list_4_62.html'>62</option>
+									<option value='list_4_63.html'>63</option>
+									<option value='list_4_64.html'>64</option>
+									<option value='list_4_65.html'>65</option>
+									<option value='list_4_66.html'>66</option>
+									<option value='list_4_67.html'>67</option>
+									<option value='list_4_68.html'>68</option>
+									<option value='list_4_69.html'>69</option>
+									<option value='list_4_70.html'>70</option>
+									<option value='list_4_71.html'>71</option>
+									<option value='list_4_72.html'>72</option>
+									<option value='list_4_73.html'>73</option>
+									<option value='list_4_74.html'>74</option>
+									<option value='list_4_75.html'>75</option>
+									<option value='list_4_76.html'>76</option>
+									<option value='list_4_77.html'>77</option>
+									<option value='list_4_78.html'>78</option>
+									<option value='list_4_79.html'>79</option>
+									<option value='list_4_80.html'>80</option>
+									<option value='list_4_81.html'>81</option>
+									<option value='list_4_82.html'>82</option>
+									<option value='list_4_83.html'>83</option>
+									<option value='list_4_84.html'>84</option>
+									<option value='list_4_85.html'>85</option>
+									<option value='list_4_86.html'>86</option>
+									<option value='list_4_87.html'>87</option>
+									<option value='list_4_88.html'>88</option>
+									<option value='list_4_89.html'>89</option>
+									<option value='list_4_90.html'>90</option>
+									<option value='list_4_91.html'>91</option>
+									<option value='list_4_92.html'>92</option>
+									<option value='list_4_93.html'>93</option>
+									<option value='list_4_94.html'>94</option>
+									<option value='list_4_95.html'>95</option>
+									<option value='list_4_96.html'>96</option>
+									<option value='list_4_97.html'>97</option>
+									<option value='list_4_98.html'>98</option>
+									<option value='list_4_99.html'>99</option>
+									<option value='list_4_100.html'>100</option>
+									<option value='list_4_101.html'>101</option>
+								</select></td></div>
+					</div>
+					<div class="x"></div>
+				</div>
+				<div class="x"></div>
 			</div>
-		 
- </div>
+			<div class="x"></div>
+		</div>
+		<!--}end:body conten-->
+		<!--{start:友情链接-->
+		<div class="bd6">
+			<ul>
+				<center><script language=javascript src="/js2/950d.js"></script></center>
+			</ul>
+			<div class="x"></div>
+		</div>
+		<!--}end:友情链接-->
+		<!--{start:footer-->
+		<div class="footer">
+			<a href="/index.html">关于本站</a> - <a href="/index.html">电影下载</a> - <a href="http://www.dytt8.net/html/3gp/3gpmovie/">手机电影</a> - <a href="/index.html">下载声明</a> - <a href="http://www.dytt8.net/html/3gp/3gpmovie/">MP4电影</a> - <a href="/plus/sitemap.html">网站地图</a> - <a href="/index.html">RSS2.0</a><br />
+			Copyright @ 2018 www.dytt8.net. All Rights Reserved .<div style='display:none'>
+			<script language=javascript src="/js/tj.js"></script>
+		</div><br />
+		</div>
+	</div>
+	<!--}end:footer-->
+	<!--}end:body conten-->
+</body>
+
+</html>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<META http-equiv=Content-Type content="text/html; charset=gb2312">
+	<title>电影 / 国内电影_电影天堂-迅雷电影下载</title>
+	<META content="迅雷电影,免费电影下载" name=keywords>
+	<META content="迅雷电影下载,迅雷下载,最好的电影下载网站" name=description>
+	<link href="/css/dytt8.css" rel="stylesheet" type="text/css" /><base target="_blank">
+</head><body><div id="header"><div class="contain"><h4><a href="/index.html"></a></h4>
+	<div id="headerright"><div id="about" align="right">
+		<SCRIPT src="/js2/760h.js"></SCRIPT>
+	</div>
+
+	</div>
+
+	<div id="menu"><div class="contain"><ul>
+		<li>
+			<a href="http://www.ygdy8.net/html/gndy/dyzz/index.html">最新影片</a></li><li>
+		<a href="http://www.ygdy8.net/html/gndy/index.html">经典影片</a></li><li>
+		<a href="http://www.ygdy8.net/html/gndy/china/index.html">国内电影</a></li><li>
+		<a href="http://www.ygdy8.net/html/gndy/oumei/index.html">欧美电影</a></li><li>
+		<a href="/html/gndy/rihan/index.html">日韩电影</a></li><li>
+		<a href="/html/tv/hytv/index.html">华语电视</a></li><li>
+		<a href="/html/tv/rihantv/index.html">日韩电视</a></li><li>
+		<a href="/html/tv/oumeitv/index.html">欧美电视</a></li><li>
+		<a href="/html/zongyi2013/index.html">最新综艺</a></li><li>
+		<a href="/html/2009zongyi/index.html">旧版综艺</a></li><li>
+		<a href="/html/dongman/index.html">动漫资源</a></li><li>
+		<a href="/html/game/index.html">游戏下载</a></li><li>
+		<a href="/html/gndy/jddy/20160320/50523.html">高分经典</a></li><li>
+
+		<a href="#" onclick="javascript:window.external.AddFavorite('http://www.dytt8.net', '电影天堂-dytt8.net')" target="_self">加入收藏</a></li><li>
+		<a href="index.html" onClick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.dytt8.net/');return(false);" style="behavior: url(#default#homepage)">设为主页</a></li>
+	</ul>
+	</div>
+
+	</div>
 
 
-<div class="bd2">
-<div class="bd4l" style="width: 960px">
-<table cellspacing="1" border="0" cellpadding="4" width="100%">
- 
-<tbody><tr align="center">
- 
-<script src="http://www.dytt8.net/js2/960.js"></script>
- 
-</tr>
-</tbody></table>
-</div>
- 
+	<div class="bd2">
+		<div class="bd4l" style="width: 960px">
+			<table cellspacing="1" border="0" cellpadding="4" width="100%"  >
 
-<!--##########}end:header###########--><link href="./new_movie_files/searchpage.css" rel="stylesheet" type="text/css">
-<div class="path"><ul>当前位置：<a href="http://www.dytt8.net/">本站首页</a>&gt;<a href="http://www.dytt8.net/html/gndy/index.html">电影</a>&gt;<a href="http://www.dytt8.net/html/gndy/dyzz/index.html">最新电影</a>&gt;下载页面</ul></div>
-<!--{start:body content-->
-<div class="bd3">
-<div class="bd3l">
-<!--{start:内容区左侧-->
-<!--{start:最新下载排行 Top10-->
-<!--{start:本周影视下载排行-->
-<div class="co_area2">
-<div class="title_all"><p>相关栏目分类</p></div>
-<div class="co_content2">
-<ul>
-	
+				<tr align="center" >
 
-<!-- cotalog templets-->
-<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
-<tbody><tr> 
-<td width="10%" bgcolor="#EEEEEE"></td>
-<td align="center" bgcolor="#EEEEEE" style="border:1px #DDDDDD solid"> 
- 最新电影
- </td>
-</tr>
-</tbody></table>
-<table width="160" border="0" cellpadding="0" cellspacing="0">
- 
-</table>
- 
-<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
-<tbody><tr> 
-<td width="10%" align="center" bgcolor="#E1EEDF" style="border:1px #E6EAE3 solid">&nbsp; 
-</td>
-<td align="center" bgcolor="#FAFDF2" style="border:1px #E6EAE3 solid"><a href="http://www.dytt8.net/html/gndy/rihan/index.html">日韩电影</a> 
-</td>
-</tr>
-</tbody></table>
-<table border="0" cellpadding="0" cellspacing="0">
-<tbody><tr> 
-<td height="2"></td>
-</tr>
-</tbody></table>
- 
-<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
-<tbody><tr> 
-<td width="10%" align="center" bgcolor="#E1EEDF" style="border:1px #E6EAE3 solid">&nbsp; 
-</td>
-<td align="center" bgcolor="#FAFDF2" style="border:1px #E6EAE3 solid"><a href="http://www.dytt8.net/html/gndy/oumei/index.html">欧美电影</a> 
-</td>
-</tr>
-</tbody></table>
-<table border="0" cellpadding="0" cellspacing="0">
-<tbody><tr> 
-<td height="2"></td>
-</tr>
-</tbody></table>
- 
-<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
-<tbody><tr> 
-<td width="10%" align="center" bgcolor="#E1EEDF" style="border:1px #E6EAE3 solid">&nbsp; 
-</td>
-<td align="center" bgcolor="#FAFDF2" style="border:1px #E6EAE3 solid"><a href="http://www.dytt8.net/html/gndy/china/index.html">国内电影</a> 
-</td>
-</tr>
-</tbody></table>
-<table border="0" cellpadding="0" cellspacing="0">
-<tbody><tr> 
-<td height="2"></td>
-</tr>
-</tbody></table>
- 
-<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
-<tbody><tr> 
-<td width="10%" align="center" bgcolor="#E1EEDF" style="border:1px #E6EAE3 solid">&nbsp; 
-</td>
-<td align="center" bgcolor="#FAFDF2" style="border:1px #E6EAE3 solid"><a href="http://www.dytt8.net/html/gndy/jddy/index.html">综合电影</a> 
-</td>
-</tr>
-</tbody></table>
-<table border="0" cellpadding="0" cellspacing="0">
-<tbody><tr> 
-<td height="2"></td>
-</tr>
-</tbody></table>
- 
-<!-- cotalog templets End -->
+					<SCRIPT src="/js2/960.js"></SCRIPT>
 
-</ul>
-</div>
-</div>
-<!--}end:本周影视下载排行-->
-<!--{start:最新下载排行 Top10-->
-<div class="co_area1">
-<div class="title_all"><p>本站推荐电影</p></div>
-<div class="co_content2">
-<ul>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20180103/55959.html">2017年科幻动作《全球风暴</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171230/55920.html">2017年高分恐怖《小丑回魂</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20171224/55874.html">2017年惊悚悬疑《雪人/雪</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20171222/55861.html">2017年喜剧《性别之战》BD</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171218/55832.html">2017年甄子丹刘德华动作《</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171208/55749.html">2017年詹妮弗·劳伦斯悬疑</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20171206/55738.html">2017年动作喜剧《宝贝特攻</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171205/55728.html">2017年8.3高分战争《敦刻</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171205/55726.html">2017年高分获奖剧情《相爱</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171202/55684.html">2017年高分剧情《天才枪手</a><br>
-·<a href="http://www.dytt8.net/html/gndy/jddy/20171202/55682.html">2017年爱情喜剧《胡杨的夏</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171130/55665.html">2017年动作喜剧《王牌特工</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171130/55664.html">2017年动作《英伦对决》国</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171123/55603.html">2017年动作《美国刺客/美</a><br>
-·<a href="http://www.dytt8.net/html/gndy/dyzz/20171105/55468.html">2017年悬疑动作《极寒之城</a><br>
-
-</ul>
-</div>
-</div>
-<!--}end:最新下载排行 Top10-->
-<div class="co_area2">
-<div class="title_all"><p>本站推荐电视剧</p></div>
-<div class="co_content2">
-<ul>
-·<a href="http://www.dytt8.net/html/tv/hytv/20110620/32833.html">2011台湾最新偶像剧《旋风</a><br>
-·<a href="http://www.dytt8.net/html/tv/gangtai/tw/20101227/30016.html">2010最新台湾偶像剧《爱似</a><br>
-·<a href="http://www.dytt8.net/html/tv/gangtai/tw/20100823/27737.html">2010潘玮柏最新偶像剧《爱</a><br>
-·<a href="http://www.dytt8.net/html/tv/gangtai/20100726/27236.html">2010台湾热播偶像剧《钟无</a><br>
-·<a href="http://www.dytt8.net/html/tv/gangtai/tw/20100517/26035.html">2010热播偶像剧《呼叫大明</a><br>
-·<a href="http://www.dytt8.net/html/tv/gangtai/tw/20100118/24051.html">2010台湾偶像剧《就想赖着</a><br>
-·<a href="http://www.dytt8.net/html/tv/gangtai/tw/20091005/22040.html">2009热播偶像剧《下一站幸</a><br>
-·<a href="http://www.dytt8.net/html/tv/gangtai/tw/20091015/22259.html">2009台湾八大剧《桃花小妹</a><br>
-
-</ul>
-</div>
-</div>
-<div class="co_area2">
-<div class="title_all"><p>本站推荐</p></div>
-<div class="co_content2">
-<ul>
-<ul>
-
-</ul>
-</ul>
-</div>
-</div>
-
-<div class="co_area3">
-<div class="title_all"><p>广告赞助位置</p></div>
-<div class="co_content2">
-<ul>
-
-</ul>
-</div>
-</div>
-
-</div>
-
-<!--}end:内容区左侧-->
-<div class="bd3r">
-<!--{start:搜索软件介绍等-->
-<div>
-<div class="bd3rl">
-<!--{start:搜索框-->
-<div class="search">
-<form onsubmit="window.location=this.field.options[this.field.selectedIndex].value+this.keyword.value; return false;">
-<div class="searchl">
-<p>
-<strong>搜索:</strong>
-<input name="keyword" type="text" value="关键字" onfocus="this.select();" class="formhue">
-&nbsp;
-
-<select name="field" style="width:80px;height:17px;" class="formhue">
-<option value="http://s.ygdy8.com/plus/search.php?kwtype=0&amp;searchtype=title&amp;keyword=">电影搜索</option>
-<option value="http://s.ygdy8.com/plus/search.php?kwtype=0&amp;searchtype=title&amp;keyword=">电影搜索</option>
-</select>
-</p><p>
-</p></div>
-<div class="searchr">
-<input name="Submit" type="Submit" value="立即搜索">
-</div>
-</form>
-</div>
-<!--}end:搜索框-->
-</div>
-<div class="bd3rr">
-<!--{start:迅雷下载 buttton-->
-<div><a href="javascript:window.external.addFavorite(&#39;http://www.dytt8.net/&#39;,&#39;dytt8.net-电影天堂&#39;)" target="_self" class="style11"><img src="./new_movie_files/bbs_btn.gif" alt="电影天堂" border="0"></a>  </div>
-<!--}end:迅雷下载 buttton-->
-</div>
-<div class="x"></div>
-</div>
-<div class="co_area2">
-<div class="title_all"><h1><font color="#008800"><a href="http://www.dytt8.net/">本站首页</a>&gt;<a href="http://www.dytt8.net/html/gndy/index.html">电影</a>&gt;<a href="http://www.dytt8.net/html/gndy/dyzz/index.html">最新电影</a>&gt;</font></h1></div>
-<div class="co_content8">
-<ul>
-
- <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180328/56582.html" class="ulink">2017年高分获奖剧情《魅影缝匠》BD中英双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-28 10:21:11 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">魅影缝匠][BD-mkv.720p.中英双字][2017年高分获奖剧情] ◎译 名 魅影缝匠/霓裳魅影(港/台)/幽冥端绪/幽灵线条/一缕浮生/衣缕浮生/丝缕幻象 ◎片 名 Phantom Thread ◎年 代 2017 ◎产 地 美国 ◎类 别 剧情/爱情 ◎语 言 英语 ◎字 幕 中英双字幕 ◎上映日期 2017-12-25</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180327/56580.html" class="ulink">2018年喜剧《祖宗十九代》HD国语中字</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-27 23:30:46 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">祖宗十九代][HD-mkv.720p.国语中字][2018年喜剧] ◎译 名 The Faces of My Gene ◎片 名 祖宗十九代 ◎年 代 2018 ◎产 地 中国 ◎类 别 喜剧/奇幻 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-02-16(中国) ◎豆瓣评分 4.7/10 from 21,546 users ◎文件格式 RMVB + aa</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180327/56579.html" class="ulink">2017年剧情传记《茉莉牌局》BD中英双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-27 23:28:33 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">茉莉牌局][BD-mkv.720p.中英双字][2017年剧情传记] ◎译 名 茉莉牌局/茉莉的牌局/决胜女王(台)/莫莉游戏(港) ◎片 名 Molly's Game ◎年 代 2017 ◎产 地 美国/中国/加拿大 ◎类 别 剧情/传记 ◎语 言 英语 ◎字 幕 中英双字幕 ◎上映日期 2017-09-08(多伦多电影节)/201</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180327/56575.html" class="ulink">2018年科幻动作《移动迷宫3：死亡解药》HD韩版中字</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-27 11:13:30 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">移动迷宫3：死亡解药][HD-mkv.720p.韩版中字][2018年科幻动作] ◎译 名 移动迷宫3：死亡解药/移动迷宫3/死亡解药 ◎片 名 The Maze Runner: The Death Cure ◎年 代 2018 ◎产 地 美国 ◎类 别 动作/科幻/冒险 ◎语 言 英语 ◎字 幕 中文 ◎上映日期 2018-01-26(美国)/2</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180326/56573.html" class="ulink">2016年科幻动作《X战警：天启》BD国英双语双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-26 18:00:20 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">X战警：天启][BD-mkv.720p.国英双语双字][2016年科幻动作] ◎译 名 X战警：天启/变种特攻：天启灭世战(港)/X战警：启示录 ◎片 名 X-Men: Apocalypse ◎年 代 2016 ◎产 地 美国 ◎类 别 动作/科幻/奇幻/冒险 ◎语 言 英语/国语 ◎字 幕 中英双字幕 ◎IMDb评分 7.0/10 f</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180324/56559.html" class="ulink">2017年郭富城刘涛动作《破·局》BD国粤双语中字</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-24 15:52:33 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">破局][BD-mkv.720p.国粤双语中字][2017年郭富城王千源刘涛动作] ◎译 名 破局/肇事者/走到尽头 ◎片 名 Peace Breaker ◎年 代 2017 ◎产 地 中国 ◎类 别 动作/犯罪 ◎语 言 普通话/粤语 ◎字 幕 中文 ◎上映日期 2017-08-17(中国) ◎IMDb评分 6.1/10 from 114 users</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180324/56558.html" class="ulink">2017年悬疑剧情《金钱世界/万恶金钱》BD中英双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-24 09:08:22 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">金钱世界/万恶金钱][BD-mkv.720p.中英双字][2017年悬疑剧情] ◎译 名 金钱世界/万恶金钱(港)/世上所有的财富 ◎片 名 All the Money in the World ◎年 代 2017 ◎产 地 美国 ◎类 别 剧情/犯罪/悬疑 ◎语 言 英语 ◎字 幕 中英双字幕 ◎上映日期 2017-12-25(美国)/201</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180323/56556.html" class="ulink">2018年赵又廷杨子姗爱情《南极之恋》HD国语中字</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-23 23:22:41 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">南极之恋][HD-mkv.1080p.国语中字][2018年赵又廷杨子姗爱情] ◎译 名 Till the End of the World ◎片 名 南极之恋/南极绝恋 ◎年 代 2018 ◎产 地 中国 ◎类 别 爱情/冒险 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-02-01(中国) ◎IMDb评分 7.1/10 from 39 users</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180322/56549.html" class="ulink">2017年悬疑剧情《第三度嫌疑人》BD日语中字</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-22 16:11:56 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">第三度嫌疑人][BD-mkv.720p.日语中字][2017年悬疑剧情] ◎译 名 第三度嫌疑人/第三度杀人(港)/第三次杀人(台) ◎片 名 三度目の殺人 / Sandome no satsujin / The Third Murder ◎年 代 2017 ◎产 地 日本 ◎类 别 剧情/犯罪/悬疑 ◎语 言 日语 ◎字 幕 中文 ◎上映日期</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180321/56543.html" class="ulink">2017年奇幻动作《奇门遁甲》BD国语中字</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-21 22:37:27 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">奇门遁甲][BD-mkv.720p.国语中字][2017年奇幻动作] ◎译 名 TheThousandFacesofDunjia ◎片 名 奇门遁甲 ◎年 代 2017 ◎产 地 中国/中国香港 ◎类 别 动作/奇幻 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2017-12-14(中国) ◎IMDb评分 5.4/10 from 290 users ◎豆瓣评分</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180321/56540.html" class="ulink">2018年惊悚恐怖《潜伏4：锁命亡灵》BD中英双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-21 13:20:24 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">潜伏4：锁命亡灵][BD-mkv.720p.中英双字][2018年惊悚恐怖] ◎译 名 潜伏4：锁命亡灵/潜伏4/阴儿房第4章：锁命亡灵(台)/儿凶 第四回(港)/潜伏4：最后的线索/潜伏4：最后的钥匙 ◎片 名 Insidious: The Last Key ◎年 代 2018 ◎产 地 美国/加拿大 ◎类 别 惊悚/恐怖 ◎语</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180321/56539.html" class="ulink">2017年高分获奖剧情《马戏之王》BD中英双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-21 13:17:45 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">马戏之王][BD-mkv.720p.中英双字][2017年高分获奖剧情] ◎译 名 马戏之王/大娱乐家(港/台)/地球最强秀/地球最强马戏演员/全球最伟大的马戏演员/大秀之王 ◎片 名 The Greatest Showman ◎年 代 2017 ◎产 地 美国 ◎类 别 剧情/传记/歌舞 ◎语 言 英语 ◎字 幕 中英双字</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180320/56535.html" class="ulink">2017年动画喜剧《公牛历险记》BD英国粤三语双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-20 16:07:00 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">公牛历险记][BD-mkv.720p.国粤英三语双字][2017年动画喜剧] ◎译 名 公牛历险记/萌牛费迪南(台)/快D啦牛牛(港)/费迪南德的故事/公牛费迪南德/小牛费迪南 ◎片 名 Ferdinand ◎年 代 2017 ◎产 地 美国 ◎类 别 喜剧/动画/冒险 ◎语 言 英语/国语/粤语 ◎字 幕 中英双字</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180317/56525.html" class="ulink">2017年8.2高分喜剧《帕丁顿熊2》BD英国粤三语双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-17 21:37:32 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">帕丁顿熊2][BD-mkv.720p.国粤英三语双字][2017年8.2高分喜剧] ◎译 名 帕丁顿熊2/柏灵顿2(港)/柏灵顿熊熊出任务(台) ◎片 名 Paddington 2 ◎年 代 2017 ◎产 地 英国/法国/美国 ◎类 别 喜剧/家庭 ◎语 言 英语/国语/粤语 ◎字 幕 中英双字幕 ◎上映日期 2017-11-10(</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180317/56520.html" class="ulink">2017年奇幻动作《勇敢者游戏：决战丛林》BD国英双语双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-17 09:16:54 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">勇敢者游戏：决战丛林][HD-RMVB.720p.国英双语双字][2017年奇幻动作] ◎译 名 勇敢者游戏：决战丛林/野蛮游戏：疯狂丛林(台)/逃出魔幻纪：丛林挑机(港)/新勇敢者的游戏/勇敢者的游戏 ◎片 名 Jumanji: Welcome to the Jungle ◎年 代 2017 ◎产 地 美国 ◎类 别 动作/奇</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180316/56516.html" class="ulink">2017年高分获奖剧情《至暗时刻》BD国英双语双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-16 22:42:40 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">至暗时刻][BD-mkv.720p.国英双语双字][2017年高分获奖剧情] ◎译 名 至暗时刻/最黑暗的时刻(台)/黑暗对峙(港)/至暗之时/黑暗时刻 ◎片 名 Darkest Hour ◎年 代 2017 ◎产 地 英国/美国 ◎类 别 剧情/传记/历史 ◎语 言 英语 ◎字 幕 中英双字幕 ◎上映日期 2017-09-01(</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180316/56509.html" class="ulink">2017年科幻动作《星球大战8：最后的绝地武士》BD国英双语双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-16 09:53:14 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">星球大战8：最后的绝地武士][BD-mkv.720p.国英双语双字][2017年科幻动作] ◎译 名 星球大战8：最后的绝地武士/星球大战：最后绝地武士(港)/星球大战8/星战8 ◎片 名 Star Wars: The Last Jedi ◎年 代 2017 ◎产 地 美国 ◎类 别 动作/科幻/冒险 ◎语 言 英语/国语 ◎字</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180315/56508.html" class="ulink">2018年郭富城赵丽颖奇幻《西游记女儿国》HD国语中英双字</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-15 16:33:01 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">西游记女儿国][HD-mkv.720p.国语中英双字][2018年郭富城赵丽颖奇幻] ◎译 名 The Monkey King 3: Kingdom of Women ◎片 名 西游记女儿国/西游记女儿国/西游记之女儿国 ◎年 代 2018 ◎产 地 中国/中国香港 ◎类 别 喜剧/爱情/奇幻 ◎语 言 普通话 ◎字 幕 中英双字幕</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180315/56507.html" class="ulink">2017年高分获奖剧情战争《天上再见》BD中英双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-15 16:30:41 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">天上再见][BD-mkv.720p.中英双字][2017年高分获奖剧情战争] ◎译 名 天上再见 ◎片 名 Au revoir la-haut/See You Up There ◎年 代 2017 ◎产 地 法国/加拿大 ◎类 别 剧情/战争 ◎语 言 法语 ◎上映日期 2017-10-25(法国) ◎IMDb评分 7.7/10 from 1,757 users ◎豆瓣</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180315/56505.html" class="ulink">2017年高分获奖动画《春宵苦短，少女前进吧！》BD日语中字</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-15 10:25:25 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">春宵苦短，少女前进吧！][BD-mkv.720p.日语中字][2017年高分获奖动画] ◎译 名 春宵苦短，少女前进吧！/夜短梦长，少女前进吧！(港) ◎片 名 夜は短し歩けよ乙女 / Yoru wa Mijikashi Arukeyo Otome / The Night is Short, Walk on Girl ◎年 代 2017 ◎产 地 日本 ◎类</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180314/56502.html" class="ulink">2017年高分获奖剧情《九三年夏天》BD中字</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-14 19:24:11 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">九三年夏天][BD-mkv.720p.中字][2017年高分获奖剧情] ◎译 名 九三年夏天/夏日1993/九三年之夏/那年夏天，阳光灿烂(港) ◎片 名 Estiu 1993 ◎年 代 2017 ◎产 地 西班牙 ◎类 别 剧情/家庭 ◎语 言 加泰罗尼亚语 ◎字 幕 中文 ◎IMDb评分 7.2/10 from 2,070 users ◎豆</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180313/56490.html" class="ulink">2017年范伟高分获奖《不成问题的问题》HD国语中英双字</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-13 17:30:11 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">不成问题的问题][HD-mp4.720p.国语中英双字][2017年范伟高分获奖] ◎译 名 Mr. No Problem ◎片 名 不成问题的问题 ◎年 代 2016 ◎产 地 中国/法国 ◎类 别 剧情 ◎语 言 普通话/北京话/重庆话/上海话 ◎字 幕 中英双字幕 ◎上映日期 2016-10-29(东京电影节)/2017-11-2</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180313/56488.html" class="ulink">2018年高分科幻悬疑《湮灭/灭绝》BD中英双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-13 08:49:00 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">湮灭/灭绝][BD-mkv.720p.中英双字][2018年高分科幻悬疑] ◎译 名 湮灭/灭绝(台)/灭。境(港)/遗落的南境1：湮灭 ◎片 名 Annihilation ◎年 代 2018 ◎产 地 美国/英国 ◎类 别 科幻/悬疑/惊悚 ◎语 言 英语 ◎字 幕 中英双字幕 ◎上映日期 2018-02-23(美国) ◎IMDb评分</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180313/56487.html" class="ulink">2017年奇幻动画《宣告黎明的露之歌》BD国日双语中字</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-13 08:37:45 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">宣告黎明的露之歌][BD-mkv.720p.国日双语中字][2017年奇幻动画] ◎译 名 宣告黎明的露之歌/宣告黎明的人鱼之歌(港)/告知天亮之路 ◎片 名 夜明け告げるルーのうた / Yoake Tsugeru Lu no Uta / Lu Over the Wall ◎年 代 2017 ◎产 地 日本 ◎类 别 剧情/动画/奇幻 ◎语</td>
-</tr>
-</tbody></table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
-<tbody><tr> 
-<td height="1" colspan="2" background="./new_movie_files/dot_hor.gif"></td>
-</tr>
-<tr> 
-<td width="5%" height="26" align="center"><img src="./new_movie_files/item.gif" width="18" height="17"></td>
-<td height="26">
-	<b>
-		
-		<a href="http://www.dytt8.net/html/gndy/dyzz/20180311/56477.html" class="ulink">2017年科幻动作《星球大战8：最后的绝地武士》BD中英双字幕</a>
-	</b>
-</td>
-</tr>
-<tr> 
-<td height="20" style="padding-left:3px">&nbsp;</td>
-<td style="padding-left:3px">
-				<font color="#8F8C89">日期：2018-03-11 09:44:38 
-点击：0 </font>
-		
-				</td>
-</tr>
-<tr> 
-<td colspan="2" style="padding-left:3px">星球大战8：最后的绝地武士][BD-mkv.720p.中英双字][2017年科幻动作] ◎译 名 星球大战8：最后的绝地武士/星球大战：最后绝地武士(港)/星球大战8/星战8 ◎片 名 Star Wars: The Last Jedi ◎年 代 2017 ◎产 地 美国 ◎类 别 动作/科幻/冒险 ◎语 言 英语 ◎字 幕 中英</td>
-</tr>
-</tbody></table> 
-</ul>
-<div class="x">
- 共173页/4301条记录  首页
-  1
-<a href="http://www.dytt8.net/html/gndy/dyzz/list_23_2.html">[2]</a>
-<a href="http://www.dytt8.net/html/gndy/dyzz/list_23_3.html">[3]</a>
-<a href="http://www.dytt8.net/html/gndy/dyzz/list_23_4.html">[4]</a>
-<a href="http://www.dytt8.net/html/gndy/dyzz/list_23_5.html">[5]</a>
-<a href="http://www.dytt8.net/html/gndy/dyzz/list_23_6.html">[6]</a>
-<a href="http://www.dytt8.net/html/gndy/dyzz/list_23_7.html">[7]</a>
- <a href="http://www.dytt8.net/html/gndy/dyzz/list_23_2.html">下一页</a>
- <a href="http://www.dytt8.net/html/gndy/dyzz/list_23_173.html">末页</a>
- <select name="sldd" style="width:78" onchange="location.href=this.options[this.selectedIndex].value;">
-<option value="list_23_1.html" selected="">1</option>
-<option value="list_23_2.html">2</option>
-<option value="list_23_3.html">3</option>
-<option value="list_23_4.html">4</option>
-<option value="list_23_5.html">5</option>
-<option value="list_23_6.html">6</option>
-<option value="list_23_7.html">7</option>
-<option value="list_23_8.html">8</option>
-<option value="list_23_9.html">9</option>
-<option value="list_23_10.html">10</option>
-<option value="list_23_11.html">11</option>
-<option value="list_23_12.html">12</option>
-<option value="list_23_13.html">13</option>
-<option value="list_23_14.html">14</option>
-<option value="list_23_15.html">15</option>
-<option value="list_23_16.html">16</option>
-<option value="list_23_17.html">17</option>
-<option value="list_23_18.html">18</option>
-<option value="list_23_19.html">19</option>
-<option value="list_23_20.html">20</option>
-<option value="list_23_21.html">21</option>
-<option value="list_23_22.html">22</option>
-<option value="list_23_23.html">23</option>
-<option value="list_23_24.html">24</option>
-<option value="list_23_25.html">25</option>
-<option value="list_23_26.html">26</option>
-<option value="list_23_27.html">27</option>
-<option value="list_23_28.html">28</option>
-<option value="list_23_29.html">29</option>
-<option value="list_23_30.html">30</option>
-<option value="list_23_31.html">31</option>
-<option value="list_23_32.html">32</option>
-<option value="list_23_33.html">33</option>
-<option value="list_23_34.html">34</option>
-<option value="list_23_35.html">35</option>
-<option value="list_23_36.html">36</option>
-<option value="list_23_37.html">37</option>
-<option value="list_23_38.html">38</option>
-<option value="list_23_39.html">39</option>
-<option value="list_23_40.html">40</option>
-<option value="list_23_41.html">41</option>
-<option value="list_23_42.html">42</option>
-<option value="list_23_43.html">43</option>
-<option value="list_23_44.html">44</option>
-<option value="list_23_45.html">45</option>
-<option value="list_23_46.html">46</option>
-<option value="list_23_47.html">47</option>
-<option value="list_23_48.html">48</option>
-<option value="list_23_49.html">49</option>
-<option value="list_23_50.html">50</option>
-<option value="list_23_51.html">51</option>
-<option value="list_23_52.html">52</option>
-<option value="list_23_53.html">53</option>
-<option value="list_23_54.html">54</option>
-<option value="list_23_55.html">55</option>
-<option value="list_23_56.html">56</option>
-<option value="list_23_57.html">57</option>
-<option value="list_23_58.html">58</option>
-<option value="list_23_59.html">59</option>
-<option value="list_23_60.html">60</option>
-<option value="list_23_61.html">61</option>
-<option value="list_23_62.html">62</option>
-<option value="list_23_63.html">63</option>
-<option value="list_23_64.html">64</option>
-<option value="list_23_65.html">65</option>
-<option value="list_23_66.html">66</option>
-<option value="list_23_67.html">67</option>
-<option value="list_23_68.html">68</option>
-<option value="list_23_69.html">69</option>
-<option value="list_23_70.html">70</option>
-<option value="list_23_71.html">71</option>
-<option value="list_23_72.html">72</option>
-<option value="list_23_73.html">73</option>
-<option value="list_23_74.html">74</option>
-<option value="list_23_75.html">75</option>
-<option value="list_23_76.html">76</option>
-<option value="list_23_77.html">77</option>
-<option value="list_23_78.html">78</option>
-<option value="list_23_79.html">79</option>
-<option value="list_23_80.html">80</option>
-<option value="list_23_81.html">81</option>
-<option value="list_23_82.html">82</option>
-<option value="list_23_83.html">83</option>
-<option value="list_23_84.html">84</option>
-<option value="list_23_85.html">85</option>
-<option value="list_23_86.html">86</option>
-<option value="list_23_87.html">87</option>
-<option value="list_23_88.html">88</option>
-<option value="list_23_89.html">89</option>
-<option value="list_23_90.html">90</option>
-<option value="list_23_91.html">91</option>
-<option value="list_23_92.html">92</option>
-<option value="list_23_93.html">93</option>
-<option value="list_23_94.html">94</option>
-<option value="list_23_95.html">95</option>
-<option value="list_23_96.html">96</option>
-<option value="list_23_97.html">97</option>
-<option value="list_23_98.html">98</option>
-<option value="list_23_99.html">99</option>
-<option value="list_23_100.html">100</option>
-<option value="list_23_101.html">101</option>
-<option value="list_23_102.html">102</option>
-<option value="list_23_103.html">103</option>
-<option value="list_23_104.html">104</option>
-<option value="list_23_105.html">105</option>
-<option value="list_23_106.html">106</option>
-<option value="list_23_107.html">107</option>
-<option value="list_23_108.html">108</option>
-<option value="list_23_109.html">109</option>
-<option value="list_23_110.html">110</option>
-<option value="list_23_111.html">111</option>
-<option value="list_23_112.html">112</option>
-<option value="list_23_113.html">113</option>
-<option value="list_23_114.html">114</option>
-<option value="list_23_115.html">115</option>
-<option value="list_23_116.html">116</option>
-<option value="list_23_117.html">117</option>
-<option value="list_23_118.html">118</option>
-<option value="list_23_119.html">119</option>
-<option value="list_23_120.html">120</option>
-<option value="list_23_121.html">121</option>
-<option value="list_23_122.html">122</option>
-<option value="list_23_123.html">123</option>
-<option value="list_23_124.html">124</option>
-<option value="list_23_125.html">125</option>
-<option value="list_23_126.html">126</option>
-<option value="list_23_127.html">127</option>
-<option value="list_23_128.html">128</option>
-<option value="list_23_129.html">129</option>
-<option value="list_23_130.html">130</option>
-<option value="list_23_131.html">131</option>
-<option value="list_23_132.html">132</option>
-<option value="list_23_133.html">133</option>
-<option value="list_23_134.html">134</option>
-<option value="list_23_135.html">135</option>
-<option value="list_23_136.html">136</option>
-<option value="list_23_137.html">137</option>
-<option value="list_23_138.html">138</option>
-<option value="list_23_139.html">139</option>
-<option value="list_23_140.html">140</option>
-<option value="list_23_141.html">141</option>
-<option value="list_23_142.html">142</option>
-<option value="list_23_143.html">143</option>
-<option value="list_23_144.html">144</option>
-<option value="list_23_145.html">145</option>
-<option value="list_23_146.html">146</option>
-<option value="list_23_147.html">147</option>
-<option value="list_23_148.html">148</option>
-<option value="list_23_149.html">149</option>
-<option value="list_23_150.html">150</option>
-<option value="list_23_151.html">151</option>
-<option value="list_23_152.html">152</option>
-<option value="list_23_153.html">153</option>
-<option value="list_23_154.html">154</option>
-<option value="list_23_155.html">155</option>
-<option value="list_23_156.html">156</option>
-<option value="list_23_157.html">157</option>
-<option value="list_23_158.html">158</option>
-<option value="list_23_159.html">159</option>
-<option value="list_23_160.html">160</option>
-<option value="list_23_161.html">161</option>
-<option value="list_23_162.html">162</option>
-<option value="list_23_163.html">163</option>
-<option value="list_23_164.html">164</option>
-<option value="list_23_165.html">165</option>
-<option value="list_23_166.html">166</option>
-<option value="list_23_167.html">167</option>
-<option value="list_23_168.html">168</option>
-<option value="list_23_169.html">169</option>
-<option value="list_23_170.html">170</option>
-<option value="list_23_171.html">171</option>
-<option value="list_23_172.html">172</option>
-<option value="list_23_173.html">173</option>
-</select></div>
-</div>
-<div class="x"></div>
-</div>
-<div class="x"></div>
-</div>
-<div class="x"></div>
-</div>
-<!--}end:body conten-->
-<!--{start:友情链接-->
-<div class="bd6">
-<ul>
-<center><script language="javascript" src="http://www.dytt8.net/js2/950d.js"></script></center> 
-</ul>
-<div class="x"></div>
-</div>
-<!--}end:友情链接-->
-<!--{start:footer-->
-<div class="footer">
-<a href="http://www.dytt8.net/index.html">关于本站</a> - <a href="http://www.dytt8.net/index.html">电影下载</a> - <a href="http://www.dytt8.net/html/3gp/3gpmovie/">手机电影</a> - <a href="http://www.dytt8.net/index.html">下载声明</a> - <a href="http://www.dytt8.net/html/3gp/3gpmovie/">MP4电影</a> - <a href="http://www.dytt8.net/plus/sitemap.html">网站地图</a> - <a href="http://www.dytt8.net/index.html">RSS2.0</a><br>
-Copyright @ 2018 www.dytt8.net. All Rights Reserved .<div style="display:none">
-<script language="javascript" src="./new_movie_files/tj.js"></script> 
-</div><br>
-</div>
-</div>
-<!--}end:footer-->
-<!--}end:body conten-->
+				</tr>
+			</table>
+		</div>
 
 
+		<!--##########}end:header###########--><link href="/css/searchpage.css" rel="stylesheet" type="text/css" />
+		<div class="path"><ul>当前位置：<a href='http://www.dytt8.net/'>本站首页</a>><a href='/html/gndy/index.html'>电影</a>><a href='/html/gndy/china/index.html'>国内电影</a>>下载页面</ul></div>
+		<!--{start:body content-->
+		<div class="bd3">
+			<div class="bd3l">
+				<!--{start:内容区左侧-->
+				<!--{start:最新下载排行 Top10-->
+				<!--{start:本周影视下载排行-->
+				<div class="co_area2">
+					<div class="title_all"><p>相关栏目分类</p></div>
+					<div class="co_content2">
+						<ul>
 
-</div></div></body></html>
+							<td width=160 height="50" valign="left">
+								<!-- cotalog templets-->
+								<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
+									<tr>
+										<td width="10%" bgcolor="#EEEEEE"></td>
+										<td align="center" bgcolor="#EEEEEE" style="border:1px #DDDDDD solid">
+											国内电影
+										</td>
+									</tr>
+								</table>
+								<table width="160" border="0" cellpadding="0" cellspacing="0">
+
+								</table>
+
+								<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
+									<tr>
+										<td width="10%" align="center" bgcolor="#E1EEDF" style="border:1px #E6EAE3 solid">&nbsp;
+										</td>
+										<td align="center" bgcolor="#FAFDF2" style="border:1px #E6EAE3 solid"><a href="/html/gndy/rihan/index.html">日韩电影</a>
+										</td>
+									</tr>
+								</table>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td height="2"></td>
+									</tr>
+								</table>
+
+								<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
+									<tr>
+										<td width="10%" align="center" bgcolor="#E1EEDF" style="border:1px #E6EAE3 solid">&nbsp;
+										</td>
+										<td align="center" bgcolor="#FAFDF2" style="border:1px #E6EAE3 solid"><a href="/html/gndy/oumei/index.html">欧美电影</a>
+										</td>
+									</tr>
+								</table>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td height="2"></td>
+									</tr>
+								</table>
+
+								<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
+									<tr>
+										<td width="10%" align="center" bgcolor="#E1EEDF" style="border:1px #E6EAE3 solid">&nbsp;
+										</td>
+										<td align="center" bgcolor="#FAFDF2" style="border:1px #E6EAE3 solid"><a href="/html/gndy/dyzz/index.html">最新电影</a>
+										</td>
+									</tr>
+								</table>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td height="2"></td>
+									</tr>
+								</table>
+
+								<table width="160" border="0" cellpadding="2" cellspacing="0" bgcolor="#F6F6F6">
+									<tr>
+										<td width="10%" align="center" bgcolor="#E1EEDF" style="border:1px #E6EAE3 solid">&nbsp;
+										</td>
+										<td align="center" bgcolor="#FAFDF2" style="border:1px #E6EAE3 solid"><a href="/html/gndy/jddy/index.html">综合电影</a>
+										</td>
+									</tr>
+								</table>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td height="2"></td>
+									</tr>
+								</table>
+
+								<!-- cotalog templets End -->
+							</td>
+						</ul>
+					</div>
+				</div>
+				<!--}end:本周影视下载排行-->
+				<!--{start:最新下载排行 Top10-->
+				<div class="co_area1">
+					<div class="title_all"><p>本站推荐电影</p></div>
+					<div class="co_content2">
+						<ul>
+							?<a href='/html/gndy/dyzz/20180103/55959.html'>2017年科幻动作《全球风暴</a><br/>
+							?<a href='/html/gndy/dyzz/20171230/55920.html'>2017年高分恐怖《小丑回魂</a><br/>
+							?<a href='/html/gndy/jddy/20171224/55874.html'>2017年惊悚悬疑《雪人/雪</a><br/>
+							?<a href='/html/gndy/jddy/20171222/55861.html'>2017年喜剧《性别之战》BD</a><br/>
+							?<a href='/html/gndy/dyzz/20171218/55832.html'>2017年甄子丹刘德华动作《</a><br/>
+							?<a href='/html/gndy/dyzz/20171208/55749.html'>2017年詹妮弗?劳伦斯悬疑</a><br/>
+							?<a href='/html/gndy/jddy/20171206/55738.html'>2017年动作喜剧《宝贝特攻</a><br/>
+							?<a href='/html/gndy/dyzz/20171205/55728.html'>2017年8.3高分战争《敦刻</a><br/>
+							?<a href='/html/gndy/dyzz/20171205/55726.html'>2017年高分获奖剧情《相爱</a><br/>
+							?<a href='/html/gndy/dyzz/20171202/55684.html'>2017年高分剧情《天才枪手</a><br/>
+							?<a href='/html/gndy/jddy/20171202/55682.html'>2017年爱情喜剧《胡杨的夏</a><br/>
+							?<a href='/html/gndy/dyzz/20171130/55665.html'>2017年动作喜剧《王牌特工</a><br/>
+							?<a href='/html/gndy/dyzz/20171130/55664.html'>2017年动作《英伦对决》国</a><br/>
+							?<a href='/html/gndy/dyzz/20171123/55603.html'>2017年动作《美国刺客/美</a><br/>
+							?<a href='/html/gndy/dyzz/20171105/55468.html'>2017年悬疑动作《极寒之城</a><br/>
+
+						</ul>
+					</div>
+				</div>
+				<!--}end:最新下载排行 Top10-->
+				<div class="co_area2">
+					<div class="title_all"><p>本站推荐电视剧</p></div>
+					<div class="co_content2">
+						<ul>
+							?<a href='/html/tv/hytv/20110620/32833.html'>2011台湾最新偶像剧《旋风</a><br/>
+							?<a href='/html/tv/gangtai/tw/20101227/30016.html'>2010最新台湾偶像剧《爱似</a><br/>
+							?<a href='/html/tv/gangtai/tw/20100823/27737.html'>2010潘玮柏最新偶像剧《爱</a><br/>
+							?<a href='/html/tv/gangtai/20100726/27236.html'>2010台湾热播偶像剧《钟无</a><br/>
+							?<a href='/html/tv/gangtai/tw/20100517/26035.html'>2010热播偶像剧《呼叫大明</a><br/>
+							?<a href='/html/tv/gangtai/tw/20100118/24051.html'>2010台湾偶像剧《就想赖着</a><br/>
+							?<a href='/html/tv/gangtai/tw/20091005/22040.html'>2009热播偶像剧《下一站幸</a><br/>
+							?<a href='/html/tv/gangtai/tw/20091015/22259.html'>2009台湾八大剧《桃花小妹</a><br/>
+
+						</ul>
+					</div>
+				</div>
+				<div class="co_area2">
+					<div class="title_all"><p>本站推荐</p></div>
+					<div class="co_content2">
+						<ul>
+							<ul>
+								<iframe src="/js2/zxj.htm" width=180 frameborder=0 scrolling=no marginheight=0 marginwidth=0 height="500"></iframe>
+							</ul>
+						</ul>
+					</div>
+				</div>
+
+				<div class="co_area3">
+					<div class="title_all"><p>广告赞助位置</p></div>
+					<div class="co_content2">
+						<ul>
+							<iframe src="/js2/zxj2.htm" width=180 frameborder=0 scrolling=no marginheight=0 marginwidth=0 height="800"></iframe>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+
+			<!--}end:内容区左侧-->
+			<div class="bd3r">
+				<!--{start:搜索软件介绍等-->
+				<div>
+					<div class="bd3rl">
+						<!--{start:搜索框-->
+						<div class="search">
+							<form onSubmit="window.location=this.field.options[this.field.selectedIndex].value+this.keyword.value; return false;">
+								<div class="searchl">
+									<p>
+										<strong>搜索:</strong>
+										<input name="keyword"  type="text" value="关键字" onFocus="this.select();" class="formhue" />
+										&nbsp;
+
+										<select name="field" style="width:80px;height:17px;" class="formhue">
+											<option value="http://s.ygdy8.com/plus/search.php?kwtype=0&searchtype=title&keyword=">电影搜索</option>
+											<option value="http://s.ygdy8.com/plus/search.php?kwtype=0&searchtype=title&keyword=">电影搜索</option>
+										</select>
+									<p>
+								</div>
+								<div class="searchr">
+									<input name="Submit" type="Submit"  value="立即搜索"  />
+								</div>
+							</form>
+						</div>
+						<!--}end:搜索框-->
+					</div>
+					<div class="bd3rr">
+						<!--{start:迅雷下载 buttton-->
+						<div><a href="javascript:window.external.addFavorite('http://www.dytt8.net/','dytt8.net-电影天堂')" target=_self class="style11" target=_self ><img src="/images/bbs_btn.gif" alt="电影天堂" border="0" /></a></a></span>  </a></div>
+						<!--}end:迅雷下载 buttton-->
+					</div>
+					<div class="x"></div>
+				</div>
+				<div class="co_area2">
+					<div class="title_all"><h1><font color=#008800><a href='http://www.dytt8.net/'>本站首页</a>><a href='/html/gndy/index.html'>电影</a>><a href='/html/gndy/china/index.html'>国内电影</a>></font></h1></div>
+					<div class="co_content8">
+						<ul>
+
+							<td height="220" valign="top"> <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180328/56586.html" class="ulink">2018年奇幻动作喜剧《史前超人》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-28 19:30:11
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">史前超人][HD-mkv.720p.国语中字][2018年奇幻动作喜剧] ◎译 名 The Girl From Future ◎片 名 史前超人 ◎年 代 2018 ◎产 地 中国 ◎类 别 奇幻/动作/喜剧 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-03-27(中国) ◎文件格式 RMVB + aac ◎视频尺寸 1280 x 720 ◎</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180328/56585.html" class="ulink">2018年奇幻爱情《时空偷渡少女》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-28 18:58:07
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">时空偷渡少女][HD-mkv.720p.国语中字][2018年奇幻爱情] ◎译 名 The Girl From Future ◎片 名 时空偷渡少女 ◎年 代 2018 ◎产 地 中国 ◎类 别 爱情/奇幻 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-02-01(中国) ◎豆瓣评分 3.6/10 from 166 users ◎文件格式 RMVB</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/dyzz/index.html'>[最新电影]</a>
+											<a href="/html/gndy/dyzz/20180327/56580.html" class="ulink">2018年喜剧《祖宗十九代》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-27 23:30:46
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">祖宗十九代][HD-mkv.720p.国语中字][2018年喜剧] ◎译 名 The Faces of My Gene ◎片 名 祖宗十九代 ◎年 代 2018 ◎产 地 中国 ◎类 别 喜剧/奇幻 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-02-16(中国) ◎豆瓣评分 4.7/10 from 21,546 users ◎文件格式 RMVB + aa</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180326/56570.html" class="ulink">2016年恐怖《育婴室》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-26 12:55:15
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">育婴室][HD-mkv.720p.国语中字][2016年恐怖] ◎译 名 The Nursery ◎片 名 育婴室 ◎年 代 2016 ◎国 家 中国/泰国 ◎类 别 恐怖 ◎语 言 普通话/英语 ◎字 幕 中文 ◎上映日期 2016-10-28(中国)/2016-10-28(泰国) ◎豆瓣评分 4.3/10 from 1,134 users ◎文件格式 RMVB</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180326/56567.html" class="ulink">2017年动画《赛尔号大电影6：圣者无敌》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-26 09:55:39
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">赛尔号大电影6：圣者无敌][HD-mkv.720p.国语中字][2017年动画喜剧] ◎译 名 Seer Movie 6: Invincible Puni ◎片 名 赛尔号大电影6：圣者无敌/赛尔号6圣者无敌/赛尔号大电影6 ◎年 代 2017 ◎产 地 中国 ◎类 别 儿童/喜剧/动画/奇幻/冒险 ◎语 言 普通话 ◎字 幕 中文</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/dyzz/index.html'>[最新电影]</a>
+											<a href="/html/gndy/dyzz/20180324/56559.html" class="ulink">2017年郭富城刘涛动作《破?局》BD国粤双语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-24 15:52:33
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">破局][BD-mkv.720p.国粤双语中字][2017年郭富城王千源刘涛动作] ◎译 名 破局/肇事者/走到尽头 ◎片 名 Peace Breaker ◎年 代 2017 ◎产 地 中国 ◎类 别 动作/犯罪 ◎语 言 普通话/粤语 ◎字 幕 中文 ◎上映日期 2017-08-17(中国) ◎IMDb评分 6.1/10 from 114 users</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/dyzz/index.html'>[最新电影]</a>
+											<a href="/html/gndy/dyzz/20180323/56556.html" class="ulink">2018年赵又廷杨子姗爱情《南极之恋》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-23 23:22:41
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">南极之恋][HD-mkv.1080p.国语中字][2018年赵又廷杨子姗爱情] ◎译 名 Till the End of the World ◎片 名 南极之恋/南极绝恋 ◎年 代 2018 ◎产 地 中国 ◎类 别 爱情/冒险 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-02-01(中国) ◎IMDb评分 7.1/10 from 39 users</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180323/56555.html" class="ulink">2018年动作恐怖《谜巢/蛛网/蛛巢》HD国英双语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-23 15:45:35
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">谜巢/蛛网/蛛巢][HD-mkv.720p.国英双语中字][2018年动作恐怖] ◎译 名 谜巢/蛛网/蛛巢 ◎片 名 Nest / Guardians of The Tomb ◎年 代 2018 ◎产 地 中国/澳大利亚 ◎类 别 动作/冒险/恐怖 ◎语 言 英语 ◎字 幕 中字 ◎上映日期 2018-01-19(中国) ◎IMDb评分 5.0/10 fr</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180322/56551.html" class="ulink">2018年古装喜剧《金装少年唐伯虎》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-22 21:49:55
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">金装少年唐伯虎][HD-mkv.720p.国语中字][2018年古装喜剧] ◎译 名 Jin Zhuang Shao Nian Tang Bo Hu ◎片 名 金装少年唐伯虎 ◎年 代 2017 ◎产 地 中国 ◎类 别 喜剧/古装 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-03-20(中国) ◎豆瓣评分 4.0/10 from 15 users</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180322/56550.html" class="ulink">2018年喜剧《疯狂熊孩子》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-22 16:13:56
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">疯狂熊孩子][HD-mkv.720p.国语中字][2018年喜剧] ◎译 名 Wild Kids ◎片 名 疯狂熊孩子 ◎年 代 2018 ◎产 地 中国 ◎类 别 儿童/喜剧 ◎语 言 普通话 ◎字 幕 中文 ◎文件格式 RMVB + aac ◎视频尺寸 1280 x 720 ◎文件大? ?1CD ◎片 长 88分钟 ◎导 演 李振 Zhen Li</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180322/56547.html" class="ulink">2018年青春喜剧《飞越网戒所》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-22 09:26:59
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">飞越网戒所][HD-mkv.720p.国语中字][2018年青春喜剧] ⊙片 名 飞越网戒所 ⊙译 名 Flying ⊙年 代 2018 ⊙产 地 中国 ⊙类 别 青春 / 喜剧 / 动作 ⊙语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-03-18(中国) ◎文件格式 RMVB + aac ◎视频尺寸 1280 x 720 ◎文件大? ?1C</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/dyzz/index.html'>[最新电影]</a>
+											<a href="/html/gndy/dyzz/20180321/56543.html" class="ulink">2017年奇幻动作《奇门遁甲》BD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-21 22:37:27
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">奇门遁甲][BD-mkv.720p.国语中字][2017年奇幻动作] ◎译 名 TheThousandFacesofDunjia ◎片 名 奇门遁甲 ◎年 代 2017 ◎产 地 中国/中国香港 ◎类 别 动作/奇幻 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2017-12-14(中国) ◎IMDb评分 5.4/10 from 290 users ◎豆瓣评分</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180319/56532.html" class="ulink">2018年喜剧《跨次元少女大作战》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-19 13:33:12
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">跨次元少女大作战][HD-mkv.720p.国语中字][2018年喜剧] ◎译 名 Cross-Dimension Love ◎片 名 跨次元少女大作战 ◎年 代 2018 ◎产 地 中国 ◎类 别 剧情/喜剧/爱情 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-03-16(中国) ◎文件格式 RMVB + aac ◎视频尺寸 1280</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180319/56531.html" class="ulink">2018年喜剧《不良千金/女神学院》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-19 11:39:56
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">不良千金/女神学院][HD-mkv.720p.国语中字][2018年喜剧] ◎译 名 不良千金/女神学院 ◎片 名 Bad Daughter ◎年 代 2018 ◎产 地 中国 ◎类 别 喜剧 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-03-18(中国) ◎文件格式 RMVB + aac ◎视频尺寸 1280 x 720 ◎文件大</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180318/56529.html" class="ulink">2017年剧情《最后的诗句》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-18 23:30:32
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">最后的诗句][HD-mkv.720p.国语中字][2018年剧情] ◎译 名 最后的诗句 ◎片 名 The Last Verse ◎年 代 2017 ◎产 地 中国台湾 ◎类 别 剧情 ◎语 言 普通话 ◎字 幕 中文 ◎IMDb评分 5.9/10 from 41 users ◎豆瓣评分 7.1/10 from 69 users ◎文件格式 x264 + aac ◎视</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180318/56528.html" class="ulink">2017年惊悚剧情《再看我一眼》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-18 14:45:14
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">再看我一眼][HD-mkv.720p.国语中字][2017年惊悚剧情] ◎译 名 In Soul ◎片 名 再看我一眼 ◎年 代 2017 ◎产 地 中国台湾 ◎类 别 剧情/惊悚 ◎语 言 普通话/闽南语 ◎字 幕 中文 ◎文件格式 x264 + aac ◎视频尺寸 1280 x 720 ◎文件大? ?1CD ◎片 长 85分钟 ◎导 演</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180317/56518.html" class="ulink">2018年悬疑惊悚《五度空间》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-17 09:13:54
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">五度空间][HD-mkv.720p.国语中字][2018年悬疑惊悚] ◎译 名 The 5th Dimension ◎片 名 五度空间 ◎年 代 2018 ◎产 地 中国 ◎类 别 悬疑/惊悚 ◎语 言 普通话 ◎字 幕 中文 ◎文件格式 RMVB + aac ◎视频尺寸 1280 x 720 ◎文件大? ?1CD ◎片 长 88分钟 ◎导 演 夏天</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180316/56515.html" class="ulink">2017年剧情《十八洞村》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-16 22:40:51
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">十八洞村][HD-mkv.1080p.国语中字][2017年剧情] ◎译 名 Hold Your Hands ◎片 名 十八洞村 ◎年 代 2017 ◎产 地 中国 ◎类 别 剧情 ◎语 言 普通话 ◎上映日期 2017-10-13(中国大陆) ◎豆瓣评分 6.7/10 from 1,170 users ◎文件格式 x264 + aac ◎视频尺寸 1920 x 806</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180316/56513.html" class="ulink">2017年动画《大熊猫传奇》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-16 15:31:32
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">大熊猫传奇][HD-mkv.720p.国语中字][2017年动画] ◎译 名 The Legend of Pandas ◎片 名 大熊猫传奇 ◎年 代 2017 ◎产 地 中国 ◎类 别 剧情/动画 ◎语 言 普通话 ◎字 幕 中文 ◎文件格式 RMVB + aac ◎视频尺寸 1280 x 720 ◎文件大? ?1CD ◎片 长 97分钟 ◎导 演</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/dyzz/index.html'>[最新电影]</a>
+											<a href="/html/gndy/dyzz/20180315/56508.html" class="ulink">2018年郭富城赵丽颖奇幻《西游记女儿国》HD国语中英双字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-15 16:33:01
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">西游记女儿国][HD-mkv.720p.国语中英双字][2018年郭富城赵丽颖奇幻] ◎译 名 The Monkey King 3: Kingdom of Women ◎片 名 西游记女儿国/西游记女儿国/西游记之女儿国 ◎年 代 2018 ◎产 地 中国/中国香港 ◎类 别 喜剧/爱情/奇幻 ◎语 言 普通话 ◎字 幕 中英双字幕</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180315/56506.html" class="ulink">2018年奇幻喜剧《齐天大圣?万妖之城》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-15 11:31:57
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">齐天大圣万妖之城][HD-mp4.1080p.国语中字][2018年奇幻喜剧] ◎译 名 Qi Tian Da Sheng Wan Yao Zhi Cheng ◎片 名 齐天大圣万妖之城/齐天大圣万妖之城 ◎年 代 2018 ◎产 地 中国 ◎类 别 奇幻/喜剧/冒险/古装 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2018-03-02(中国</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180315/56503.html" class="ulink">获奖经典港片《跛豪》BD国粤双语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-15 10:16:46
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">跛豪][BD-mkv.720p.国粤双语中字][获奖经典港片] ◎译 名 To Be Number One ◎片 名 跛豪 ◎年 代 1991 ◎产 地 中国香港 ◎类 别 传记/犯罪/剧情 ◎语 言 国语/粤语 ◎字 幕 中文 ◎IMDb评分 7.3/10 from 383 users ◎豆瓣评分 8.1/10 from 26,584 users ◎文件格式 x2</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/dyzz/index.html'>[最新电影]</a>
+											<a href="/html/gndy/dyzz/20180313/56490.html" class="ulink">2017年范伟高分获奖《不成问题的问题》HD国语中英双字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-13 17:30:11
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">不成问题的问题][HD-mp4.720p.国语中英双字][2017年范伟高分获奖] ◎译 名 Mr. No Problem ◎片 名 不成问题的问题 ◎年 代 2016 ◎产 地 中国/法国 ◎类 别 剧情 ◎语 言 普通话/北京话/重庆话/上海话 ◎字 幕 中英双字幕 ◎上映日期 2016-10-29(东京电影节)/2017-11-2</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180312/56485.html" class="ulink">2017年剧情《阿莉芙》HD国语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-12 22:46:15
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">阿莉芙][HD-mkv.720p.国语中字][2017年剧情] ◎译 名 Alifu, the Prince/ss ◎片 名 阿莉芙 ◎年 代 2017 ◎产 地 中国台湾 ◎类 别 剧情/同性 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2017-10-26(东京电影节)/2017-10-27(中国台湾) ◎IMDb评分 6.4/10 from 75 users</td>
+								</tr>
+							</table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbspan" style="margin-top:6px">
+								<tr>
+									<td height="1" colspan="2" background="/templets/img/dot_hor.gif"></td>
+								</tr>
+								<tr>
+									<td width="5%" height="26" align="center"><img src="/templets/img/item.gif" width="18" height="17"></td>
+									<td height="26">
+										<b>
+											<a class=ulink href='/html/gndy/jddy/index.html'>[综合电影]</a>
+											<a href="/html/gndy/jddy/20180312/56483.html" class="ulink">2016年喜剧《呆呆计划/?计划》BD国粤双语中字</a>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td height="20" style="padding-left:3px">&nbsp;</td>
+									<td style="padding-left:3px">
+										<font color="#8F8C89">日期：2018-03-12 11:02:37
+											点击：0 </font>
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-left:3px">呆呆计划/?计划][BD-mkv.720p.国粤双语中字][2017年喜剧] ◎译 名 Foolish Plan ◎片 名 呆呆计划/?计划 ◎年 代 2016 ◎产 地 中国 ◎类 别 剧情/喜剧/犯罪 ◎语 言 普通话 ◎字 幕 中文 ◎上映日期 2016-12-09(中国) ◎豆瓣评分 3.5/10 from 1,184 users ◎文件格式</td>
+								</tr>
+							</table> </td>
+						</ul>
+						<div class="x">
+							<td height="25" align="center" bgcolor="#F4FAE2"> 共101页/2516条记录  首页
+								1
+								<a href='list_4_2.html'>[2]</a>
+								<a href='list_4_3.html'>[3]</a>
+								<a href='list_4_4.html'>[4]</a>
+								<a href='list_4_5.html'>[5]</a>
+								<a href='list_4_6.html'>[6]</a>
+								<a href='list_4_7.html'>[7]</a>
+								<a href='list_4_2.html'>下一页</a>
+								<a href='list_4_101.html'>末页</a>
+								<select name='sldd' style='width:78' onchange='location.href=this.options[this.selectedIndex].value;'>
+									<option value='list_4_1.html' selected>1</option>
+									<option value='list_4_2.html'>2</option>
+									<option value='list_4_3.html'>3</option>
+									<option value='list_4_4.html'>4</option>
+									<option value='list_4_5.html'>5</option>
+									<option value='list_4_6.html'>6</option>
+									<option value='list_4_7.html'>7</option>
+									<option value='list_4_8.html'>8</option>
+									<option value='list_4_9.html'>9</option>
+									<option value='list_4_10.html'>10</option>
+									<option value='list_4_11.html'>11</option>
+									<option value='list_4_12.html'>12</option>
+									<option value='list_4_13.html'>13</option>
+									<option value='list_4_14.html'>14</option>
+									<option value='list_4_15.html'>15</option>
+									<option value='list_4_16.html'>16</option>
+									<option value='list_4_17.html'>17</option>
+									<option value='list_4_18.html'>18</option>
+									<option value='list_4_19.html'>19</option>
+									<option value='list_4_20.html'>20</option>
+									<option value='list_4_21.html'>21</option>
+									<option value='list_4_22.html'>22</option>
+									<option value='list_4_23.html'>23</option>
+									<option value='list_4_24.html'>24</option>
+									<option value='list_4_25.html'>25</option>
+									<option value='list_4_26.html'>26</option>
+									<option value='list_4_27.html'>27</option>
+									<option value='list_4_28.html'>28</option>
+									<option value='list_4_29.html'>29</option>
+									<option value='list_4_30.html'>30</option>
+									<option value='list_4_31.html'>31</option>
+									<option value='list_4_32.html'>32</option>
+									<option value='list_4_33.html'>33</option>
+									<option value='list_4_34.html'>34</option>
+									<option value='list_4_35.html'>35</option>
+									<option value='list_4_36.html'>36</option>
+									<option value='list_4_37.html'>37</option>
+									<option value='list_4_38.html'>38</option>
+									<option value='list_4_39.html'>39</option>
+									<option value='list_4_40.html'>40</option>
+									<option value='list_4_41.html'>41</option>
+									<option value='list_4_42.html'>42</option>
+									<option value='list_4_43.html'>43</option>
+									<option value='list_4_44.html'>44</option>
+									<option value='list_4_45.html'>45</option>
+									<option value='list_4_46.html'>46</option>
+									<option value='list_4_47.html'>47</option>
+									<option value='list_4_48.html'>48</option>
+									<option value='list_4_49.html'>49</option>
+									<option value='list_4_50.html'>50</option>
+									<option value='list_4_51.html'>51</option>
+									<option value='list_4_52.html'>52</option>
+									<option value='list_4_53.html'>53</option>
+									<option value='list_4_54.html'>54</option>
+									<option value='list_4_55.html'>55</option>
+									<option value='list_4_56.html'>56</option>
+									<option value='list_4_57.html'>57</option>
+									<option value='list_4_58.html'>58</option>
+									<option value='list_4_59.html'>59</option>
+									<option value='list_4_60.html'>60</option>
+									<option value='list_4_61.html'>61</option>
+									<option value='list_4_62.html'>62</option>
+									<option value='list_4_63.html'>63</option>
+									<option value='list_4_64.html'>64</option>
+									<option value='list_4_65.html'>65</option>
+									<option value='list_4_66.html'>66</option>
+									<option value='list_4_67.html'>67</option>
+									<option value='list_4_68.html'>68</option>
+									<option value='list_4_69.html'>69</option>
+									<option value='list_4_70.html'>70</option>
+									<option value='list_4_71.html'>71</option>
+									<option value='list_4_72.html'>72</option>
+									<option value='list_4_73.html'>73</option>
+									<option value='list_4_74.html'>74</option>
+									<option value='list_4_75.html'>75</option>
+									<option value='list_4_76.html'>76</option>
+									<option value='list_4_77.html'>77</option>
+									<option value='list_4_78.html'>78</option>
+									<option value='list_4_79.html'>79</option>
+									<option value='list_4_80.html'>80</option>
+									<option value='list_4_81.html'>81</option>
+									<option value='list_4_82.html'>82</option>
+									<option value='list_4_83.html'>83</option>
+									<option value='list_4_84.html'>84</option>
+									<option value='list_4_85.html'>85</option>
+									<option value='list_4_86.html'>86</option>
+									<option value='list_4_87.html'>87</option>
+									<option value='list_4_88.html'>88</option>
+									<option value='list_4_89.html'>89</option>
+									<option value='list_4_90.html'>90</option>
+									<option value='list_4_91.html'>91</option>
+									<option value='list_4_92.html'>92</option>
+									<option value='list_4_93.html'>93</option>
+									<option value='list_4_94.html'>94</option>
+									<option value='list_4_95.html'>95</option>
+									<option value='list_4_96.html'>96</option>
+									<option value='list_4_97.html'>97</option>
+									<option value='list_4_98.html'>98</option>
+									<option value='list_4_99.html'>99</option>
+									<option value='list_4_100.html'>100</option>
+									<option value='list_4_101.html'>101</option>
+								</select></td></div>
+					</div>
+					<div class="x"></div>
+				</div>
+				<div class="x"></div>
+			</div>
+			<div class="x"></div>
+		</div>
+		<!--}end:body conten-->
+		<!--{start:友情链接-->
+		<div class="bd6">
+			<ul>
+				<center><script language=javascript src="/js2/950d.js"></script></center>
+			</ul>
+			<div class="x"></div>
+		</div>
+		<!--}end:友情链接-->
+		<!--{start:footer-->
+		<div class="footer">
+			<a href="/index.html">关于本站</a> - <a href="/index.html">电影下载</a> - <a href="http://www.dytt8.net/html/3gp/3gpmovie/">手机电影</a> - <a href="/index.html">下载声明</a> - <a href="http://www.dytt8.net/html/3gp/3gpmovie/">MP4电影</a> - <a href="/plus/sitemap.html">网站地图</a> - <a href="/index.html">RSS2.0</a><br />
+			Copyright @ 2018 www.dytt8.net. All Rights Reserved .<div style='display:none'>
+			<script language=javascript src="/js/tj.js"></script>
+		</div><br />
+		</div>
+	</div>
+	<!--}end:footer-->
+	<!--}end:body conten-->
+</body>
+
+</html>

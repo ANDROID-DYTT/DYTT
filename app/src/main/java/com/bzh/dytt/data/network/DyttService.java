@@ -16,9 +16,6 @@ public interface DyttService {
     @GET("{category_string}")
     LiveData<ApiResponse<ResponseBody>> getMovieListByCategory(@Path("category_string") String category);
 
-    @GET("{category_string}")
-    Call<ResponseBody> getMovieListByCategory2(@Path("category_string") String category);
-
     @GET
     LiveData<ApiResponse<ResponseBody>> search(@Url String query);
 

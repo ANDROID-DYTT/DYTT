@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 
 import com.bzh.dytt.data.CategoryMap;
+import com.bzh.dytt.data.CategoryPage;
 import com.bzh.dytt.data.MovieCategory;
 import com.bzh.dytt.data.VideoDetail;
 import com.bzh.dytt.data.db.AppDatabase;
@@ -34,6 +35,7 @@ import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -203,5 +205,42 @@ public class DataRepositoryTest {
         // Verify Result
         updateDBLiveData.postValue(categoryMaps);
         verify(observer).onChanged(Resource.success(categoryMaps));
+    }
+
+    @Test
+    public void getNextMovieListByCategory() throws IOException {
+        MovieCategory newMovie = MovieCategory.NEW_MOVIE;
+
+        // Support Next Page
+        CategoryPage nextPage = new CategoryPage(newMovie, 1);
+        when(categoryPageDAO.nextPage(newMovie)).thenReturn(nextPage);
+
+        // Support Call
+        MutableLiveData<ApiResponse<ResponseBody>> apiResponseMutableLiveData = new MutableLiveData<>();
+        String resource = TestUtils.getResource(getClass(), "next_new_movie.html");
+        ApiResponse<ResponseBody> apiResponse = new ApiResponse<ResponseBody>(Response.success(ResponseBody.create(MediaType.parse("text/html"), resource)));
+        when(dyttService.getMovieListByCategory("/html/gndy/dyzz/list_23_2.html")).thenReturn(apiResponseMutableLiveData);
+
+        // MAPS
+        List<CategoryMap> categoryMaps = categoryPageParser.parse(resource, newMovie);
+        List<VideoDetail> details = new ArrayList<>();
+        for (CategoryMap category : categoryMaps) {
+            VideoDetail videoDetail = new VideoDetail();
+            videoDetail.updateValue(category);
+            details.add(videoDetail);
+        }
+
+        // Init
+        LiveData<Resource<List<CategoryMap>>> movieList = dataRepository.getNextMovieListByCategory(newMovie);
+        Observer<Resource<List<CategoryMap>>> observer = mock(Observer.class);
+        movieList.observeForever(observer);
+        verify(observer).onChanged(Resource.<List<CategoryMap>>loading(null));
+
+        // Verify
+        verify(categoryPageDAO).nextPage(newMovie);
+        apiResponseMutableLiveData.setValue(apiResponse);
+        verify(categoryMapDAO).insertCategoryMapList(categoryMaps);
+        verify(videoDetailDAO).insertVideoDetailList(details);
+        verify(categoryPageDAO).updatePage(nextPage);
     }
 }
