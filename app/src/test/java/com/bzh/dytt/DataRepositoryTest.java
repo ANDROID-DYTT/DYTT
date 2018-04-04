@@ -35,6 +35,7 @@ import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Response;
 
 import static org.mockito.Mockito.mock;
@@ -242,5 +243,81 @@ public class DataRepositoryTest {
         verify(categoryMapDAO).insertCategoryMapList(categoryMaps);
         verify(videoDetailDAO).insertVideoDetailList(details);
         verify(categoryPageDAO).updatePage(nextPage);
+    }
+
+    @Test
+    public void getVideoDetailsByCategory() throws IOException {
+        MovieCategory newMovie = MovieCategory.NEW_MOVIE;
+
+        VideoDetail videoDetail = new VideoDetail();
+        videoDetail.setDetailLink("/video_detail");
+        List<VideoDetail> list = new ArrayList<>();
+        list.add(videoDetail);
+
+        when(videoDetailDAO.isValid("/video_detail")).thenReturn(false);
+
+        // DB
+        MutableLiveData<List<VideoDetail>> dbLiveData = new MutableLiveData<>();
+        when(videoDetailDAO.getVideoDetailsByCategory(newMovie)).thenReturn(dbLiveData);
+
+        // Net
+        Call<ResponseBody> call = mock(Call.class);
+        when(dyttService.getVideoDetail("/video_detail")).thenReturn(call);
+        String resource = TestUtils.getResource(getClass(), "movie_detail.html");
+        Response<ResponseBody> response = Response.success(ResponseBody.create(MediaType.parse("html/text"), resource));
+        when(dyttService.getVideoDetail("/video_detail").execute()).thenReturn(response);
+
+        VideoDetail parseVideoDetail = videoDetailPageParser.parseVideoDetail(resource);
+
+        // init
+        LiveData<Resource<List<VideoDetail>>> liveData = dataRepository.getVideoDetailsByCategory(newMovie);
+        Observer<Resource<List<VideoDetail>>> observer = mock(Observer.class);
+        liveData.observeForever(observer);
+        verify(observer).onChanged(Resource.<List<VideoDetail>>loading(null));
+
+        dbLiveData.setValue(list);
+        verify(videoDetailDAO).getVideoDetailsByCategory(newMovie);
+        verify(videoDetailDAO).isValid("/video_detail");
+        parseVideoDetail.updateValue(videoDetail);
+        verify(videoDetailDAO).updateVideoDetail(parseVideoDetail);
+
+    }
+
+    @Test
+    public void getVideoDetailsByCategoryAndQuery() throws IOException {
+        MovieCategory movieCategory = MovieCategory.SEARCH_MOVIE;
+        String query = "query";
+
+        VideoDetail videoDetail = new VideoDetail();
+        videoDetail.setDetailLink("/video_detail");
+        List<VideoDetail> list = new ArrayList<>();
+        list.add(videoDetail);
+
+        when(videoDetailDAO.isValid("/video_detail")).thenReturn(false);
+
+        // DB
+        MutableLiveData<List<VideoDetail>> dbLiveData = new MutableLiveData<>();
+        when(videoDetailDAO.getVideoDetailsByCategoryAndQuery(movieCategory, query)).thenReturn(dbLiveData);
+
+        // Net
+        Call<ResponseBody> call = mock(Call.class);
+        when(dyttService.getSearchVideoDetail("http://www.ygdy8.com" + "/video_detail")).thenReturn(call);
+        String resource = TestUtils.getResource(getClass(), "movie_detail.html");
+        Response<ResponseBody> response = Response.success(ResponseBody.create(MediaType.parse("html/text"), resource));
+        when(dyttService.getSearchVideoDetail("http://www.ygdy8.com" + "/video_detail").execute()).thenReturn(response);
+
+        VideoDetail parseVideoDetail = videoDetailPageParser.parseVideoDetail(resource);
+
+        // init
+        LiveData<Resource<List<VideoDetail>>> liveData = dataRepository.getVideoDetailsByCategoryAndQuery(movieCategory, query);
+        Observer<Resource<List<VideoDetail>>> observer = mock(Observer.class);
+        liveData.observeForever(observer);
+        verify(observer).onChanged(Resource.<List<VideoDetail>>loading(null));
+
+        dbLiveData.setValue(list);
+        verify(videoDetailDAO).getVideoDetailsByCategoryAndQuery(movieCategory, query);
+        verify(videoDetailDAO).isValid("/video_detail");
+        parseVideoDetail.updateValue(videoDetail);
+        verify(videoDetailDAO).updateVideoDetail(parseVideoDetail);
     }
 }

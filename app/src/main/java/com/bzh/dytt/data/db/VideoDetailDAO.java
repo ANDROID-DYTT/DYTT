@@ -32,6 +32,6 @@ public interface VideoDetailDAO {
     void updateVideoDetail(VideoDetail videoDetail);
 
     @Query("SELECT is_valid_video_item FROM video_detail WHERE link = :link")
-    boolean IsValid(String link);
+    boolean isValid(String link);
 
 }

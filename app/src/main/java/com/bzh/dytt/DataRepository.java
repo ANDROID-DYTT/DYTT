@@ -198,7 +198,7 @@ public class DataRepository {
                 super.processDBData(newData);
 
                 for (VideoDetail videoDetail : newData) {
-                    boolean isValid = mVideoDetailDAO.IsValid(videoDetail.getDetailLink());
+                    boolean isValid = mVideoDetailDAO.isValid(videoDetail.getDetailLink());
                     if (!isValid) {
                         FetchVideoDetailTask task = new FetchVideoDetailTask(videoDetail, mVideoDetailDAO, mService, mVideoDetailPageParser);
                         mAppExecutors.networkIO().execute(task);
@@ -233,7 +233,7 @@ public class DataRepository {
             protected void processDBData(List<VideoDetail> newData) {
                 super.processDBData(newData);
                 for (VideoDetail videoDetail : newData) {
-                    boolean isValid = mVideoDetailDAO.IsValid(videoDetail.getDetailLink());
+                    boolean isValid = mVideoDetailDAO.isValid(videoDetail.getDetailLink());
                     if (!isValid) {
                         FetchSearchVideoDetailTask task = new FetchSearchVideoDetailTask(videoDetail, mVideoDetailDAO, mService, mVideoDetailPageParser);
                         mAppExecutors.networkIO().execute(task);
