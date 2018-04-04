@@ -8,6 +8,7 @@ import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import com.bzh.dytt.DataRepository;
@@ -44,12 +45,19 @@ public class SearchViewModel extends ViewModel {
         });
     }
 
+    @VisibleForTesting
     LiveData<Resource<List<VideoDetail>>> getVideoList() {
         return mVideoList;
     }
 
+    @VisibleForTesting
     void setQuery(@NonNull String originalInput) {
-        mCategoryHandler.setQuery(originalInput);
+        try {
+            String input = originalInput.toLowerCase(Locale.getDefault()).trim();
+            mCategoryHandler.setQuery(URLEncoder.encode(input, "GBK"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     static class CategoryHandler implements Observer<Resource<List<CategoryMap>>> {
@@ -92,19 +100,14 @@ public class SearchViewModel extends ViewModel {
             return mQuery;
         }
 
-        public void setQuery(@NonNull String originalInput) {
-            String input = originalInput.toLowerCase(Locale.getDefault()).trim();
+        public void setQuery(@NonNull String input) {
             if (TextUtils.equals(input, mQuery)) {
                 return;
             }
-            try {
-                unregister();
-                mQuery = URLEncoder.encode(input, "GBK");
-                mLiveData = mRepository.search(MovieCategory.SEARCH_MOVIE, mQuery);
-                mLiveData.observeForever(this);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            unregister();
+            mQuery = input;
+            mLiveData = mRepository.search(MovieCategory.SEARCH_MOVIE, mQuery);
+            mLiveData.observeForever(this);
         }
     }
 }
