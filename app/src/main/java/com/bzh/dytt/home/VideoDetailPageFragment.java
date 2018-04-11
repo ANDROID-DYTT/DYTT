@@ -28,8 +28,13 @@ import com.bzh.dytt.util.GlideApp;
 import com.bzh.dytt.util.ThunderHelper;
 import com.github.florent37.glidepalette.BitmapPalette;
 import com.github.florent37.glidepalette.GlidePalette;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.umeng.analytics.MobclickAgent;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -97,6 +102,9 @@ public class VideoDetailPageFragment extends BaseFragment {
 
     @BindView(R.id.show_time_layout)
     View mShowTimeLayout;
+
+    @BindView(R.id.adView)
+    AdView mAdView;
 
     private String mDetailLink;
 
@@ -212,6 +220,14 @@ public class VideoDetailPageFragment extends BaseFragment {
     @Override
     protected void doViewCreated(View view, Bundle savedInstanceState) {
         super.doViewCreated(view, savedInstanceState);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("link", mDetailLink);
+        MobclickAgent.onEvent(getActivity(), "video_detail", map);
+
         mVideoDetailPageViewModel = ViewModelProviders.of(this, mViewModelFactory).get(VideoDetailPageViewModel.class);
         if (!TextUtils.isEmpty(mDetailLink)) {
 

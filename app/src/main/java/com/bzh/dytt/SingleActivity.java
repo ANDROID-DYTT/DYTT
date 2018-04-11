@@ -16,7 +16,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class SingleActivity extends AppCompatActivity implements HasSupportFragmentInjector {
+public class SingleActivity extends BaseActivity implements HasSupportFragmentInjector {
 
     public static final String TYPE = "TYPE";
     public static final String DATA = "DATA";
@@ -53,8 +53,7 @@ public class SingleActivity extends AppCompatActivity implements HasSupportFragm
     DispatchingAndroidInjector<Fragment> fragmentInjector;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void doCreate() {
         setContentView(R.layout.activity_single);
 
         Intent intent = getIntent();

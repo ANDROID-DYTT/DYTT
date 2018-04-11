@@ -1,6 +1,5 @@
 package com.bzh.dytt;
 
-import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +15,6 @@ import com.bzh.dytt.colorhunt.ColorHuntFragment;
 import com.bzh.dytt.home.AllMoviePageFragment;
 import com.bzh.dytt.home.NewMovieFragment;
 import com.bzh.dytt.view.NonInteractiveViewPage;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 import javax.inject.Inject;
@@ -30,7 +25,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector {
 
     private static final String TAG = "MainActivity";
@@ -50,27 +45,14 @@ public class MainActivity extends AppCompatActivity
 
     private MainViewPagerAdapter mPagerAdapter;
 
-    private InterstitialAd mInterstitialAd;
+
+    private final static String ADMOB_APP_ID = "ca-app-pub-8112052667906046~4830848371";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void doCreate() {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        MobileAds.initialize(this, "ca-app-pub-8112052667906046~4830848371");
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-//        mInterstitialAd.setAdUnitId("ca-app-pub-8112052667906046/3769048149");
-//        mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice("B892AFDD6F67FA14C925B7E2EE5547E0").build());
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-//                mInterstitialAd.show();
-            }
-        });
+        MobileAds.initialize(this, ADMOB_APP_ID);
 
         setSupportActionBar(mToolbar);
 
@@ -88,8 +70,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void doResume() {
         mToolbar.setTitle(R.string.nav_home_page);
     }
 
