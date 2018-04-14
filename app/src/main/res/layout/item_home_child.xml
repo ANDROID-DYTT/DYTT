@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,9 +12,10 @@
         android:layout_width="150dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:background="@android:color/background_dark"
         android:elevation="10dp"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_video"
+        android:contentDescription="@string/item_home_child_image_description" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,12 +24,12 @@
         android:padding="10dp">
 
         <TextView
-            style="@style/video_detail_main_name"
             android:id="@+id/video_title"
+            style="@style/video_detail_main_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:ellipsize="end"/>
+            android:ellipsize="end"
+            android:maxLines="2" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,45 +38,37 @@
             android:gravity="center_vertical">
 
             <TextView
-                style="@style/video_detail_info_text"
                 android:id="@+id/video_publish_time"
+                style="@style/video_detail_info_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="2018-8-8"/>
-
+                tools:text="2018-8-8" />
 
             <TextView
-
-                android:layout_marginStart="3dp"
-                style="@style/video_detail_info_text_grade"
                 android:id="@+id/douban_grade"
+                style="@style/video_detail_info_text_grade"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp" />
 
             <TextView
-                style="@style/video_detail_info_text_grade"
                 android:id="@+id/imdb_grade"
-                android:layout_marginStart="3dp"
+                style="@style/video_detail_info_text_grade"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp" />
         </LinearLayout>
 
 
-
         <TextView
-            style="@style/video_detail_secondary_text"
             android:id="@+id/video_description"
+            style="@style/video_detail_secondary_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:maxLines="5"
+            android:ellipsize="end"
             android:lineSpacingMultiplier="1.4"
-            android:textSize="12sp"
-            android:ellipsize="end"/>
-
+            android:maxLines="5"
+            android:textSize="12sp" />
     </LinearLayout>
-
-
-
 </LinearLayout>

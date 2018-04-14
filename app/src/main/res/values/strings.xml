@@ -14,5 +14,9 @@
     <string name="home_load_error">数据加载失败\n下拉刷新试试吧!</string>
     <string name="home_child_load_empty">还没有发现数据\n下拉刷新试试吧!</string>
     <string name="search_edit">搜索</string>
+    <string name="china">中国</string>
+    <string name="douban_grade">豆瓣/%1$s</string>
+    <string name="imdb_grade">IMDB/%1$s</string>
+    <string name="item_home_child_image_description">图片描述</string>
 
 </resources>

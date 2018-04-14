@@ -2,6 +2,7 @@ package com.bzh.dytt.search;
 
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
@@ -15,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -46,7 +48,8 @@ public class SearchFragment extends SingleListFragment<VideoDetail> {
                 if (getActivity() != null && !TextUtils.isEmpty(v.getText())) {
                     String searchTarget = v.getText().toString().trim();
                     ((SearchViewModel) mViewModel).setQuery(searchTarget);
-
+                    mSwipeRefresh.setEnabled(true);
+                    mSwipeRefresh.setRefreshing(true);
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (imm != null) {
                         imm.hideSoftInputFromWindow(mSearchInput.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -112,6 +115,24 @@ public class SearchFragment extends SingleListFragment<VideoDetail> {
     @Override
     protected LiveData<Resource<List<VideoDetail>>> getLiveData() {
         return ((SearchViewModel) mViewModel).getVideoList();
+    }
+
+    @Override
+    public Observer<Resource<List<VideoDetail>>> getObserver() {
+        return new Observer<Resource<List<VideoDetail>>>() {
+            @Override
+            public void onChanged(@Nullable Resource<List<VideoDetail>> result) {
+                mObserver.onChanged(result);
+                assert result != null;
+                switch (result.status) {
+                    case ERROR:
+                    case SUCCESS:
+                        mSwipeRefresh.setEnabled(false);
+                        mSwipeRefresh.setRefreshing(false);
+                        break;
+                }
+            }
+        };
     }
 
     @Override

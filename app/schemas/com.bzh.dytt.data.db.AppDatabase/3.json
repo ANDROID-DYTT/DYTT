@@ -1,0 +1,237 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "9093c11e1010cede49f7fa1edc0d51f0",
+    "entities": [
+      {
+        "tableName": "video_detail",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`link` TEXT NOT NULL, `name` TEXT, `years` TEXT, `country` TEXT, `type` TEXT, `imdb_grade` TEXT, `imdb_grade_userds` TEXT, `douban_grade` TEXT, `douban_grade_users` TEXT, `file_size` TEXT, `duration` TEXT, `director` TEXT, `leading_role` TEXT, `description` TEXT, `cover_url` TEXT, `download_link` TEXT, `show_time` TEXT, `publish_time` TEXT, `translation_name` TEXT, `is_valid_video_item` INTEGER NOT NULL, `category` INTEGER NOT NULL, `serial_number` INTEGER NOT NULL, `query` TEXT, PRIMARY KEY(`category`, `link`))",
+        "fields": [
+          {
+            "fieldPath": "mDetailLink",
+            "columnName": "link",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mName",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mYears",
+            "columnName": "years",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCountry",
+            "columnName": "country",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mType",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mIMDBGrade",
+            "columnName": "imdb_grade",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mIMDBGradeUsers",
+            "columnName": "imdb_grade_userds",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mDoubanGrade",
+            "columnName": "douban_grade",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mDoubanGradeUsers",
+            "columnName": "douban_grade_users",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mFileSize",
+            "columnName": "file_size",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mDuration",
+            "columnName": "duration",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mDirector",
+            "columnName": "director",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mLeadingRole",
+            "columnName": "leading_role",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mDescription",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCoverUrl",
+            "columnName": "cover_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mDownloadLink",
+            "columnName": "download_link",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mShowTime",
+            "columnName": "show_time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mPublishTime",
+            "columnName": "publish_time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mTranslationName",
+            "columnName": "translation_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mValidVideoItem",
+            "columnName": "is_valid_video_item",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCategory",
+            "columnName": "category",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mSN",
+            "columnName": "serial_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mQuery",
+            "columnName": "query",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "category",
+            "link"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "category_map",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`category` INTEGER NOT NULL, `link` TEXT NOT NULL, `serial_number` INTEGER NOT NULL, `query` TEXT, `name` TEXT, PRIMARY KEY(`category`, `link`))",
+        "fields": [
+          {
+            "fieldPath": "mCategory",
+            "columnName": "category",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mLink",
+            "columnName": "link",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mSN",
+            "columnName": "serial_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mQuery",
+            "columnName": "query",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mName",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "category",
+            "link"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "category_page",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`category` INTEGER NOT NULL, `next_page` INTEGER NOT NULL, PRIMARY KEY(`category`))",
+        "fields": [
+          {
+            "fieldPath": "mCategory",
+            "columnName": "category",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mNextPage",
+            "columnName": "next_page",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "category"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"9093c11e1010cede49f7fa1edc0d51f0\")"
+    ]
+  }
+}

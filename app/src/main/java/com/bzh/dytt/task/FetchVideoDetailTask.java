@@ -8,6 +8,7 @@ import com.bzh.dytt.data.db.VideoDetailDAO;
 import com.bzh.dytt.data.network.ApiResponse;
 import com.bzh.dytt.data.network.DyttService;
 import com.bzh.dytt.util.VideoDetailPageParser;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.IOException;
 

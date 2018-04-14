@@ -60,7 +60,6 @@ public abstract class SingleListFragment<T> extends BaseFragment {
                 }
                 break;
                 case SUCCESS: {
-                    Log.d(TAG, "onChanged() called with: result = [" + result + "]");
                     mSwipeRefresh.setRefreshing(false);
                     if (result.data == null || result.data.isEmpty()) {
                         mEmpty.setVisibility(View.VISIBLE);
@@ -104,7 +103,7 @@ public abstract class SingleListFragment<T> extends BaseFragment {
         mViewModel = createViewModel();
         mSwipeRefresh.setOnRefreshListener(mRefreshListener);
         if (getLiveData() != null) {
-            getLiveData().observe(this, mObserver);
+            getLiveData().observe(this, getObserver());
         }
         mAdapter = createAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -112,6 +111,10 @@ public abstract class SingleListFragment<T> extends BaseFragment {
     }
 
     protected void doRefresh() {
+    }
+
+    public Observer<Resource<List<T>>> getObserver() {
+        return mObserver;
     }
 
     public RecyclerView.Adapter getAdapter() {

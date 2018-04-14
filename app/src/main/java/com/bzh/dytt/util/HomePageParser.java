@@ -218,6 +218,7 @@ public class HomePageParser {
                     categoryMap.setLink(link);
                     categoryMap.setSN(Integer.parseInt(link.substring(link.lastIndexOf('/') + 1, link.lastIndexOf('.'))));
                     categoryMap.setCategory(getType());
+                    categoryMap.setName(title);
                     result.add(categoryMap);
                 }
 

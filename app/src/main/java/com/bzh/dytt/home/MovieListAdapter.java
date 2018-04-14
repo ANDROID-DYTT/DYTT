@@ -48,22 +48,29 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         final VideoDetail videoDetail = mItems.get(position);
 
         if (videoDetail != null) {
-            holder.VideoTitleTv.setText((!TextUtils.isEmpty(videoDetail.getCountry()) && videoDetail.getCountry()
-                    .contains("中国")) ? videoDetail.getName() :
-                    videoDetail.getTranslationName());
+
+            boolean isChinaCountry = !TextUtils.isEmpty(videoDetail.getCountry()) &&
+                    videoDetail.getCountry().contains(mContext.getString(R.string.china));
+            holder.VideoTitleTv.setText(isChinaCountry ? videoDetail.getName() : videoDetail.getTranslationName());
+
             holder.VideoPublishTv.setText(videoDetail.getPublishTime());
+
             if (!TextUtils.isEmpty(videoDetail.getDoubanGrade())) {
-                holder.DoubanGradeTv.setText("豆瓣/" + videoDetail.getDoubanGrade());
+                holder.DoubanGradeTv.setText(mContext.getString(R.string.douban_grade, videoDetail.getDoubanGrade()));
             }
+
             if (!TextUtils.isEmpty(videoDetail.getIMDBGrade())) {
-                holder.IMDBGradeTv.setText("IMDB/" + videoDetail.getIMDBGrade());
+                holder.IMDBGradeTv.setText(mContext.getString(R.string.imdb_grade, videoDetail.getIMDBGrade()));
             }
+
             holder.VideoDescriptionTv.setText(videoDetail.getDescription());
 
-            GlideApp.with(mContext)
-                    .load(videoDetail.getCoverUrl())
-                    .placeholder(R.drawable.default_video)
-                    .into(holder.VideoCover);
+            if (!TextUtils.isEmpty(videoDetail.getCoverUrl())) {
+                GlideApp.with(mContext)
+                        .load(videoDetail.getCoverUrl())
+                        .placeholder(R.drawable.default_video)
+                        .into(holder.VideoCover);
+            }
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -2,8 +2,6 @@ package com.bzh.dytt.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -11,11 +9,10 @@ import java.util.Objects;
 
 @Entity(
         tableName = "video_detail",
-        indices = {@Index(value = {"link"}, unique = true)}
+        primaryKeys = {"category", "link"}
 )
 public class VideoDetail {
 
-    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "link")
     private String mDetailLink;
@@ -77,6 +74,7 @@ public class VideoDetail {
     @ColumnInfo(name = "is_valid_video_item")
     private boolean mValidVideoItem;
 
+    @NonNull
     @ColumnInfo(name = "category")
     private MovieCategory mCategory;
 
@@ -103,6 +101,9 @@ public class VideoDetail {
     }
 
     public String getName() {
+        if (mName == null) {
+            return mTranslationName;
+        }
         return mName;
     }
 
@@ -248,6 +249,8 @@ public class VideoDetail {
     }
 
     public String getTranslationName() {
+        if (mTranslationName == null)
+            return mName;
         return mTranslationName;
     }
 
@@ -302,6 +305,7 @@ public class VideoDetail {
         setCategory(videoDetail.getCategory());
         setQuery(videoDetail.getQuery());
         setValidVideoItem(true);
+        setName(videoDetail.getName());
         return this;
     }
 
@@ -310,6 +314,7 @@ public class VideoDetail {
         setSN(category.getSN());
         setCategory(category.getCategory());
         setQuery(category.getQuery());
+        setName(category.getName());
         return this;
     }
 }

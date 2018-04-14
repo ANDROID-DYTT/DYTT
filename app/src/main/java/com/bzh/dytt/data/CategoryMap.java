@@ -25,6 +25,17 @@ public class CategoryMap {
     @ColumnInfo(name = "query")
     private String mQuery;
 
+    @ColumnInfo(name = "name")
+    private String mName;
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String mTitle) {
+        this.mName = mTitle;
+    }
+
     public String getQuery() {
         return mQuery;
     }

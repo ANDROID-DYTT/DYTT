@@ -2,10 +2,9 @@ package com.bzh.dytt;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 
 import com.bzh.dytt.home.VideoDetailPageFragment;
 import com.bzh.dytt.search.SearchFragment;
@@ -20,21 +19,8 @@ public class SingleActivity extends BaseActivity implements HasSupportFragmentIn
 
     public static final String TYPE = "TYPE";
     public static final String DATA = "DATA";
-
-    private enum SingleType {
-        Detail(1),
-        Search(2);
-
-        private int mValue;
-
-        SingleType(int value) {
-            mValue = value;
-        }
-
-        public int getValue() {
-            return mValue;
-        }
-    }
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentInjector;
 
     public static void startDetailPage(Activity activity, String detailLink) {
         Intent intent = new Intent(activity, SingleActivity.class);
@@ -49,12 +35,10 @@ public class SingleActivity extends BaseActivity implements HasSupportFragmentIn
         activity.startActivity(intent);
     }
 
-    @Inject
-    DispatchingAndroidInjector<Fragment> fragmentInjector;
-
     @Override
     protected void doCreate() {
         setContentView(R.layout.activity_single);
+        setupActionBar();
 
         Intent intent = getIntent();
 
@@ -76,9 +60,46 @@ public class SingleActivity extends BaseActivity implements HasSupportFragmentIn
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
     }
 
+
+    private void setupActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentInjector;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    private enum SingleType {
+        Detail(1),
+        Search(2);
+
+        private int mValue;
+
+        SingleType(int value) {
+            mValue = value;
+        }
+
+        public int getValue() {
+            return mValue;
+        }
     }
 
 }

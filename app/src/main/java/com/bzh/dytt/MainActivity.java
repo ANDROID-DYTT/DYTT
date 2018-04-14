@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity
         mNavigationView.setNavigationItemSelectedListener(this);
 
         // You should keep this limit low, especially if your pages have complex layouts.
-        mContainer.setOffscreenPageLimit(3);
+        mContainer.setOffscreenPageLimit(1);
         mPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
         mContainer.setAdapter(mPagerAdapter);
 
