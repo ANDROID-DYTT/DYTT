@@ -254,7 +254,7 @@ public class DataRepositoryTest {
         List<VideoDetail> list = new ArrayList<>();
         list.add(videoDetail);
 
-        when(videoDetailDAO.isValid("/video_detail")).thenReturn(false);
+        when(videoDetailDAO.isValid("/video_detail", newMovie)).thenReturn(false);
 
         // DB
         MutableLiveData<List<VideoDetail>> dbLiveData = new MutableLiveData<>();
@@ -277,7 +277,7 @@ public class DataRepositoryTest {
 
         dbLiveData.setValue(list);
         verify(videoDetailDAO).getVideoDetailsByCategory(newMovie);
-        verify(videoDetailDAO).isValid("/video_detail");
+        verify(videoDetailDAO).isValid("/video_detail", newMovie);
         parseVideoDetail.updateValue(videoDetail);
         verify(videoDetailDAO).updateVideoDetail(parseVideoDetail);
 
@@ -293,7 +293,7 @@ public class DataRepositoryTest {
         List<VideoDetail> list = new ArrayList<>();
         list.add(videoDetail);
 
-        when(videoDetailDAO.isValid("/video_detail")).thenReturn(false);
+        when(videoDetailDAO.isValid("/video_detail", movieCategory)).thenReturn(false);
 
         // DB
         MutableLiveData<List<VideoDetail>> dbLiveData = new MutableLiveData<>();
@@ -316,7 +316,7 @@ public class DataRepositoryTest {
 
         dbLiveData.setValue(list);
         verify(videoDetailDAO).getVideoDetailsByCategoryAndQuery(movieCategory, query);
-        verify(videoDetailDAO).isValid("/video_detail");
+        verify(videoDetailDAO).isValid("/video_detail", movieCategory);
         parseVideoDetail.updateValue(videoDetail);
         verify(videoDetailDAO).updateVideoDetail(parseVideoDetail);
     }

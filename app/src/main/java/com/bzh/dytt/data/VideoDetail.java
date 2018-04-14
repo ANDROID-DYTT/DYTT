@@ -3,6 +3,7 @@ package com.bzh.dytt.data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.List;
 import java.util.Objects;
@@ -305,7 +306,6 @@ public class VideoDetail {
         setCategory(videoDetail.getCategory());
         setQuery(videoDetail.getQuery());
         setValidVideoItem(true);
-        setName(videoDetail.getName());
         return this;
     }
 
@@ -315,6 +315,7 @@ public class VideoDetail {
         setCategory(category.getCategory());
         setQuery(category.getQuery());
         setName(category.getName());
+        setPublishTime(category.getTime());
         return this;
     }
 }

@@ -60,17 +60,18 @@ public class LoadableMoviePageViewModel extends BaseViewModel implements Lifecyc
         });
     }
 
-    @VisibleForTesting
+    LiveData<Throwable> getFetchVideoDetailState() {
+        return mDataRepository.getFetchVideoDetailState();
+    }
+
     void refresh() {
         mCategoryHandler.refreshPage();
     }
 
-    @VisibleForTesting
     void loadNextPage() {
         mCategoryHandler.nextPage();
     }
 
-    @VisibleForTesting
     LiveData<Resource<List<VideoDetail>>> getMovieList() {
         return mVideoList;
     }

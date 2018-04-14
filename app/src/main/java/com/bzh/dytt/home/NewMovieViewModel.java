@@ -55,14 +55,16 @@ public class NewMovieViewModel extends BaseViewModel implements LifecycleObserve
         }
     }
 
-    @VisibleForTesting
     void refresh() {
         mCategoryHandler.refresh();
     }
 
-    @VisibleForTesting
     LiveData<Resource<List<VideoDetail>>> getNewMovieList() {
         return mVideoList;
+    }
+
+    LiveData<Throwable> getFetchVideoDetailState() {
+        return mDataRepository.getFetchVideoDetailState();
     }
 
     static class CategoryHandler implements Observer<Resource<List<CategoryMap>>> {

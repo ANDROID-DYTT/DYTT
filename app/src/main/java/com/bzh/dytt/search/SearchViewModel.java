@@ -8,9 +8,9 @@ import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
+import com.bzh.dytt.BaseViewModel;
 import com.bzh.dytt.DataRepository;
 import com.bzh.dytt.data.CategoryMap;
 import com.bzh.dytt.data.MovieCategory;
@@ -25,32 +25,33 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-public class SearchViewModel extends ViewModel {
+public class SearchViewModel extends BaseViewModel {
 
-    private final DataRepository mRepository;
     private final CategoryHandler mCategoryHandler;
     private LiveData<Resource<List<VideoDetail>>> mVideoList;
 
     @Inject
     SearchViewModel(DataRepository repository) {
-        mRepository = repository;
+        super(repository);
 
-        mCategoryHandler = new CategoryHandler(mRepository);
+        mCategoryHandler = new CategoryHandler(mDataRepository);
 
         mVideoList = Transformations.switchMap(mCategoryHandler.getCategoryMap(), new Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>>() {
             @Override
             public LiveData<Resource<List<VideoDetail>>> apply(Resource<List<CategoryMap>> categoryMaps) {
-                return mRepository.getVideoDetailsByCategoryAndQuery(MovieCategory.SEARCH_MOVIE, mCategoryHandler.getQuery());
+                return mDataRepository.getVideoDetailsByCategoryAndQuery(MovieCategory.SEARCH_MOVIE, mCategoryHandler.getQuery());
             }
         });
     }
 
-    @VisibleForTesting
     LiveData<Resource<List<VideoDetail>>> getVideoList() {
         return mVideoList;
     }
 
-    @VisibleForTesting
+    LiveData<Throwable> getFetchVideoDetailState() {
+        return mDataRepository.getFetchVideoDetailState();
+    }
+
     void setQuery(@NonNull String originalInput) {
         try {
             String input = originalInput.toLowerCase(Locale.getDefault()).trim();

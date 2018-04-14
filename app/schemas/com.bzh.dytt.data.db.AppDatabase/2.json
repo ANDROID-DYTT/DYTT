@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "9093c11e1010cede49f7fa1edc0d51f0",
+    "identityHash": "9db38ab47cf56552ccfb2fb5a1a279e2",
     "entities": [
       {
         "tableName": "video_detail",
@@ -159,7 +159,7 @@
       },
       {
         "tableName": "category_map",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`category` INTEGER NOT NULL, `link` TEXT NOT NULL, `serial_number` INTEGER NOT NULL, `query` TEXT, `name` TEXT, PRIMARY KEY(`category`, `link`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`category` INTEGER NOT NULL, `link` TEXT NOT NULL, `serial_number` INTEGER NOT NULL, `query` TEXT, `name` TEXT, `time` TEXT, PRIMARY KEY(`category`, `link`))",
         "fields": [
           {
             "fieldPath": "mCategory",
@@ -188,6 +188,12 @@
           {
             "fieldPath": "mName",
             "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mTime",
+            "columnName": "time",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -231,7 +237,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"9093c11e1010cede49f7fa1edc0d51f0\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"9db38ab47cf56552ccfb2fb5a1a279e2\")"
     ]
   }
 }

@@ -16,7 +16,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -35,6 +34,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class SearchFragment extends SingleListFragment<VideoDetail> {
+
+    private static final String TAG = "SearchFragment";
 
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
@@ -113,16 +114,21 @@ public class SearchFragment extends SingleListFragment<VideoDetail> {
     }
 
     @Override
-    protected LiveData<Resource<List<VideoDetail>>> getLiveData() {
+    protected LiveData<Resource<List<VideoDetail>>> getListLiveData() {
         return ((SearchViewModel) mViewModel).getVideoList();
     }
 
     @Override
-    public Observer<Resource<List<VideoDetail>>> getObserver() {
+    protected LiveData<Throwable> getThrowableLiveData() {
+        return ((SearchViewModel) mViewModel).getFetchVideoDetailState();
+    }
+
+    @Override
+    public Observer<Resource<List<VideoDetail>>> getListObserver() {
         return new Observer<Resource<List<VideoDetail>>>() {
             @Override
             public void onChanged(@Nullable Resource<List<VideoDetail>> result) {
-                mObserver.onChanged(result);
+                mListObserver.onChanged(result);
                 assert result != null;
                 switch (result.status) {
                     case ERROR:

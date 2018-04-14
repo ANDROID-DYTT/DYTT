@@ -1,6 +1,7 @@
 package com.bzh.dytt.task;
 
 
+import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.bzh.dytt.data.VideoDetail;
@@ -21,12 +22,18 @@ public class FetchSearchVideoDetailTask implements Runnable {
     private final DyttService mService;
     private final VideoDetailDAO mVideoDetailDAO;
     private final VideoDetailPageParser mParser;
+    private final MutableLiveData<Throwable> mFetchDetailState;
 
-    public FetchSearchVideoDetailTask(VideoDetail videoDetail, VideoDetailDAO videoDetailDAO, DyttService service, VideoDetailPageParser parser) {
+    public FetchSearchVideoDetailTask(VideoDetail videoDetail,
+                                      VideoDetailDAO videoDetailDAO,
+                                      DyttService service,
+                                      VideoDetailPageParser parser,
+                                      MutableLiveData<Throwable> fetchDetailState) {
         mVideoDetail = videoDetail;
         mService = service;
         mParser = parser;
         mVideoDetailDAO = videoDetailDAO;
+        mFetchDetailState = fetchDetailState;
     }
 
     @Override
@@ -41,6 +48,7 @@ public class FetchSearchVideoDetailTask implements Runnable {
                 mVideoDetailDAO.updateVideoDetail(videoDetail);
             }
         } catch (IOException e) {
+            mFetchDetailState.postValue(e);
             Log.e("FetchVideoDetailTask", "Something wrong when fetch video detail " + e.getMessage());
         }
     }

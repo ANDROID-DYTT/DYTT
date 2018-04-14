@@ -49,6 +49,10 @@ public class LoadableMovieParser {
                 categoryMap.setSN(Integer.parseInt(link.substring(link.lastIndexOf('/') + 1, link.lastIndexOf('.'))));
                 categoryMap.setCategory(category);
                 categoryMap.setName(fullName);
+
+                // TODO
+//                categoryMap.setTime();
+
                 categoryMaps.add(categoryMap);
             }
 

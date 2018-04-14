@@ -1,6 +1,7 @@
 package com.bzh.dytt;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -46,6 +47,8 @@ public class DataRepository {
     private VideoDetailPageParser mVideoDetailPageParser;
 
     private RateLimiter<String> mRepoListRateLimit = new RateLimiter<>(10, TimeUnit.MINUTES);
+
+    private MutableLiveData<Throwable> mFetchDetailState = new MutableLiveData<>();
 
     @Inject
     DataRepository(AppExecutors appExecutors, DyttService service, CategoryMapDAO categoryMapDAO, CategoryPageDAO categoryPageDAO, VideoDetailDAO videoDetailDAO, CategoryPageParser categoryPageParser, VideoDetailPageParser videoDetailPageParser) {
@@ -200,7 +203,7 @@ public class DataRepository {
                 for (VideoDetail videoDetail : newData) {
                     boolean isValid = mVideoDetailDAO.isValid(videoDetail.getDetailLink(), category);
                     if (!isValid) {
-                        FetchVideoDetailTask task = new FetchVideoDetailTask(videoDetail, mVideoDetailDAO, mService, mVideoDetailPageParser);
+                        FetchVideoDetailTask task = new FetchVideoDetailTask(videoDetail, mVideoDetailDAO, mService, mVideoDetailPageParser, mFetchDetailState);
                         mAppExecutors.networkIO().execute(task);
                     }
                 }
@@ -235,7 +238,7 @@ public class DataRepository {
                 for (VideoDetail videoDetail : newData) {
                     boolean isValid = mVideoDetailDAO.isValid(videoDetail.getDetailLink(), category);
                     if (!isValid) {
-                        FetchSearchVideoDetailTask task = new FetchSearchVideoDetailTask(videoDetail, mVideoDetailDAO, mService, mVideoDetailPageParser);
+                        FetchSearchVideoDetailTask task = new FetchSearchVideoDetailTask(videoDetail, mVideoDetailDAO, mService, mVideoDetailPageParser, mFetchDetailState);
                         mAppExecutors.networkIO().execute(task);
                     }
                 }
@@ -248,5 +251,9 @@ public class DataRepository {
 
             }
         }.getAsLiveData();
+    }
+
+    public LiveData<Throwable> getFetchVideoDetailState() {
+        return mFetchDetailState;
     }
 }

@@ -39,7 +39,7 @@ public class FetchVideoDetailTaskTest {
     }
 
     @Test
-    public void fetchTask() throws IOException {
+    public void fetchTaskS() throws IOException {
         VideoDetail videoDetail = new VideoDetail();
         videoDetail.setDetailLink("/html/gndy/dyzz/20180328/56582.html");
 
@@ -48,7 +48,7 @@ public class FetchVideoDetailTaskTest {
         when(dyttService.getVideoDetail(videoDetail.getDetailLink())).thenReturn(call);
         when(dyttService.getVideoDetail(videoDetail.getDetailLink()).execute()).thenReturn(Response.success(ResponseBody.create(MediaType.parse("text/html"), detailHtml)));
 
-        FetchVideoDetailTask task = new FetchVideoDetailTask(videoDetail, videoDetailDAO, dyttService, parse);
+        FetchVideoDetailTask task = new FetchVideoDetailTask(videoDetail, videoDetailDAO, dyttService, parse, null);
         task.run();
 
         verify(dyttService.getVideoDetail(videoDetail.getDetailLink())).execute();

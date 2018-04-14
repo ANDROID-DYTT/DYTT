@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bzh.dytt.BaseFragment;
 import com.bzh.dytt.R;
@@ -34,14 +35,21 @@ public abstract class SingleListFragment<T> extends BaseFragment {
 
     @BindView(R.id.listview)
     protected RecyclerView mRecyclerView;
-
+    protected Observer<Throwable> mThrowableObserver = new Observer<Throwable>() {
+        @Override
+        public void onChanged(@Nullable Throwable throwable) {
+            if (getActivity() != null) {
+                Toast.makeText(getActivity(), getResources().getString(R.string.fetch_video_detail_exception, throwable.getMessage()), Toast.LENGTH_SHORT).show();
+            } else {
+                Log.e(TAG, "onChanged: activity is null");
+            }
+        }
+    };
     @BindView(R.id.empty_layout)
     View mEmpty;
-
     @BindView(R.id.error_layout)
     View mError;
-
-    protected Observer<Resource<List<T>>> mObserver = new Observer<Resource<List<T>>>() {
+    protected Observer<Resource<List<T>>> mListObserver = new Observer<Resource<List<T>>>() {
         @Override
         public void onChanged(@Nullable Resource<List<T>> result) {
 
@@ -71,7 +79,6 @@ public abstract class SingleListFragment<T> extends BaseFragment {
             }
         }
     };
-
     private SwipeRefreshLayout.OnRefreshListener mRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
@@ -88,7 +95,11 @@ public abstract class SingleListFragment<T> extends BaseFragment {
 
     protected abstract void replace(List<T> listData);
 
-    protected abstract LiveData<Resource<List<T>>> getLiveData();
+    protected abstract LiveData<Resource<List<T>>> getListLiveData();
+
+    protected LiveData<Throwable> getThrowableLiveData() {
+        return null;
+    }
 
     protected abstract ViewModel createViewModel();
 
@@ -102,22 +113,29 @@ public abstract class SingleListFragment<T> extends BaseFragment {
         super.doViewCreated(view, savedInstanceState);
         mViewModel = createViewModel();
         mSwipeRefresh.setOnRefreshListener(mRefreshListener);
-        if (getLiveData() != null) {
-            getLiveData().observe(this, getObserver());
+        if (getListLiveData() != null) {
+            getListLiveData().observe(this, getListObserver());
+        }
+        if (getThrowableLiveData() != null) {
+            getThrowableLiveData().observe(this, getThrowableObserver());
         }
         mAdapter = createAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(getAdapter());
     }
 
     protected void doRefresh() {
     }
 
-    public Observer<Resource<List<T>>> getObserver() {
-        return mObserver;
+    public Observer<Resource<List<T>>> getListObserver() {
+        return mListObserver;
     }
 
     public RecyclerView.Adapter getAdapter() {
         return mAdapter;
+    }
+
+    public Observer<Throwable> getThrowableObserver() {
+        return mThrowableObserver;
     }
 }

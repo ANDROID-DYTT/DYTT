@@ -28,6 +28,17 @@ public class CategoryMap {
     @ColumnInfo(name = "name")
     private String mName;
 
+    @ColumnInfo(name = "time")
+    private String mTime;
+
+    public String getTime() {
+        return mTime;
+    }
+
+    public void setTime(String mTime) {
+        this.mTime = mTime;
+    }
+
     public String getName() {
         return mName;
     }
@@ -85,5 +96,17 @@ public class CategoryMap {
         int result = getCategory().hashCode();
         result = 31 * result + getLink().hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "CategoryMap{" +
+                "mCategory=" + mCategory +
+                ", mLink='" + mLink + '\'' +
+                ", mSN=" + mSN +
+                ", mQuery='" + mQuery + '\'' +
+                ", mName='" + mName + '\'' +
+                ", mTime='" + mTime + '\'' +
+                '}';
     }
 }

@@ -38,7 +38,7 @@ public class NewMovieFragment extends SingleListFragment<VideoDetail> {
     }
 
     @Override
-    protected LiveData<Resource<List<VideoDetail>>> getLiveData() {
+    protected LiveData<Resource<List<VideoDetail>>> getListLiveData() {
         return ((NewMovieViewModel) mViewModel).getNewMovieList();
     }
 

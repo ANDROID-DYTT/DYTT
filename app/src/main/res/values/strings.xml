@@ -18,5 +18,6 @@
     <string name="douban_grade">豆瓣/%1$s</string>
     <string name="imdb_grade">IMDB/%1$s</string>
     <string name="item_home_child_image_description">图片描述</string>
+    <string name="fetch_video_detail_exception">获取图片详情时发生了错误，快去给开发着反馈吧!(%1$s)</string>
 
 </resources>
