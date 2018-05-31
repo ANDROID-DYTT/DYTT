@@ -24,9 +24,6 @@ import com.bzh.dytt.util.GlideApp;
 import java.lang.ref.SoftReference;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieItemHolder> {
 
     protected List<VideoDetail> mItems;
@@ -191,27 +188,26 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     class MovieItemHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.video_title)
         TextView VideoTitleTv;
 
-        @BindView(R.id.video_publish_time)
         TextView VideoPublishTv;
 
-        @BindView(R.id.douban_grade)
         TextView DoubanGradeTv;
 
-        @BindView(R.id.imdb_grade)
         TextView IMDBGradeTv;
 
-        @BindView(R.id.video_description)
         TextView VideoDescriptionTv;
 
-        @BindView(R.id.video_cover)
         ImageView VideoCover;
 
         MovieItemHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            VideoTitleTv = itemView.findViewById(R.id.video_title);
+            VideoPublishTv = itemView.findViewById(R.id.video_publish_time);
+            DoubanGradeTv = itemView.findViewById(R.id.douban_grade);
+            IMDBGradeTv = itemView.findViewById(R.id.imdb_grade);
+            VideoDescriptionTv = itemView.findViewById(R.id.video_description);
+            VideoCover = itemView.findViewById(R.id.video_cover);
         }
     }
 }

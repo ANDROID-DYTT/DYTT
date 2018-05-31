@@ -2,6 +2,9 @@ package com.bzh.dytt;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
@@ -36,7 +39,9 @@ public class SingleActivity extends BaseActivity implements HasSupportFragmentIn
     }
 
     @Override
-    protected void doCreate() {
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+
         setContentView(R.layout.activity_single);
         setupActionBar();
 

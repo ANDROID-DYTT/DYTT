@@ -19,8 +19,6 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 public abstract class SingleListFragment<T> extends BaseFragment {
@@ -31,21 +29,21 @@ public abstract class SingleListFragment<T> extends BaseFragment {
 
     protected ViewModel mViewModel;
 
-    @BindView(R.id.swipe_refresh_layout)
     protected SwipeRefreshLayout mSwipeRefresh;
 
-    @BindView(R.id.listview)
     protected RecyclerView mRecyclerView;
+
     protected Observer<Resource<ExceptionType>> mOtherExceptionObserver = new Observer<Resource<ExceptionType>>() {
         @Override
         public void onChanged(@Nullable Resource<ExceptionType> result) {
             onOtherException(result);
         }
     };
-    @BindView(R.id.empty_layout)
+
     View mEmpty;
-    @BindView(R.id.error_layout)
+
     View mError;
+
     private SwipeRefreshLayout.OnRefreshListener mRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
@@ -56,7 +54,6 @@ public abstract class SingleListFragment<T> extends BaseFragment {
     protected Observer<Resource<List<T>>> mListObserver = new Observer<Resource<List<T>>>() {
         @Override
         public void onChanged(@Nullable Resource<List<T>> result) {
-
             mEmpty.setVisibility(View.GONE);
             mError.setVisibility(View.GONE);
 
@@ -125,6 +122,11 @@ public abstract class SingleListFragment<T> extends BaseFragment {
     @Override
     protected void doViewCreated(View view, Bundle savedInstanceState) {
         super.doViewCreated(view, savedInstanceState);
+        mSwipeRefresh = view.findViewById(R.id.swipe_refresh_layout);
+        mRecyclerView = view.findViewById(R.id.listview);
+        mEmpty = view.findViewById(R.id.empty_layout);
+        mError = view.findViewById(R.id.error_layout);
+
         mViewModel = createViewModel();
         mSwipeRefresh.setOnRefreshListener(mRefreshListener);
         if (getListLiveData() != null) {

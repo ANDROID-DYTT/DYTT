@@ -19,15 +19,11 @@ import com.bzh.dytt.data.entity.MovieCategory;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-
 public class AllMoviePageFragment extends BaseFragment {
 
     private static final String TAG = "AllMoviePageFragment";
     MovieTabAdapter mMovieTabAdapter;
-    @BindView(R.id.home_tab_layout)
     TabLayout mTabLayout;
-    @BindView(R.id.home_view_pager)
     ViewPager mViewPager;
 
     public static AllMoviePageFragment newInstance() {
@@ -42,6 +38,9 @@ public class AllMoviePageFragment extends BaseFragment {
     @Override
     protected void doViewCreated(View view, Bundle savedInstanceState) {
         super.doViewCreated(view, savedInstanceState);
+
+        mTabLayout = view.findViewById(R.id.home_tab_layout);
+        mViewPager = view.findViewById(R.id.home_view_pager);
 
         mMovieTabAdapter = new MovieTabAdapter(getFragmentManager());
         mViewPager.setAdapter(mMovieTabAdapter);

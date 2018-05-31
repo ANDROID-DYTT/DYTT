@@ -2,6 +2,10 @@
 //noinspection GradleDependency
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-allopen'
+
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
@@ -89,12 +93,11 @@ configurations.all {
 dependencies {
 
     //
-    annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.0"
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    kapt "android.arch.lifecycle:compiler:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.0"
+    kapt 'com.google.dagger:dagger-android-processor:2.15'
+    kapt 'com.google.dagger:dagger-compiler:2.15'
+    kapt 'com.github.bumptech.glide:compiler:4.6.1'
 
     //
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.41"
@@ -128,9 +131,6 @@ dependencies {
 
     //
     implementation 'org.jsoup:jsoup:1.8.3'
-
-    //
-    implementation 'com.jakewharton:butterknife:8.8.1'
 
     //
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'

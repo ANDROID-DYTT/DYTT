@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 
 import com.bzh.dytt.di.Injectable;
 
-import butterknife.ButterKnife;
-
 public abstract class BaseFragment extends Fragment implements Injectable {
 
     @Override
@@ -25,7 +23,6 @@ public abstract class BaseFragment extends Fragment implements Injectable {
     @Override
     public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = doCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, view);
         return view;
     }
 

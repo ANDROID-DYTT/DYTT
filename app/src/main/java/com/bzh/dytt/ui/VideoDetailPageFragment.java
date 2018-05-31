@@ -46,8 +46,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-
 public class VideoDetailPageFragment extends BaseFragment {
 
     private static final String TAG = "VideoDetailPageFragment";
@@ -56,61 +54,42 @@ public class VideoDetailPageFragment extends BaseFragment {
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
 
-    @BindView(R.id.video_cover)
     ImageView mVideoCoverIv;
 
-    @BindView(R.id.video_name)
     TextView mVideoNameTv;
 
-    @BindView(R.id.video_type)
     TextView mVideoTypeTv;
 
-    @BindView(R.id.video_country)
     TextView mVideoCountryTv;
 
-    @BindView(R.id.video_duration)
     TextView mVideoDuration;
 
-    @BindView(R.id.video_show_time)
     TextView mVideoShowTime;
 
-    @BindView(R.id.video_director)
     TextView mVideoDirector;
 
-    @BindView(R.id.video_leading_role)
     TextView mVideoLeadingRole;
 
-    @BindView(R.id.video_description)
     TextView mVideoDescription;
 
-    @BindView(R.id.video_cover_bg)
     View mVideoCoverBgView;
 
-    @BindView(R.id.download_button)
     View mDownloadBtn;
 
-    @BindView(R.id.douban_grade)
     TextView mDoubanGradeTv;
 
-    @BindView(R.id.douban_rating_bar)
     RatingBar mDoubanGradeRatingBar;
 
-    @BindView(R.id.imdb_grade)
     TextView mIMDBGradeTv;
 
-    @BindView(R.id.imdb_rating_bar)
     RatingBar mIMDBRatingBar;
 
-    @BindView(R.id.douban_rating_layout)
     View mDoubanRatingLayout;
 
-    @BindView(R.id.imdb_rating_layout)
     View mIMDBRatingLayout;
 
-    @BindView(R.id.show_time_layout)
     View mShowTimeLayout;
 
-    @BindView(R.id.adView)
     AdView mAdView;
 
     private String mDetailLink;
@@ -254,6 +233,26 @@ public class VideoDetailPageFragment extends BaseFragment {
     @Override
     protected void doViewCreated(View view, Bundle savedInstanceState) {
         super.doViewCreated(view, savedInstanceState);
+
+        mVideoCoverIv = view.findViewById(R.id.video_cover);
+        mVideoNameTv = view.findViewById(R.id.video_name);
+        mVideoTypeTv = view.findViewById(R.id.video_type);
+        mVideoCountryTv = view.findViewById(R.id.video_country);
+        mVideoDuration = view.findViewById(R.id.video_duration);
+        mVideoShowTime = view.findViewById(R.id.video_show_time);
+        mVideoDirector = view.findViewById(R.id.video_director);
+        mVideoLeadingRole = view.findViewById(R.id.video_leading_role);
+        mVideoDescription = view.findViewById(R.id.video_description);
+        mVideoCoverBgView = view.findViewById(R.id.video_cover_bg);
+        mDownloadBtn = view.findViewById(R.id.download_button);
+        mDoubanGradeTv = view.findViewById(R.id.douban_grade);
+        mDoubanGradeRatingBar = view.findViewById(R.id.douban_rating_bar);
+        mIMDBGradeTv = view.findViewById(R.id.imdb_grade);
+        mIMDBRatingBar = view.findViewById(R.id.imdb_rating_bar);
+        mDoubanRatingLayout = view.findViewById(R.id.douban_rating_layout);
+        mIMDBRatingLayout = view.findViewById(R.id.imdb_rating_layout);
+        mShowTimeLayout = view.findViewById(R.id.show_time_layout);
+        mAdView = view.findViewById(R.id.adView);
 
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
