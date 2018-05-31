@@ -17,6 +17,8 @@ import com.bzh.dytt.data.Resource;
 import com.bzh.dytt.data.entity.VideoDetail;
 import com.bzh.dytt.viewmodel.NewMovieViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,7 +38,7 @@ public class NewMovieFragment extends SingleListFragment<VideoDetail> {
     }
 
     @Override
-    protected void replace(List<VideoDetail> listData) {
+    protected void replace(@NotNull List<? extends VideoDetail> listData) {
         ((MovieListAdapter) mAdapter).replace(listData);
     }
 

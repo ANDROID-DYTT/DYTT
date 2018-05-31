@@ -30,6 +30,8 @@ import com.bzh.dytt.data.Resource;
 import com.bzh.dytt.data.entity.VideoDetail;
 import com.bzh.dytt.ui.MovieListAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -111,7 +113,7 @@ public class SearchFragment extends SingleListFragment<VideoDetail> {
     }
 
     @Override
-    protected void replace(List<VideoDetail> listData) {
+    protected void replace(@NotNull List<? extends VideoDetail> listData) {
         ((MovieListAdapter) mAdapter).replace(listData);
     }
 
@@ -130,7 +132,7 @@ public class SearchFragment extends SingleListFragment<VideoDetail> {
         return new Observer<Resource<List<VideoDetail>>>() {
             @Override
             public void onChanged(@Nullable Resource<List<VideoDetail>> result) {
-                mListObserver.onChanged(result);
+                getListObserver().onChanged(result);
                 assert result != null;
                 switch (result.status) {
                     case ERROR:

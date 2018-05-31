@@ -26,7 +26,7 @@ import java.util.List;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieItemHolder> {
 
-    protected List<VideoDetail> mItems;
+    protected List<? extends VideoDetail> mItems;
     protected int mDataVersion = 0;
     private Context mContext;
     private MutableLiveData<VideoDetail> mLiveData;
@@ -104,7 +104,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     }
 
     @MainThread
-    public void replace(final List<VideoDetail> update) {
+    public void replace(final List<? extends VideoDetail> update) {
         mDataVersion++;
         if (mItems == null) {
             if (update == null) {
@@ -132,11 +132,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     static class UpdateTask extends AsyncTask<Void, Void, DiffUtil.DiffResult> {
 
         private final int mStartVersion;
-        private final List<VideoDetail> mOldItems;
+        private final List<? extends VideoDetail> mOldItems;
         SoftReference<MovieListAdapter> mReference;
-        private List<VideoDetail> mUpdate;
+        private List<? extends VideoDetail> mUpdate;
 
-        UpdateTask(MovieListAdapter adapter, List<VideoDetail> update) {
+        UpdateTask(MovieListAdapter adapter, List<? extends VideoDetail> update) {
             mReference = new SoftReference<>(adapter);
             mStartVersion = adapter.mDataVersion;
             mOldItems = adapter.mItems;
