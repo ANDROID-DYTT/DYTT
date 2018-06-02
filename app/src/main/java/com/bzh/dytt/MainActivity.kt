@@ -68,7 +68,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val id = item.itemId
 
         if (id == R.id.action_search) {
-            SingleActivity.startSearchPage(this)
+            startSearchPage(this)
             return true
         }
 
