@@ -29,12 +29,12 @@ public class ImdbViewModel extends BaseViewModel implements LifecycleObserver {
     @Inject
     public ImdbViewModel(DataRepository repository) {
         super(repository);
-        mVideoDetailHandle = new VideoDetailHandle(mDataRepository);
-        mCategoryHandler = new CategoryHandler(mDataRepository, MovieCategory.NEW_MOVIE_168);
+        mVideoDetailHandle = new VideoDetailHandle(getDataRepository());
+        mCategoryHandler = new CategoryHandler(getDataRepository(), MovieCategory.NEW_MOVIE_168);
         mVideoList = Transformations.switchMap(mCategoryHandler.getCategoryMap(), new Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>>() {
             @Override
             public LiveData<Resource<List<VideoDetail>>> apply(Resource<List<CategoryMap>> result) {
-                return mDataRepository.getVideoDetailsByCategory(MovieCategory.NEW_MOVIE_168);
+                return getDataRepository().getVideoDetailsByCategory(MovieCategory.NEW_MOVIE_168);
             }
         });
     }
@@ -68,7 +68,7 @@ public class ImdbViewModel extends BaseViewModel implements LifecycleObserver {
     }
 
     public LiveData<Resource<ExceptionType>> getFetchVideoDetailState() {
-        return mDataRepository.getFetchVideoDetailState();
+        return getDataRepository().getFetchVideoDetailState();
     }
 
     public MutableLiveData<VideoDetail> getVideoDetailLiveData() {

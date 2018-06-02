@@ -35,13 +35,13 @@ public class SearchViewModel extends BaseViewModel {
     @Inject
     SearchViewModel(DataRepository repository) {
         super(repository);
-        mVideoDetailHandle = new SearchVideoDetailHandle(mDataRepository);
-        mCategoryHandler = new CategoryHandler(mDataRepository);
+        mVideoDetailHandle = new SearchVideoDetailHandle(getDataRepository());
+        mCategoryHandler = new CategoryHandler(getDataRepository());
 
         mVideoList = Transformations.switchMap(mCategoryHandler.getCategoryMap(), new Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>>() {
             @Override
             public LiveData<Resource<List<VideoDetail>>> apply(Resource<List<CategoryMap>> categoryMaps) {
-                return mDataRepository.getVideoDetailsByCategoryAndQuery(MovieCategory.SEARCH_MOVIE, mCategoryHandler.getQuery());
+                return getDataRepository().getVideoDetailsByCategoryAndQuery(MovieCategory.SEARCH_MOVIE, mCategoryHandler.getQuery());
             }
         });
     }
@@ -51,7 +51,7 @@ public class SearchViewModel extends BaseViewModel {
     }
 
     LiveData<Resource<ExceptionType>> getFetchVideoDetailState() {
-        return mDataRepository.getFetchVideoDetailState();
+        return getDataRepository().getFetchVideoDetailState();
     }
 
     MutableLiveData<VideoDetail> getVideoDetailLiveData() {

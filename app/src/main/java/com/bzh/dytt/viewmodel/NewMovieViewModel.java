@@ -30,12 +30,12 @@ public class NewMovieViewModel extends BaseViewModel implements LifecycleObserve
     @Inject
     NewMovieViewModel(DataRepository repository) {
         super(repository);
-        mVideoDetailHandle = new VideoDetailHandle(mDataRepository);
-        mCategoryHandler = new CategoryHandler(mDataRepository, MovieCategory.HOME_LATEST_MOVIE);
+        mVideoDetailHandle = new VideoDetailHandle(getDataRepository());
+        mCategoryHandler = new CategoryHandler(getDataRepository(), MovieCategory.HOME_LATEST_MOVIE);
         mVideoList = Transformations.switchMap(mCategoryHandler.getCategoryMap(), new Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>>() {
             @Override
             public LiveData<Resource<List<VideoDetail>>> apply(Resource<List<CategoryMap>> result) {
-                return mDataRepository.getVideoDetailsByCategory(MovieCategory.HOME_LATEST_MOVIE);
+                return getDataRepository().getVideoDetailsByCategory(MovieCategory.HOME_LATEST_MOVIE);
             }
         });
     }
@@ -69,7 +69,7 @@ public class NewMovieViewModel extends BaseViewModel implements LifecycleObserve
     }
 
     public LiveData<Resource<ExceptionType>> getFetchVideoDetailState() {
-        return mDataRepository.getFetchVideoDetailState();
+        return getDataRepository().getFetchVideoDetailState();
     }
 
     public MutableLiveData<VideoDetail> getVideoDetailLiveData() {

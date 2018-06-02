@@ -55,12 +55,12 @@ public class LoadableMoviePageViewModel extends BaseViewModel implements Lifecyc
 
     public void setCategory(MovieCategory category) {
         mCategory = category;
-        mVideoDetailHandle = new VideoDetailHandle(mDataRepository);
-        mCategoryHandler = new CategoryHandler(mDataRepository, mCategory);
+        mVideoDetailHandle = new VideoDetailHandle(getDataRepository());
+        mCategoryHandler = new CategoryHandler(getDataRepository(), mCategory);
         mVideoList = Transformations.switchMap(mCategoryHandler.getCategoryMap(), new Function<Resource<List<CategoryMap>>, LiveData<Resource<List<VideoDetail>>>>() {
             @Override
             public LiveData<Resource<List<VideoDetail>>> apply(Resource<List<CategoryMap>> categoryMaps) {
-                return mDataRepository.getVideoDetailsByCategory(mCategory);
+                return getDataRepository().getVideoDetailsByCategory(mCategory);
             }
         });
     }
@@ -70,7 +70,7 @@ public class LoadableMoviePageViewModel extends BaseViewModel implements Lifecyc
     }
 
     public LiveData<Resource<ExceptionType>> getFetchVideoDetailState() {
-        return mDataRepository.getFetchVideoDetailState();
+        return getDataRepository().getFetchVideoDetailState();
     }
 
     public void refresh() {
