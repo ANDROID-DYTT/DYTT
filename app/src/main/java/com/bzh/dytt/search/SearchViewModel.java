@@ -102,7 +102,7 @@ public class SearchViewModel extends BaseViewModel {
             if (result == null) {
                 unregister();
             } else {
-                if (result.status == Status.SUCCESS || result.status == Status.ERROR) {
+                if (result.getStatus() == Status.SUCCESS || result.getStatus() == Status.ERROR) {
                     mCategoryMap.setValue(result);
                     unregister();
                 }

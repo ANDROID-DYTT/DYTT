@@ -11,21 +11,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-const val TYPE = "TYPE"
-const val DATA = "DATA"
-
-fun startDetailPage(activity: Activity, detailLink: String) {
-    val intent = Intent(activity, SingleActivity::class.java)
-    intent.putExtra(TYPE, SingleActivity.SingleType.Detail)
-    intent.putExtra(DATA, detailLink)
-    activity.startActivity(intent)
-}
-
-fun startSearchPage(activity: Activity) {
-    val intent = Intent(activity, SingleActivity::class.java)
-    intent.putExtra(TYPE, SingleActivity.SingleType.Search)
-    activity.startActivity(intent)
-}
 
 class SingleActivity : BaseActivity(), HasSupportFragmentInjector {
 
@@ -74,5 +59,23 @@ class SingleActivity : BaseActivity(), HasSupportFragmentInjector {
     enum class SingleType {
         Detail(),
         Search()
+    }
+
+    companion object {
+        const val TYPE = "TYPE"
+        const val DATA = "DATA"
+
+        fun startDetailPage(activity: Activity, detailLink: String) {
+            val intent = Intent(activity, SingleActivity::class.java)
+            intent.putExtra(TYPE, SingleActivity.SingleType.Detail)
+            intent.putExtra(DATA, detailLink)
+            activity.startActivity(intent)
+        }
+
+        fun startSearchPage(activity: Activity) {
+            val intent = Intent(activity, SingleActivity::class.java)
+            intent.putExtra(TYPE, SingleActivity.SingleType.Search)
+            activity.startActivity(intent)
+        }
     }
 }

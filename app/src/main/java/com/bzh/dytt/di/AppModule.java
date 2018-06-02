@@ -92,7 +92,7 @@ public class AppModule {
     @Singleton
     @Provides
     AppDatabase provideDb(Application app) {
-        return Room.databaseBuilder(app, AppDatabase.class, AppDatabase.DATABASE_NAME).fallbackToDestructiveMigration().build();
+        return Room.databaseBuilder(app, AppDatabase.class, AppDatabase.Companion.getDATABASE_NAME()).fallbackToDestructiveMigration().build();
     }
 
     @Singleton

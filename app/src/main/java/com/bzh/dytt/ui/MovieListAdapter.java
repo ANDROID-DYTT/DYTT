@@ -17,15 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bzh.dytt.R;
+import com.bzh.dytt.SingleActivity;
 import com.bzh.dytt.data.entity.VideoDetail;
 import com.bzh.dytt.util.GlideApp;
 
 import java.lang.ref.SoftReference;
 import java.util.List;
-
-import static com.bzh.dytt.SingleActivityKt.startDetailPage;
-
-;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieItemHolder> {
 
@@ -94,7 +91,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
                 public void onClick(View view) {
                     Activity activity = getActivityByHolder(holder);
                     if (activity != null) {
-                        startDetailPage(activity, videoDetail.getDetailLink());
+                        SingleActivity.Companion.startDetailPage(activity, videoDetail.getDetailLink());
                     }
                 }
             });

@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
 
-private const val ADMOB_APP_ID = "ca-app-pub-8112052667906046~4830848371"
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector {
 
@@ -68,7 +67,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val id = item.itemId
 
         if (id == R.id.action_search) {
-            startSearchPage(this)
+            SingleActivity.startSearchPage(this)
             return true
         }
 
@@ -111,5 +110,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
 
         override fun getCount() = 3
+    }
+
+    companion object {
+        val ADMOB_APP_ID = "ca-app-pub-8112052667906046~4830848371"
     }
 }

@@ -103,8 +103,8 @@ public class VideoDetailPageFragment extends BaseFragment {
                 return;
             }
             final VideoDetail videoDetail;
-            if (result.status == Status.SUCCESS && result.data != null) {
-                videoDetail = result.data.get(0);
+            if (result.getStatus() == Status.SUCCESS && result.getData() != null) {
+                videoDetail = result.getData().get(0);
                 if (videoDetail == null) {
                     return;
                 }

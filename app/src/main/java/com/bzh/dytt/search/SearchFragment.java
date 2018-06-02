@@ -134,7 +134,7 @@ public class SearchFragment extends SingleListFragment<VideoDetail> {
             public void onChanged(@Nullable Resource<List<VideoDetail>> result) {
                 getListObserver().onChanged(result);
                 assert result != null;
-                switch (result.status) {
+                switch (result.getStatus()) {
                     case ERROR:
                     case SUCCESS:
                         mSwipeRefresh.setEnabled(false);

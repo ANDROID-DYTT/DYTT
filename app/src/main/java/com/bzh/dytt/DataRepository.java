@@ -100,7 +100,7 @@ public class DataRepository {
             protected LiveData<ApiResponse<ResponseBody>> createCall() {
                 return mService.getMovieListByCategory(movieCategory.getDefaultUrl());
             }
-        }.getAsLiveData();
+        }.asLiveData();
     }
 
     public LiveData<Resource<List<CategoryMap>>> search(final MovieCategory movieCategory, final String query) {
@@ -146,7 +146,7 @@ public class DataRepository {
                 String url = String.format("http://s.ygdy8.com/plus/so.php?kwtype=0&searchtype=title&keyword=%s", query);
                 return mService.search(url);
             }
-        }.getAsLiveData();
+        }.asLiveData();
     }
 
     public LiveData<Resource<List<CategoryMap>>> getNextMovieListByCategory(final MovieCategory movieCategory) {

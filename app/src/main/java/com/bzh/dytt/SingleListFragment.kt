@@ -20,8 +20,6 @@ import kotlinx.android.synthetic.main.error_layout.*
 import kotlinx.android.synthetic.main.single_list_page.*
 
 
-private const val TAG = "SingleListFragment"
-
 abstract class SingleListFragment<T> : BaseFragment() {
 
     protected var mOtherExceptionObserver: Observer<Resource<ExceptionType>> = Observer { result -> onOtherException(result) }
@@ -160,4 +158,7 @@ abstract class SingleListFragment<T> : BaseFragment() {
 
     protected abstract fun createViewModel(): ViewModel
 
+    companion object {
+        private const val TAG = "SingleListFragment"
+    }
 }
